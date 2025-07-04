@@ -1,0 +1,22 @@
+{
+  "modifier.touhoutinkermodifier.bibliophilia": "识文解字",
+  "modifier.touhoutinkermodifier.bibliophilia.flavor": "多读书，多看报，少吃零食多睡觉",
+  "modifier.touhoutinkermodifier.bibliophilia.description": "法术强度增加",
+  "modifier.touhoutinkermodifier.rlyehtext": "凝视深渊",
+  "modifier.touhoutinkermodifier.rlyehtext.flavor": "……深渊也在凝视你",
+  "modifier.touhoutinkermodifier.rlyehtext.description": "随着[识文解字]，万籁俱寂，唯有远古的回响愈发清晰",
+  "modifier.touhoutinkermodifier.rlyehtext.anotherspellpower":"远古巫术以外学派法术强度",
+  "modifier.touhoutinkermodifier.holymantle": "神圣屏障",
+  "modifier.touhoutinkermodifier.holymantle.flavor": "砰，饿啊",
+  "modifier.touhoutinkermodifier.holymantle.description": "周期性抵挡致命伤害，但你如游魂般脆弱",
+  "modifier.touhoutinkermodifier.texasnight": "德州之夜",
+  "modifier.touhoutinkermodifier.texasnight.flavor": "德州夜赌博不曾停歇，下一注冥币赴忘川约",
+  "modifier.touhoutinkermodifier.texasnight.description": "等级越高，越高概率受到更低伤害，相信你的[幸运]吧",
+  "modifier.touhoutinkermodifier.buckshotroulette": "恶魔轮盘",
+  "modifier.touhoutinkermodifier.buckshotroulette.flavor": "法官说喜欢玩游戏，赢了死刑输了毙",
+  "modifier.touhoutinkermodifier.buckshotroulette.description": "等级越高，越有概率造成更高的伤害，相信你的[幸运]吧",
+  "modifier.touhoutinkermodifier.guzzlord": "恶食大王",
+  "modifier.touhoutinkermodifier.guzzlord.flavor": "静静的，悄悄的，让老板打个包~",
+  "modifier.touhoutinkermodifier.guzzlord.description": "越饿，伤害越高！",
+  "effect.touhoutinkermodifier.holymantle" : "神圣屏障"
+}

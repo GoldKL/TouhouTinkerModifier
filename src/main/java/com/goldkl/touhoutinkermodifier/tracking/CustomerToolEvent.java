@@ -1,0 +1,56 @@
+package com.goldkl.touhoutinkermodifier.tracking;
+
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+
+@Mod.EventBusSubscriber(modid = TouhouTinkerModifier.MODID)
+public class CustomerToolEvent {
+    @SubscribeEvent
+    static void livingHurt(LivingHurtEvent event) {
+        Entity entity = event.getSource().getEntity();
+        if (entity instanceof LivingEntity attacker)
+        {
+            float originalDamage = event.getAmount();
+            DamageSource source = event.getSource();
+            EquipmentContext context = new EquipmentContext(attacker);
+            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_HURT, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
+            event.setAmount(originalDamage);
+            if (originalDamage <= 0.0F) {
+                event.setCanceled(true);
+            }
+        }
+
+    }
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    static void livingDamage(LivingDamageEvent event) {
+        Entity entity = event.getSource().getEntity();
+        if (entity instanceof LivingEntity attacker)
+        {
+            float originalDamage = event.getAmount();
+            DamageSource source = event.getSource();
+            EquipmentContext context = new EquipmentContext(attacker);
+            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_DAMAGE, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
+            event.setAmount(originalDamage);
+            if (originalDamage <= 0.0F) {
+                event.setCanceled(true);
+            }
+        }
+    }
+}

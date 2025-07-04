@@ -1,0 +1,18 @@
+{
+  "modifier.touhoutinkermodifier.bibliophilia": "bibliophilia",
+  "modifier.touhoutinkermodifier.bibliophilia.flavor": "多读书，多看报，少吃零食多睡觉",
+  "modifier.touhoutinkermodifier.bibliophilia.description": "法术强度增加",
+  "modifier.touhoutinkermodifier.rlyehtext": "rlyeh text",
+  "modifier.touhoutinkermodifier.rlyehtext.flavor": "……深渊也在凝视你",
+  "modifier.touhoutinkermodifier.rlyehtext.description": "随着[识文解字]，万籁俱寂，唯有远古的回响愈发清晰",
+  "modifier.touhoutinkermodifier.holymantle": "holy mantle",
+  "modifier.touhoutinkermodifier.holymantle.flavor": "砰，饿啊",
+  "modifier.touhoutinkermodifier.holymantle.description": "周期性抵挡致命伤害，但你如游魂般脆弱",
+  "modifier.touhoutinkermodifier.texasnight": "texas night",
+  "modifier.touhoutinkermodifier.texasnight.flavor": "德州夜赌博不曾停歇，下一注冥币赴忘川约",
+  "modifier.touhoutinkermodifier.texasnight.description": "等级决定了受到伤害的波动范围，相信你的[幸运]吧",
+  "modifier.touhoutinkermodifier.buckshotroulette": "Buckshot Roulette",
+  "modifier.touhoutinkermodifier.buckshotroulette.flavor": "法官说喜欢玩游戏，赢了死刑输了毙",
+  "modifier.touhoutinkermodifier.buckshotroulette.description": "等级决定了造成伤害的波动范围，相信你的[幸运]吧",
+  "effect.touhoutinkermodifier.holymantle" : "Holy Mantle"
+}
