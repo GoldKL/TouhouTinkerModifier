@@ -12,6 +12,7 @@ public class ModifierIds {
     public static final ModifierId buckshotroulette  = id("buckshotroulette");
     public static final ModifierId guzzlord  = id("guzzlord");
     public static final ModifierId twohand  = id("twohand");
+    public static final ModifierId ushinokokumairi  = id("ushinokokumairi");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

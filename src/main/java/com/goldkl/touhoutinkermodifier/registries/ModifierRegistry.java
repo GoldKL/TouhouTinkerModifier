@@ -14,8 +14,8 @@ public class ModifierRegistry {
     public static final StaticModifier<TexasnightModifier> texasnight = MODIFIERS.register("texasnight", TexasnightModifier::new);
     public static final StaticModifier<BuckshotrouletteModifier> buckshotroulette = MODIFIERS.register("buckshotroulette", BuckshotrouletteModifier::new);
     public static final StaticModifier<GuzzlordModifier> guzzlord = MODIFIERS.register("guzzlord", GuzzlordModifier::new);
-    public static final StaticModifier<TwohandModifier> twohand = MODIFIERS.register("twohand", TwohandModifier::new);
-
+    //public static final StaticModifier<TwohandModifier> twohand = MODIFIERS.register("twohand", TwohandModifier::new);
+    public static final StaticModifier<UshinokokumairiModifier> ushinokokumairi = MODIFIERS.register("ushinokokumairi", UshinokokumairiModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }
