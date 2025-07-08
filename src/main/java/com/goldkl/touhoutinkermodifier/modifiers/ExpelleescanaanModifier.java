@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
@@ -20,31 +21,23 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
-public class ExpelleescanaanModifier extends BlockingModifier implements OnAttackedModifierHook, ToolStatsModifierHook {
+public class ExpelleescanaanModifier extends Modifier implements OnAttackedModifierHook, ToolStatsModifierHook {
+    static int PARRYTICK = 10;
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.ON_ATTACKED, ModifierHooks.TOOL_STATS);
     }
     @Override
-    public int getPriority() {
-        return 75; // 高于默认格挡时机
-    }
-    @Override
-    public int getUseDuration(IToolStackView tool, ModifierEntry modifier) {
-        return 8;
-    }
-
-    @Override
     public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
         if(context.getEntity().isBlocking()) {
             if (isDirectDamage && source.getEntity() instanceof LivingEntity attacker) {
                 if(slotType.getType() == EquipmentSlot.Type.HAND)
                 {
-                    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
-                    if(activeModifier.matches(this))
+                    if(context.getEntity().getTicksUsingItem() <= PARRYTICK)
                     {
                         attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2,false,true));
                         attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 10, false, true));
@@ -56,13 +49,14 @@ public class ExpelleescanaanModifier extends BlockingModifier implements OnAttac
 
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-        if (context.hasTag(TinkerTags.Items.SHIELDS))
-        {
-            ToolStats.BLOCK_AMOUNT.multiply(builder,2.0);
-        }
-        else
-        {
-            ToolStats.BLOCK_AMOUNT.add(builder,50);
-        }
+        if(context.getModifier(TinkerModifiers.blocking.get()) != ModifierEntry.EMPTY)
+            if (context.hasTag(TinkerTags.Items.SHIELDS))
+            {
+                ToolStats.BLOCK_AMOUNT.multiply(builder,2.0);
+            }
+            else
+            {
+                ToolStats.BLOCK_AMOUNT.add(builder,50);
+            }
     }
 }
