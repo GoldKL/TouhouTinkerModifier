@@ -27,5 +27,10 @@
   "modifier.touhoutinkermodifier.greeneyes":  "绿眼嫉妒",
   "modifier.touhoutinkermodifier.greeneyes.flavor": "我好嫉妒啊",
   "modifier.touhoutinkermodifier.greeneyes.description": "身上的诅咒与祝福均会强化你",
-  "effect.touhoutinkermodifier.holymantle" : "神圣屏障"
+  "modifier.touhoutinkermodifier.expelleescanaan":  "应许之地",
+  "modifier.touhoutinkermodifier.expelleescanaan.flavor": "杀·死·入·侵·者",
+  "modifier.touhoutinkermodifier.expelleescanaan.description": "格挡成功的话，会对敌人造成强力debuff",
+  "effect.touhoutinkermodifier.holymantle" : "神圣屏障",
+  "effect.touhoutinkermodifier.fragile" : "脆弱"
+
 }

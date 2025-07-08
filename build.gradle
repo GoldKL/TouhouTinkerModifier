@@ -194,11 +194,14 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     implementation fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
     implementation fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tcon_version}")
-    runtimeOnly fg.deobf("curse.maven:powerfuldummy-1276893:6626423")
     implementation fg.deobf("maven.modrinth:better-combat:1.8.6+1.20.1-forge")
     implementation fg.deobf("maven.modrinth:cloth-config:11.1.136+forge")
     implementation fg.deobf("maven.modrinth:playeranimator:1.0.2-rc1+1.20-forge")
     implementation fg.deobf("maven.modrinth:jade:11.13.1+forge")
+
+    runtimeOnly fg.deobf("maven.modrinth:moonlight:1.20-2.14.13-forge")
+    runtimeOnly fg.deobf("maven.modrinth:mmmmmmmmmmmm:bJE2Owsg")
+
     //implementation fg.deobf("curse.maven:aquaculture2-60028:6296111")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
