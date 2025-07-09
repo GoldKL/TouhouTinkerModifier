@@ -29,14 +29,18 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class HolymantleModifier extends Modifier implements InventoryTickModifierHook , DamageBlockModifierHook,EquipmentChangeModifierHook  {
+public class HolymantleModifier extends Modifier implements InventoryTickModifierHook, DamageBlockModifierHook, EquipmentChangeModifierHook  {
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.holymantle);
+    final SlotInChargeModule SICM;
+    public HolymantleModifier() {
+        SICM = new SlotInChargeModule(SLOT_IN_CHARGE);
+    }
+
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK,ModifierHooks.DAMAGE_BLOCK,ModifierHooks.EQUIPMENT_CHANGE);
         hookBuilder.addModule(AttributeModule.builder(Attributes.MAX_HEALTH, AttributeModifier.Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.holymantle).formula().constant(0.8f).variable(ModifierFormula.LEVEL).power().constant(1.0f).subtract().build());
-        hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     @Override
     public boolean isDamageBlocked(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentContext equipmentContext, EquipmentSlot equipmentSlot, DamageSource damageSource, float v) {
@@ -106,7 +110,13 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
         }
     }
     @Override
+    public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context)
+    {
+        SICM.onEquip(tool, modifier, context);
+    }
+    @Override
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+        SICM.onUnequip(tool, modifier, context);
         if(!context.getEntity().level().isClientSide)
         {
             boolean check = false;
