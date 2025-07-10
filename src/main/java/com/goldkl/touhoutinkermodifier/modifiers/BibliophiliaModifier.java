@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 
 public class BibliophiliaModifier extends Modifier{
-    //识文解字：每层增加7.5%的法术强度
+    //识文解字：本居小铃 每层增加7.5%的法术强度
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         //hookBuilder.addHook(this);

@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class BuckshotrouletteModifier extends Modifier implements AttackerWithEquipmentModifyDamageModifierHook {//MeleeDamageModifierHook{
+    //恶魔轮盘：驹草山如
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.buckshotroulette);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

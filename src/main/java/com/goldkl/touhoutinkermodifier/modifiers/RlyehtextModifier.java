@@ -39,6 +39,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChangeModifierHook, TooltipModifierHook {
+    //凝视深渊：本居小铃
     final String unique = ModifierIds.rlyehtext.getNamespace()+  ".modifier."+ModifierIds.rlyehtext.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override

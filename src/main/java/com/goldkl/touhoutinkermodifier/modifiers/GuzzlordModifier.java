@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class GuzzlordModifier extends Modifier implements AttackerWithEquipmentModifyDamageModifierHook {
+    //恶食大王：西行寺幽幽子
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.guzzlord);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

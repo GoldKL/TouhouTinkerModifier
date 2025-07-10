@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(SchoolType.class)
 public interface SchoolTypeAccessor {
-    @Accessor("powerAttribute")
+    @Accessor(value = "powerAttribute",remap = false)
     LazyOptional<Attribute> getpowerAttribute();
-    @Accessor("resistanceAttribute")
+    @Accessor(value ="resistanceAttribute",remap = false)
     LazyOptional<Attribute> getresistanceAttribute();
 }

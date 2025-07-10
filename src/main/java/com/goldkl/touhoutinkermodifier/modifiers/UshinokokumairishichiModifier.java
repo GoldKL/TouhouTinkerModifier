@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class    UshinokokumairishichiModifier extends NoLevelsModifier implements MeleeDamageModifierHook, MeleeHitModifierHook {
+    //丑时参拜第七日：水桥帕露西
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);

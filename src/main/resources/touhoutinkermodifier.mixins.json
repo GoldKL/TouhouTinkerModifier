@@ -6,6 +6,7 @@
   "refmap": "touhoutinkermodifier.refmap.json",
   "mixins": [
     "ironspell.SchoolTypeAccessor",
+    "tconstruct.ToolAttackContextMixin",
     "tconstruct.ToolAttackUtilMixin"
   ],
   "client": [

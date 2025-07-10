@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class UshinokokumairiModifier extends Modifier implements MeleeHitModifierHook {
+    //丑时参拜：水桥帕露西
     private static final ResourceLocation USHINOKOKUMAIRI = ModifierIds.ushinokokumairi;
     private static final int EXTENDTICK = 100;
     private static final int BASETICK = 100;

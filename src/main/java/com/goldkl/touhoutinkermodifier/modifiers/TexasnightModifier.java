@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class TexasnightModifier extends Modifier implements ModifyDamageModifierHook {
+    //德州之夜：驹草山如
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.texasnight);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

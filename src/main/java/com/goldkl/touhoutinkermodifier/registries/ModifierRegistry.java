@@ -20,6 +20,10 @@ public class ModifierRegistry {
     public static final StaticModifier<GreeneyesModifier> greeneyes = MODIFIERS.register("greeneyes", GreeneyesModifier::new);
     public static final StaticModifier<ExpelleescanaanModifier> expelleescanaan = MODIFIERS.register("expelleescanaan", ExpelleescanaanModifier::new);
     public static final StaticModifier<TearlamentsModifier> tearlaments = MODIFIERS.register("tearlaments", TearlamentsModifier::new);
+    public static final StaticModifier<ScarletdevilModifier> scarletdevil = MODIFIERS.register("scarletdevil", ScarletdevilModifier::new);
+    public static final StaticModifier<GungnirModifier>gungnir = MODIFIERS.register("gungnir", GungnirModifier::new);
+    public static final StaticModifier<LaevateinModifier>laevatein = MODIFIERS.register("laevatein", LaevateinModifier::new);
+
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

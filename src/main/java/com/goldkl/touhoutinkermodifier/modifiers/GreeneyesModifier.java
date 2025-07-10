@@ -38,6 +38,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class GreeneyesModifier extends Modifier implements MaxArmorLevelModule , EquipmentChangeModifierHook, InventoryTickModifierHook {
+    //绿眼嫉妒：水桥帕露西
     private static final UUID uuid = UUID.nameUUIDFromBytes((ModifierIds.greeneyes.toString()).getBytes());
     private static final List<Attribute> attributes = List.of(Attributes.MAX_HEALTH,Attributes.ARMOR);
     private static final List<Float> attributes_amount = List.of(4.0f,2.0f);

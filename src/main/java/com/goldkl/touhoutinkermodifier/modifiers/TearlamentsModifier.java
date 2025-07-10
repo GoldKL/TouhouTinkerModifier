@@ -42,6 +42,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook {
+    //珠泪哀歌：若鹭姬
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.tearlaments);
     public static final TinkerDataCapability.TinkerDataKey<PlayerStat> IsinWater = TinkerDataCapability.ComputableDataKey.of(ModifierIds.tearlaments.withSuffix("_isinwater"), PlayerStat::new);
     private static final UUID uuid = UUID.nameUUIDFromBytes((ModifierIds.tearlaments.toString()).getBytes());

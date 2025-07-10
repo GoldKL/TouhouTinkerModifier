@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class HolymantleModifier extends Modifier implements InventoryTickModifierHook, DamageBlockModifierHook, EquipmentChangeModifierHook  {
+    //神圣屏障：西行寺幽幽子
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.holymantle);
     final SlotInChargeModule SICM;
     public HolymantleModifier() {

@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 public class ExpelleescanaanModifier extends Modifier implements OnAttackedModifierHook, ToolStatsModifierHook {
+    //应许之地：犬走椛
     static int PARRYTICK = 10;
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
