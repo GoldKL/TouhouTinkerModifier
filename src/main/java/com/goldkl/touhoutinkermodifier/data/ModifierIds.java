@@ -20,6 +20,10 @@ public class ModifierIds {
     public static final ModifierId scarletdevil = id("scarletdevil");
     public static final ModifierId gungnir = id("gungnir");
     public static final ModifierId laevatein = id("laevatein");
+    public static final ModifierId youngscarletmoon = id("youngscarletmoon");
+    public static final ModifierId underredmoon = id("underredmoon");
+    public static final ModifierId andthentherewerenone = id("andthentherewerenone");
+    public static final ModifierId crimsonfantasy = id("crimsonfantasy");
 
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);

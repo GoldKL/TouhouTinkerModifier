@@ -18,36 +18,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    UshinokokumairishichiModifier extends NoLevelsModifier implements MeleeDamageModifierHook, MeleeHitModifierHook {
+public class    UshinokokumairishichiModifier extends NoLevelsModifier implements MeleeDamageModifierHook {
     //丑时参拜第七日：水桥帕露西
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MELEE_HIT);
+        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE);
     }
     @Override
     public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
-        LivingEntity entity = context.getLivingTarget();
-        int count = 0;
-        if(entity != null)
-        {
-            for(MobEffectInstance effect : entity.getActiveEffects())
-            {
-                if(effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
-                {
-                    count++;
-                }
-            }
-            if(count >= 7)
-            {
-                damage += count * 7;
-            }
-        }
-        return damage;
-    }
-    @Override
-    public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
-    {
         LivingEntity entity = context.getLivingTarget();
         if(entity != null)
         {
@@ -61,11 +40,13 @@ public class    UshinokokumairishichiModifier extends NoLevelsModifier implement
             }
             if(rec.size() >= 7)
             {
+                damage += rec.size() * 7;
                 for(MobEffect effect : rec)
                 {
                     entity.removeEffect(effect);
                 }
             }
         }
+        return damage;
     }
 }

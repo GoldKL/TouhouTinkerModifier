@@ -1,6 +1,5 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.mixininterface.ToolAttackContextMixinInterface;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -30,9 +29,9 @@ public class LaevateinModifier extends Modifier implements MeleeDamageModifierHo
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE,ModifierHooks.MELEE_HIT);
     }
-    //尽可能上调优先级来保证暴击词条能吃到加成
+    //尽可能下降优先级来保证增伤害吃满
     public int getPriority() {
-        return 200;
+        return 50;
     }
     @Override
     public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {

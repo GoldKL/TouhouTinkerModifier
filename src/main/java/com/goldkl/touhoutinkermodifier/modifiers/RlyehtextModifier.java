@@ -70,9 +70,10 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
         }
     }*/
     public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-        if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
+        /*if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
             return;
-        }
+        }*/
+        if(context.getEntity().level().isClientSide)return;
         if (tool.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
             int level = tool.getModifierLevel(ModifierIds.bibliophilia);
             for (SchoolType schoolType : SchoolRegistry.REGISTRY.get()){
@@ -102,9 +103,10 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
     }
 
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-        if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
+        /*if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
             return;
-        }
+        }*/
+        if(context.getEntity().level().isClientSide)return;
         if (tool.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
             UUID uuid = this.getUUID(context.getChangedSlot());
             if (uuid != null) {

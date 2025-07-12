@@ -2,6 +2,8 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Camera;
@@ -26,22 +28,19 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.function.BiConsumer;
 
-public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook {
+public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook, NightVisionHook {
     //珠泪哀歌：若鹭姬
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.tearlaments);
     public static final TinkerDataCapability.TinkerDataKey<PlayerStat> IsinWater = TinkerDataCapability.ComputableDataKey.of(ModifierIds.tearlaments.withSuffix("_isinwater"), PlayerStat::new);
@@ -51,7 +50,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     {
         SICM = new SlotInChargeModule(SLOT_IN_CHARGE);
         MinecraftForge.EVENT_BUS.addListener(this::LivingBreathInWater);
-        MinecraftForge.EVENT_BUS.addListener(this::ClearWater);
+        MinecraftForge.EVENT_BUS.addListener(this::ClearWaterFog);
     }
     
     private void LivingBreathInWater(LivingBreatheEvent event) {
@@ -79,7 +78,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
             }
         }
     }
-    private void ClearWater(ViewportEvent.RenderFog event)
+    private void ClearWaterFog(ViewportEvent.RenderFog event)
     {
         Camera camera = event.getCamera();
         if(camera.getFluidInCamera() == FogType.WATER)
@@ -103,52 +102,74 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                     float waterVision = camera.getEntity() instanceof LocalPlayer player ? Math.max(0.25f, player.getWaterVision()) : 1.0f;
                     event.setFogShape(FogShape.CYLINDER);
                     event.setFarPlaneDistance(250.0f * waterVision);
-                    event.setNearPlaneDistance(-8.0f);
+                    event.setNearPlaneDistance(30.0f);
                     event.setCanceled(true);
                 }
             }
         }
     }
     @Override
+    public boolean cannightvision(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, boolean isnightVision)
+    {
+        return context.getEntity().isEyeInFluidType(ForgeMod.WATER_TYPE.get());
+    }
+    @Override
+    public float getnightvisionscale(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType,float basescale,float scale)
+    {
+        return context.getEntity().isEyeInFluidType(ForgeMod.WATER_TYPE.get())?1.0f:scale;
+    }
+    @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK,ModifierHooks.EQUIPMENT_CHANGE);
+        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK,ModifierHooks.EQUIPMENT_CHANGE, ModifierHooksRegistry.NIGHT_VISION_HOOK);
     }
     @Override
     public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(world.isClientSide())return;
-        updatavalue(livingEntity);
         if(isCorrectSlot)
         {
-            final boolean[] state = {livingEntity.isInWater(),false};
-            livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-                PlayerStat oldstate = (PlayerStat)data.get(IsinWater);
-                if(oldstate != null)
-                {
-                    state[1] = oldstate.playerStat;
-                }
-            });
-            if(state[0])
+            EquipmentSlot slot = null;
+            for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
             {
-                //现在在水里
-                if(livingEntity instanceof Player player)
+                if(livingEntity.getItemBySlot(equipmentSlot) == itemStack)
                 {
-                    player.getAbilities().flying = true;
-                    player.onUpdateAbilities();
+                    slot = equipmentSlot;
+                    break;
                 }
             }
-            else if(state[1])
+            if(slot!=null && SlotInChargeModule.isInCharge(livingEntity.getCapability(TinkerDataCapability.CAPABILITY), SLOT_IN_CHARGE, slot))
             {
-                //之前在水里现在不在水里
-                if(livingEntity instanceof Player player)
+                updatavalue(livingEntity);
+                final boolean[] state = {livingEntity.isInWater(),false};
+                livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+                    PlayerStat oldstate = (PlayerStat)data.get(IsinWater);
+                    if(oldstate != null)
+                    {
+                        state[1] = oldstate.playerStat;
+                    }
+                });
+                if(state[0])
                 {
-                    player.getAbilities().flying = player.isCreative()||player.isSpectator();
-                    player.onUpdateAbilities();
+                    //现在在水里
+                    if(livingEntity instanceof Player player)
+                    {
+                        player.getAbilities().flying = true;
+                        player.onUpdateAbilities();
+                    }
                 }
+                else if(state[1])
+                {
+                    //之前在水里现在不在水里
+                    if(livingEntity instanceof Player player)
+                    {
+                        player.getAbilities().flying = player.isCreative()||player.isSpectator();
+                        player.onUpdateAbilities();
+                    }
+                }
+                livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+                    data.put(IsinWater,new PlayerStat(state[0]));
+                });
             }
-            livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-                data.put(IsinWater,new PlayerStat(state[0]));
-            });
         }
     }
     void updatavalue(LivingEntity entity)

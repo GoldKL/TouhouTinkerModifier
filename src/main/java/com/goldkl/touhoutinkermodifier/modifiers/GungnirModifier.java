@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.mixininterface.ToolAttackContextMixinInterface;
+import com.c2h6s.etstlib.register.EtSTLibHooks;
+import com.c2h6s.etstlib.tool.hooks.CriticalAttackModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -9,9 +10,12 @@ import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -24,25 +28,21 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Optional;
 
-public class GungnirModifier extends Modifier implements MeleeDamageModifierHook, MeleeHitModifierHook {
+public class GungnirModifier extends Modifier implements CriticalAttackModifierHook, MeleeHitModifierHook {
     //冈格尼尔：蕾米莉亚·斯卡雷特
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         //hookBuilder.addHook(this);
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE,ModifierHooks.MELEE_HIT);
-    }
-    //尽可能上调优先级来保证暴击词条能吃到加成
-    public int getPriority() {
-        return 200;
+        hookBuilder.addHook(this,ModifierHooks.MELEE_HIT, EtSTLibHooks.CRITICAL_ATTACK);
     }
     @Override
-    public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
-        if(tool.hasTag(TagsRegistry.ItemsTag.SPEAR)&&!context.isExtraAttack())
+    public boolean setCritical(IToolStackView tool, ModifierEntry entry, LivingEntity attacker, InteractionHand hand, Entity target, EquipmentSlot sourceSlot, boolean isFullyCharged, boolean isExtraAttack, boolean isCritical) {
+        if(tool.hasTag(TagsRegistry.ItemsTag.SPEAR))
         {
-            ((ToolAttackContextMixinInterface)context).touhouTinkerModifier$setCritical(true);
+            return true;
         }
-        return damage;
+        return isCritical;
     }
     @Override
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)

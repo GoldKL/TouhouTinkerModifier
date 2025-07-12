@@ -35,17 +35,23 @@ public class TexasnightModifier extends Modifier implements ModifyDamageModifier
                 LivingEntity entity = context.getEntity();
                 int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, equipmentSlot);
                 AttributeInstance lucky = entity.getAttribute(Attributes.LUCK);
-                double goodluck = 0.0;
-                double badluck = 0.0;
+                double A = 0.0;
+                double B = 0.0;
                 if(lucky != null)
                 {
-                    if(lucky.getValue() > 0.0)
-                        goodluck = lucky.getValue();
+                    double luck = lucky.getBaseValue();
+                    if(luck + level >= 0.5)
+                    {
+                        A = 0.0;
+                        B = luck + level;
+                    }
                     else
-                        badluck = -1.0 * lucky.getValue();
+                    {
+                        A = luck + level - 0.5;
+                        B = 0.5;
+                    }
                 }
-                double truelevel = goodluck + level;
-                double parameter = (2.0 + badluck) * Math.pow(RANDOM.nextDouble(), 1/truelevel);
+                double parameter = (2.0 - A) * Math.pow(RANDOM.nextDouble(), B);
                 return (float)  (amount * parameter);
             }
         }

@@ -3,6 +3,9 @@ package com.goldkl.touhoutinkermodifier.registries;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
+import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import javax.annotation.Nullable;
@@ -18,6 +21,8 @@ public class ModifierHooksRegistry {
         ATTACKER_MODIFY_HURT = register("attacker_modify_hurt", AttackerWithEquipmentModifyDamageModifierHook.class, merger, fallback);
         ATTACKER_MODIFY_DAMAGE = register("attacker_modify_damage", AttackerWithEquipmentModifyDamageModifierHook.class, merger, fallback);
     }
+    public static final ModuleHook<NightVisionHook> NIGHT_VISION_HOOK = register("night_vision_hook", NightVisionHook.class, NightVisionHook.AllMerger::new,new NightVisionHook() {});
+
     private static <T> ModuleHook<T> register(String name, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
         return ModifierHooks.register(TouhouTinkerModifier.getResource(name), filter, merger, defaultInstance);
     }

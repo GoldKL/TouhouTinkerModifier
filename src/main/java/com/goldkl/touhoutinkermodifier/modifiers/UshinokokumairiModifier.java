@@ -44,10 +44,6 @@ public class UshinokokumairiModifier extends Modifier implements MeleeHitModifie
             MobEffectRegistry.REND.get(),
             MobEffectRegistry.GUIDING_BOLT.get());
     @Override
-    public int getPriority() {
-        return 99;
-    }
-    @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.MELEE_HIT);

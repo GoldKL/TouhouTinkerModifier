@@ -26,11 +26,15 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
+
+import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TouhouTinkerModifier.MODID)
@@ -133,4 +137,10 @@ public class TouhouTinkerModifier
     public static ResourceLocation getResource(String name) {
         return ResourceLocation.fromNamespaceAndPath(MODID, name);
     }
+    public static SimpleChannel channel = NetworkRegistry.ChannelBuilder
+            .named(ResourceLocation.fromNamespaceAndPath(MODID,"main"))
+            .clientAcceptedVersions(PROTOCOL_VERSION::equals)
+            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> PROTOCOL_VERSION)
+            .simpleChannel();
 }

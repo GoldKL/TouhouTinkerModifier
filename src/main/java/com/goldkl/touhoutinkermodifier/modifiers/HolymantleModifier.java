@@ -47,7 +47,7 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
     public boolean isDamageBlocked(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentContext equipmentContext, EquipmentSlot equipmentSlot, DamageSource damageSource, float v) {
         if((!iToolStackView.isBroken())&&ModifierUtil.validArmorSlot(iToolStackView, equipmentSlot)&&SlotInChargeModule.isInCharge(equipmentContext.getTinkerData(), SLOT_IN_CHARGE,equipmentSlot))
         {
-            if(DamageSourcePredicate.CAN_PROTECT.matches(damageSource))//!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))
+            if(!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))//!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))
             {
                 LivingEntity entity = equipmentContext.getEntity();
                 if(!entity.level().isClientSide)
@@ -94,7 +94,7 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
                             count = level;
                             changed = true;
                         }
-                        else if(count < level && livingEntity.tickCount%600 == 0)
+                        else if(count < level && livingEntity.tickCount%300 == 0)
                         {
                             count ++;
                             changed = true;
