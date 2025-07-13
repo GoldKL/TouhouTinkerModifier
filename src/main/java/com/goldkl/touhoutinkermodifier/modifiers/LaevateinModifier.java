@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -46,7 +47,7 @@ public class LaevateinModifier extends Modifier implements MeleeDamageModifierHo
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
     {
         if(tool.hasTag(TagsRegistry.ItemsTag.CLAYMORE)&&!context.isExtraAttack()) {
-            LivingEntity attacker = context.getAttacker();
+            /*LivingEntity attacker = context.getAttacker();
             LivingEntity target = context.getLivingTarget();
             double entitySpellPowerModifier = 1;
             double entitySchoolPowerModifier = 1;
@@ -63,6 +64,15 @@ public class LaevateinModifier extends Modifier implements MeleeDamageModifierHo
                 Holder<DamageType> holder = option.isPresent() ? (Holder) option.get() : attacker.level().damageSources().genericKill().typeHolder();
                 target.invulnerableTime = 0;
                 target.hurt(new DamageSource(holder, attacker), finaldamage);
+                target.setRemainingFireTicks(100 + level*60);
+            }*/
+            LivingEntity attacker = context.getAttacker();
+            LivingEntity target = context.getLivingTarget();
+            if(target != null)
+            {
+                int level = modifier.getLevel();
+                target.invulnerableTime = 0;
+                DamageSources.applyDamage(target, SpellsRegistry.laevatein.get().getSpellPower(level,attacker), SpellsRegistry.laevatein.get().getDamageSource(attacker));
                 target.setRemainingFireTicks(100 + level*60);
             }
         }

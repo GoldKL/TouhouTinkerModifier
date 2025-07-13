@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,8 +36,9 @@ public class YoungscarletmoonModifier extends Modifier implements ModifyDamageMo
             LivingEntity entity = context.getEntity();
             double SpellPowerModifier = entity.getAttributeValue(AttributeRegistry.SPELL_POWER.get());
             double SchoolPowerModifier = entity.getAttributeValue(AttributeRegistry.BLOOD_SPELL_POWER.get());
-            double isBaotoudunfang = entity.isCrouching()&&entity.getXRot()<0 ? 2 : 1;
-            amount *= (float) (getnum(4 * isBaotoudunfang * SpellPowerModifier * level * SchoolPowerModifier));
+            float isBaotoudunfang = entity.isCrouching()&&entity.getXRot()>0 ? 2 : 1;
+            amount *= (float) (getnum(4 * SpellPowerModifier * level * SchoolPowerModifier));
+            amount /= isBaotoudunfang;
         }
         return amount;
     }

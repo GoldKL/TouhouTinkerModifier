@@ -2,9 +2,11 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.CriticalAttackModifierHook;
+import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.config.ServerConfigs;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
@@ -48,7 +50,7 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
     {
         if(tool.hasTag(TagsRegistry.ItemsTag.SPEAR)&&!context.isExtraAttack()) {
-            LivingEntity attacker = context.getAttacker();
+            /*LivingEntity attacker = context.getAttacker();
             LivingEntity target = context.getLivingTarget();
             double entitySpellPowerModifier = 1;
             double entitySchoolPowerModifier = 1;
@@ -65,6 +67,14 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
                 Holder<DamageType> holder = option.isPresent() ? (Holder) option.get() : attacker.level().damageSources().genericKill().typeHolder();
                 target.invulnerableTime = 0;
                 target.hurt(new DamageSource(holder, attacker), finaldamage);
+            }*/
+            LivingEntity attacker = context.getAttacker();
+            LivingEntity target = context.getLivingTarget();
+            if(target != null)
+            {
+                int level = modifier.getLevel();
+                target.invulnerableTime = 0;
+                DamageSources.applyDamage(target, SpellsRegistry.gungnir.get().getSpellPower(level,attacker), SpellsRegistry.gungnir.get().getDamageSource(attacker));
             }
         }
     }

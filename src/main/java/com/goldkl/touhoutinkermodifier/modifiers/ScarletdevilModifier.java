@@ -23,7 +23,7 @@ public class ScarletdevilModifier extends Modifier implements NightVisionHook {
         //hookBuilder.addHook(this);
         super.registerHooks(hookBuilder);
         hookBuilder.addModule(AttributeModule.builder(AttributeRegistry.BLOOD_SPELL_POWER.get(), AttributeModifier.Operation.MULTIPLY_BASE).uniqueFrom(ModifierIds.scarletdevil).eachLevel(0.2f));
-        hookBuilder.addModule(AttributeModule.builder(PerkAttributes.MANA_REGEN_BONUS.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(ModifierIds.scarletdevil).eachLevel(5f));
+        hookBuilder.addModule(AttributeModule.builder(PerkAttributes.MANA_REGEN_BONUS.get(), AttributeModifier.Operation.MULTIPLY_BASE).uniqueFrom(ModifierIds.scarletdevil).eachLevel(0.05f));
         hookBuilder.addHook(this,ModifierHooksRegistry.NIGHT_VISION_HOOK);
     }
     @Override

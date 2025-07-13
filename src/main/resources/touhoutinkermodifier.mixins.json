@@ -5,7 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "touhoutinkermodifier.refmap.json",
   "mixins": [
+    "arsnouveau.ArsNouveauAPIMixin",
     "ironspell.SchoolTypeAccessor",
+    "ironspell.SpellDamageSourceMixin",
+    "sakuratinker.FountainMagicModifierMixin",
     "tconstruct.ToolAttackUtilMixin"
   ],
   "client": [

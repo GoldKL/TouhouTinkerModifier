@@ -2,6 +2,7 @@ package com.goldkl.touhoutinkermodifier;
 
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierRegistry;
+import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -84,6 +85,7 @@ public class TouhouTinkerModifier
         //CREATIVE_MODE_TABS.register(modEventBus);
         ModifierRegistry.register(modEventBus);
         MobeffectRegistry.register(modEventBus);
+        SpellsRegistry.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 

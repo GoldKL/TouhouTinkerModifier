@@ -6,6 +6,7 @@ import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.shadowsoffire.attributeslib.api.ALObjects;
 import net.minecraft.client.Camera;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
@@ -188,6 +189,14 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
             float attributeValue = level * isinWater * 3;
             if (attributeValue != 0) {
                 instance.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.ADDITION));
+            }
+        }
+        AttributeInstance instance2 = entity.getAttribute(ALObjects.Attributes.ARROW_DAMAGE.get());
+        if (instance2 != null) {
+            instance2.removeModifier(uuid);
+            float attributeValue = level * isinWater * 0.05f;
+            if (attributeValue != 0) {
+                instance2.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.MULTIPLY_BASE));
             }
         }
     }

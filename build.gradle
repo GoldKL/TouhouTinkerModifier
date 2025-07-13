@@ -237,6 +237,9 @@ dependencies {
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.2.0")) {
         jarJar.ranged(it, "[0.2.0,)")
     }*/
+    //implementation fg.deobf(files("sakuratinker-1.2.9.jar"))
+    compileOnly fg.deobf("com.ssakura49.sakuratinker:sakuratinker:1.2.9")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings

@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.damage.DamageSources;
@@ -37,7 +38,7 @@ public class CrimsonfantasyModifier extends Modifier implements ProjectileHitMod
     @Override
     public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
         if(attacker != null && target != null) {
-            int level = modifier.getLevel();
+            /*int level = modifier.getLevel();
             double entitySpellPowerModifier = 1;
             double entitySchoolPowerModifier = 1;
             float configPowerModifier = 1;
@@ -49,7 +50,9 @@ public class CrimsonfantasyModifier extends Modifier implements ProjectileHitMod
             float finaldamage = basedamage * DamageSources.getResist(target, SchoolRegistry.BLOOD.get());
             Optional<Holder.Reference<DamageType>> option = attacker.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolder(DamageTypes.MAGIC);
             Holder<DamageType> holder = option.isPresent() ? (Holder) option.get() : attacker.level().damageSources().genericKill().typeHolder();
-            target.hurt(new DamageSource(holder, attacker), finaldamage);
+            target.hurt(new DamageSource(holder, attacker), finaldamage);*/
+            int level = modifier.getLevel();
+            DamageSources.applyDamage(target, SpellsRegistry.crimsonfantasy.get().getSpellPower(level,attacker), SpellsRegistry.crimsonfantasy.get().getDamageSource(projectile, attacker));
             target.invulnerableTime = 0;
         }
         return false;
