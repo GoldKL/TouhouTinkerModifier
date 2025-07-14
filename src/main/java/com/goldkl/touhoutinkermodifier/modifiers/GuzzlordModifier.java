@@ -28,7 +28,7 @@ public class GuzzlordModifier extends Modifier implements AttackerWithEquipmentM
         hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     @Override
-    public float attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+    public float attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source,float baseamount, float amount, boolean isDirectDamage) {
         LivingEntity entity = context.getEntity();
         if(entity instanceof Player player) {
             if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)){
@@ -36,6 +36,15 @@ public class GuzzlordModifier extends Modifier implements AttackerWithEquipmentM
                 FoodData foodData = player.getFoodData();
                 double hungry = 20 - Math.max(foodData.getFoodLevel() , 8);//0 ~ 12
                 double parameter = 1.0 + 0.2 * level * hungry / 12.0;
+                return (float)  (amount * parameter);
+            }
+        }
+        else
+        {
+            if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)){
+                int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
+                double scale = Math.min((entity.getMaxHealth()-entity.getHealth())/entity.getMaxHealth(),0.6);
+                double parameter = 1.0 + 0.2 * level * scale / 0.6;
                 return (float)  (amount * parameter);
             }
         }

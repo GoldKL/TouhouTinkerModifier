@@ -21,10 +21,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FogType;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingBreatheEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -51,7 +54,9 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     {
         SICM = new SlotInChargeModule(SLOT_IN_CHARGE);
         MinecraftForge.EVENT_BUS.addListener(this::LivingBreathInWater);
-        MinecraftForge.EVENT_BUS.addListener(this::ClearWaterFog);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            MinecraftForge.EVENT_BUS.addListener(this::ClearWaterFog);
+        }
     }
     
     private void LivingBreathInWater(LivingBreatheEvent event) {

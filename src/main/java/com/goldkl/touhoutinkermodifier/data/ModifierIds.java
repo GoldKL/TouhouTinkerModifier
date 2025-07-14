@@ -24,7 +24,10 @@ public class ModifierIds {
     public static final ModifierId underredmoon = id("underredmoon");
     public static final ModifierId andthentherewerenone = id("andthentherewerenone");
     public static final ModifierId crimsonfantasy = id("crimsonfantasy");
-
+    public static final ModifierId everbrightscarlettower = id("everbrightscarlettower");
+    public static final ModifierId devillibrarian = id("devillibrarian");
+    public static final ModifierId overpowermq = id("overpowermq");
+    public static final ModifierId sevenluminarieswizard = id("sevenluminarieswizard");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

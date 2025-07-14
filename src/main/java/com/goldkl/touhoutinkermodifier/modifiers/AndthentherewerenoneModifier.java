@@ -69,7 +69,7 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
             for(LivingEntity livingentity : projectile.level().getEntitiesOfClass(LivingEntity.class, projectile.getBoundingBox().inflate(d0))) {
                 if (livingentity != projectile.getOwner() && !(projectile.distanceToSqr(livingentity) > d0*d0)) {
                     float f1 = f * (float)Math.sqrt((d0 - (double)projectile.distanceTo(livingentity)) / d0);
-                    livingentity.hurt(new DamageSource(projectile.level().damageSources().genericKill().typeHolder(), projectile.getOwner()), f1);
+                    livingentity.hurt(new DamageSource(projectile.level().damageSources().outOfBorder().typeHolder(), projectile.getOwner()), f1);
                     livingentity.invulnerableTime = 0;
                 }
             }

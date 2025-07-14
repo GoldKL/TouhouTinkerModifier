@@ -1,21 +1,15 @@
 package com.goldkl.touhoutinkermodifier.hook;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
-import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
 
-//这个钩子运行在客户端
-@OnlyIn(Dist.CLIENT)
+//这个钩子生效在客户端，以外的场合无效
 public interface NightVisionHook {
     default boolean cannightvision(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType,boolean isnightVision)
     {

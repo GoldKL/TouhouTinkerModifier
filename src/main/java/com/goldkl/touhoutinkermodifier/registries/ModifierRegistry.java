@@ -27,7 +27,10 @@ public class ModifierRegistry {
     public static final StaticModifier<UnderredmoonModifier>underredmoon = MODIFIERS.register("underredmoon", UnderredmoonModifier::new);
     public static final StaticModifier<AndthentherewerenoneModifier>andthentherewerenone = MODIFIERS.register("andthentherewerenone", AndthentherewerenoneModifier::new);
     public static final StaticModifier<CrimsonfantasyModifier>crimsonfantasy = MODIFIERS.register("crimsonfantasy", CrimsonfantasyModifier::new);
-
+    public static final StaticModifier<EverbrightscarlettowerModifier>everbrightscarlettower = MODIFIERS.register("everbrightscarlettower", EverbrightscarlettowerModifier::new);
+    public static final StaticModifier<DevillibrarianModifier>devillibrarian = MODIFIERS.register("devillibrarian", DevillibrarianModifier::new);
+    public static final StaticModifier<OverpowermqModifier>overpowermq = MODIFIERS.register("overpowermq", OverpowermqModifier::new);
+    public static final StaticModifier<SevenluminarieswizardModifier>sevenluminarieswizard = MODIFIERS.register("sevenluminarieswizard", SevenluminarieswizardModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

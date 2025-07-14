@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    UshinokokumairishichiModifier extends NoLevelsModifier implements MeleeDamageModifierHook {
+public class UshinokokumairishichiModifier extends NoLevelsModifier implements MeleeDamageModifierHook {
     //丑时参拜第七日：水桥帕露西
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

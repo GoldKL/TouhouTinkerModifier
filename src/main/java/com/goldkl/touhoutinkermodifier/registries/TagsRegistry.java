@@ -11,9 +11,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 
-import static slimeknights.tconstruct.TConstruct.getResource;
-
-
 public class TagsRegistry {
     public static class ItemsTag{
         public static final TagKey<Item> SPEAR = local("modifiable/melee/spear");
@@ -30,10 +27,9 @@ public class TagsRegistry {
         }
     }
     public static class ModifiersTag{
-        public static final ResourceKey<? extends Registry<Modifier>> REGISTRY_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "modifiers"));
-
+        public static final TagKey<Modifier> ScarletDevilMansion = local("scarlet_devil_mansion");
         private static TagKey<Modifier> local(String name) {
-            return ModifierManager.getTag(getResource(name));
+            return TagKey.create(ModifierManager.REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
         }
     }
 }

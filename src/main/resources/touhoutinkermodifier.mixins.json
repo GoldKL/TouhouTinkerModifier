@@ -6,13 +6,19 @@
   "refmap": "touhoutinkermodifier.refmap.json",
   "mixins": [
     "arsnouveau.ArsNouveauAPIMixin",
+    "ironspell.AbstractSpellMixin",
+    "ironspell.CastingItemMixin",
+    "ironspell.MagicManagerMixin",
     "ironspell.SchoolTypeAccessor",
     "ironspell.SpellDamageSourceMixin",
+    "ironspell.SpellWheelOverlayMixin",
+    "ironspell.TooltipsUtilsMixin",
     "sakuratinker.FountainMagicModifierMixin",
     "tconstruct.ToolAttackUtilMixin"
   ],
   "client": [
-    "LightTextureMixin"
+    "LightTextureMixin",
+    "ironspell.InscriptionTableScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

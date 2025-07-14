@@ -1,11 +1,15 @@
 package com.goldkl.touhoutinkermodifier;
 
+import com.goldkl.touhoutinkermodifier.data.tags.TouhouModifierTagProvider;
+import com.goldkl.touhoutinkermodifier.registries.AttributesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -18,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,9 +36,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
 import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
@@ -86,6 +89,7 @@ public class TouhouTinkerModifier
         ModifierRegistry.register(modEventBus);
         MobeffectRegistry.register(modEventBus);
         SpellsRegistry.register(modEventBus);
+        AttributesRegistry.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -123,7 +127,6 @@ public class TouhouTinkerModifier
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
-
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents

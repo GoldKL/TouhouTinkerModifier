@@ -28,9 +28,10 @@ public class CustomerToolEvent {
         if (entity instanceof LivingEntity attacker)
         {
             float originalDamage = event.getAmount();
+            float basedamage = originalDamage;
             DamageSource source = event.getSource();
             EquipmentContext context = new EquipmentContext(attacker);
-            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_HURT, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
+            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_HURT, context, source,basedamage, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
             event.setAmount(originalDamage);
             if (originalDamage <= 0.0F) {
                 event.setCanceled(true);
@@ -44,9 +45,10 @@ public class CustomerToolEvent {
         if (entity instanceof LivingEntity attacker)
         {
             float originalDamage = event.getAmount();
+            float basedamage = originalDamage;
             DamageSource source = event.getSource();
             EquipmentContext context = new EquipmentContext(attacker);
-            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_DAMAGE, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
+            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_DAMAGE, context, source,basedamage , originalDamage, OnAttackedModifierHook.isDirectDamage(source));
             event.setAmount(originalDamage);
             if (originalDamage <= 0.0F) {
                 event.setCanceled(true);

@@ -17,7 +17,7 @@ public class ModifierHooksRegistry {
     public static final ModuleHook<AttackerWithEquipmentModifyDamageModifierHook> ATTACKER_MODIFY_DAMAGE;
     static {
         Function<Collection<AttackerWithEquipmentModifyDamageModifierHook>,AttackerWithEquipmentModifyDamageModifierHook> merger = AttackerWithEquipmentModifyDamageModifierHook.AllMerger::new;
-        AttackerWithEquipmentModifyDamageModifierHook fallback = (tool, modifier, context, slotType, source, amount, isDirectDamage) -> amount;
+        AttackerWithEquipmentModifyDamageModifierHook fallback = (tool, modifier, context, slotType, source,baseamount , amount, isDirectDamage) -> amount;
         ATTACKER_MODIFY_HURT = register("attacker_modify_hurt", AttackerWithEquipmentModifyDamageModifierHook.class, merger, fallback);
         ATTACKER_MODIFY_DAMAGE = register("attacker_modify_damage", AttackerWithEquipmentModifyDamageModifierHook.class, merger, fallback);
     }
