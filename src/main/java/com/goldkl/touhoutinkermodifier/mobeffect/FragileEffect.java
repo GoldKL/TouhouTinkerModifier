@@ -33,7 +33,7 @@ public class FragileEffect extends MobEffect {
         MobEffectInstance effectInstance = entity.getEffect(MobeffectRegistry.FRAGILE.get());
         if(effectInstance != null)
         {
-            float level =  0.5f * effectInstance.getAmplifier() + 2f;
+            float level =  0.2f * effectInstance.getAmplifier() + 1.2f;
             event.setAmount(event.getAmount() * level);
             entity.removeEffect(MobeffectRegistry.FRAGILE.get());
         }

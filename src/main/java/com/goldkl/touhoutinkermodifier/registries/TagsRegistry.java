@@ -15,7 +15,7 @@ public class TagsRegistry {
     public static class ItemsTag{
         public static final TagKey<Item> SPEAR = local("modifiable/melee/spear");
         public static final TagKey<Item> CLAYMORE = local("modifiable/melee/claymore");
-
+        public static final TagKey<Item> DAGGER = local("modifiable/melee/dagger");
         /** Makes a tag in the touhoutinkermodifier domain **/
         private static TagKey<Item> local(String name) {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
@@ -28,6 +28,8 @@ public class TagsRegistry {
     }
     public static class ModifiersTag{
         public static final TagKey<Modifier> ScarletDevilMansion = local("scarlet_devil_mansion");
+        public static final TagKey<Modifier> SilverModifier = local("silver_modifier");
+
         private static TagKey<Modifier> local(String name) {
             return TagKey.create(ModifierManager.REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
         }

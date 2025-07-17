@@ -40,8 +40,9 @@ public class ExpelleescanaanModifier extends Modifier implements OnAttackedModif
                 {
                     if(context.getEntity().getTicksUsingItem() <= PARRYTICK)
                     {
-                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2,false,true));
-                        attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 10, false, true));
+                        int level = modifier.getLevel();
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2 * level - 1,false,true));
+                        attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 9, false, true));
                     }
                 }
             }

@@ -4,8 +4,10 @@
   "package": "com.goldkl.touhoutinkermodifier.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "touhoutinkermodifier.refmap.json",
+  "plugin": "com.goldkl.touhoutinkermodifier.MixinConfigPlugin",
   "mixins": [
     "arsnouveau.ArsNouveauAPIMixin",
+    "attributeslib.AttributeEventsMixin",
     "ironspell.AbstractSpellMixin",
     "ironspell.CastingItemMixin",
     "ironspell.MagicManagerMixin",

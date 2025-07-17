@@ -1,7 +1,6 @@
 package com.goldkl.touhoutinkermodifier.data;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 public class ModifierIds {
@@ -27,7 +26,13 @@ public class ModifierIds {
     public static final ModifierId everbrightscarlettower = id("everbrightscarlettower");
     public static final ModifierId devillibrarian = id("devillibrarian");
     public static final ModifierId overpowermq = id("overpowermq");
+    public static final ModifierId redblacktree = id("redblacktree");
     public static final ModifierId sevenluminarieswizard = id("sevenluminarieswizard");
+    public static final ModifierId killerdoll = id("killerdoll");
+    public static final ModifierId vanhelsingprogeny = id("vanhelsingprogeny");
+    public static final ModifierId jacktheripper = id("jacktheripper");
+    public static final ModifierId perfectandelegant = id("perfectandelegant");
+    public static final ModifierId pocketwatchofblood = id("pocketwatchofblood");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

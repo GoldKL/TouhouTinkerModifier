@@ -31,6 +31,12 @@ public class ModifierRegistry {
     public static final StaticModifier<DevillibrarianModifier>devillibrarian = MODIFIERS.register("devillibrarian", DevillibrarianModifier::new);
     public static final StaticModifier<OverpowermqModifier>overpowermq = MODIFIERS.register("overpowermq", OverpowermqModifier::new);
     public static final StaticModifier<SevenluminarieswizardModifier>sevenluminarieswizard = MODIFIERS.register("sevenluminarieswizard", SevenluminarieswizardModifier::new);
+    public static final StaticModifier<RedblacktreeModifier>redblacktree = MODIFIERS.register("redblacktree", RedblacktreeModifier::new);
+    public static final StaticModifier<KillerdollModifier>killerdoll = MODIFIERS.register("killerdoll", KillerdollModifier::new);
+    public static final StaticModifier<VanhelsingprogenyModifier>vanhelsingprogeny = MODIFIERS.register("vanhelsingprogeny", VanhelsingprogenyModifier::new);
+    public static final StaticModifier<JacktheripperModifier>jacktheripper = MODIFIERS.register("jacktheripper",JacktheripperModifier::new);
+    public static final StaticModifier<PerfectandelegantModifier>perfectandelegant = MODIFIERS.register("perfectandelegant",PerfectandelegantModifier::new);
+    public static final StaticModifier<PocketwatchofbloodModifier>pocketwatchofblood = MODIFIERS.register("pocketwatchofblood",PocketwatchofbloodModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

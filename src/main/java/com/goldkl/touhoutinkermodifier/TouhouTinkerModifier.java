@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier;
 
 import com.goldkl.touhoutinkermodifier.data.tags.TouhouModifierTagProvider;
+import com.goldkl.touhoutinkermodifier.helper.BetterCombatHelper;
 import com.goldkl.touhoutinkermodifier.registries.AttributesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierRegistry;
@@ -90,6 +91,7 @@ public class TouhouTinkerModifier
         MobeffectRegistry.register(modEventBus);
         SpellsRegistry.register(modEventBus);
         AttributesRegistry.register(modEventBus);
+        BetterCombatHelper.load();
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
