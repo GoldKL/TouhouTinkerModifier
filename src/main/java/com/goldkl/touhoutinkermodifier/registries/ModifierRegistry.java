@@ -37,6 +37,16 @@ public class ModifierRegistry {
     public static final StaticModifier<JacktheripperModifier>jacktheripper = MODIFIERS.register("jacktheripper",JacktheripperModifier::new);
     public static final StaticModifier<PerfectandelegantModifier>perfectandelegant = MODIFIERS.register("perfectandelegant",PerfectandelegantModifier::new);
     public static final StaticModifier<PocketwatchofbloodModifier>pocketwatchofblood = MODIFIERS.register("pocketwatchofblood",PocketwatchofbloodModifier::new);
+    public static final StaticModifier<TheworldModifier>theworld = MODIFIERS.register("theworld",TheworldModifier::new);
+    public static final StaticModifier<RainbowtaichiModifier>rainbowtaichi = MODIFIERS.register("rainbowtaichi",RainbowtaichiModifier::new);
+    public static final StaticModifier<FanghuaxuanlanModifier>fanghuaxuanlan = MODIFIERS.register("fanghuaxuanlan",FanghuaxuanlanModifier::new);
+    public static final StaticModifier<BengshancaijiModifier>bengshancaiji = MODIFIERS.register("bengshancaiji",BengshancaijiModifier::new);
+    public static final StaticModifier<MidnightbirdModifier>midnightbird = MODIFIERS.register("midnightbird",MidnightbirdModifier::new);
+    public static final StaticModifier<SonanokaModifier>sonanoka = MODIFIERS.register("sonanoka",SonanokaModifier::new);
+    public static final StaticModifier<ApparitionsstalkthenightModifier>apparitionsstalkthenight = MODIFIERS.register("apparitionsstalkthenight",ApparitionsstalkthenightModifier::new);
+    public static final StaticModifier<DevourdarknessModifier>devourdarkness = MODIFIERS.register("devourdarkness",DevourdarknessModifier::new);
+    public static final StaticModifier<KojisousamadesitaModifier>kojisousamadesita = MODIFIERS.register("kojisousamadesita",KojisousamadesitaModifier::new);
+
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

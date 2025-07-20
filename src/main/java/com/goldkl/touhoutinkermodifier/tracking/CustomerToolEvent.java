@@ -4,6 +4,7 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.api.event.OndodgeEvent;
 import com.goldkl.touhoutinkermodifier.api.event.PredodgeEvent;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
+import com.goldkl.touhoutinkermodifier.hook.EntityHealHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -93,6 +95,17 @@ public class CustomerToolEvent {
                     entry.getHook(ModifierHooksRegistry.ENTITY_DODGE_HOOK).OnDodge(toolStack, entry, context, slotType, attacker, directattacker);
                 }
             }
+        }
+    }
+    @SubscribeEvent
+    static void OnLivingEntityHeall(LivingHealEvent event) {
+        LivingEntity entity = event.getEntity();
+        EquipmentContext context = new EquipmentContext(entity);
+        float heal = EntityHealHook.modifyhealTaken(context,event.getAmount(),event.getAmount());
+        event.setAmount(heal);
+        if(heal <= 0.0F)
+        {
+            event.setCanceled(true);
         }
     }
 }

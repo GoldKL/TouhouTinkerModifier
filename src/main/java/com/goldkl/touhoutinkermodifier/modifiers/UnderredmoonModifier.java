@@ -14,9 +14,9 @@ public class UnderredmoonModifier extends Modifier {
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addModule(AttributeModule.builder(L2DamageTracker.CRIT_DMG.get(), AttributeModifier.Operation.ADDITION).tooltipStyle(AttributeModule.TooltipStyle.PERCENT).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.25f));
-        hookBuilder.addModule(AttributeModule.builder(L2DamageTracker.CRIT_RATE.get(), AttributeModifier.Operation.ADDITION).tooltipStyle(AttributeModule.TooltipStyle.PERCENT).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.05f));
-        hookBuilder.addModule(AttributeModule.builder(ALObjects.Attributes.ARMOR_SHRED.get(), AttributeModifier.Operation.ADDITION).tooltipStyle(AttributeModule.TooltipStyle.PERCENT).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.05f));
+        hookBuilder.addModule(AttributeModule.builder(L2DamageTracker.CRIT_DMG.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.25f));
+        hookBuilder.addModule(AttributeModule.builder(L2DamageTracker.CRIT_RATE.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.05f));
+        hookBuilder.addModule(AttributeModule.builder(ALObjects.Attributes.ARMOR_SHRED.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(ModifierIds.underredmoon).eachLevel(0.05f));
 
     }
 }

@@ -22,7 +22,8 @@ public class TouhouModifierTagProvider extends AbstractModifierTagProvider {
                 .add(ModifierIds.devillibrarian)//姆Q&小恶魔
                 .add(ModifierIds.everbrightscarlettower,ModifierIds.redblacktree)//小恶魔
                 .add(ModifierIds.overpowermq,ModifierIds.sevenluminarieswizard)//姆Q
-                .add(ModifierIds.killerdoll,ModifierIds.vanhelsingprogeny,ModifierIds.jacktheripper,ModifierIds.perfectandelegant,ModifierIds.pocketwatchofblood);//十六夜咲夜
+                .add(ModifierIds.killerdoll,ModifierIds.vanhelsingprogeny,ModifierIds.jacktheripper,ModifierIds.perfectandelegant,ModifierIds.pocketwatchofblood,ModifierIds.theworld)//十六夜咲夜
+                .add(ModifierIds.rainbowtaichi,ModifierIds.fanghuaxuanlan,ModifierIds.bengshancaiji);//红美铃
         tag(TinkerTags.Modifiers.OVERSLIME_FRIEND)
                 .add(ModifierIds.overpowermq);
         tag(TagsRegistry.ModifiersTag.SilverModifier)

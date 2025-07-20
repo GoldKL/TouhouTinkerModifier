@@ -24,10 +24,12 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -37,7 +39,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class PerfectandelegantModifier extends Modifier implements EntityDodgeHook, InventoryTickModifierHook, TooltipModifierHook {
+public class PerfectandelegantModifier extends Modifier implements EntityDodgeHook, InventoryTickModifierHook, TooltipModifierHook , EquipmentChangeModifierHook {
     //完美潇洒：十六夜咲夜
     final String unique = ModifierIds.perfectandelegant.getNamespace()+  ".modifier."+ModifierIds.perfectandelegant.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
@@ -46,14 +48,14 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooksRegistry.ENTITY_DODGE_HOOK, ModifierHooks.INVENTORY_TICK,ModifierHooks.TOOLTIP);
+        hookBuilder.addHook(this, ModifierHooksRegistry.ENTITY_DODGE_HOOK, ModifierHooks.INVENTORY_TICK,ModifierHooks.TOOLTIP, ModifierHooks.EQUIPMENT_CHANGE);
     }
     @Override
     public void OnDodge(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, @Nullable Entity attacker, @Nullable Entity directattacker){
         if(attacker instanceof LivingEntity livingEntity)
         {
             int level = modifier.getLevel();
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 9, false, true));
+            livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true));
             livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(), 60, level - 1, false, true));
         }
     }
@@ -105,6 +107,20 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
         list.add(modifier.getModifier().applyStyle(Component.translatable("modifier.touhoutinkermodifier.perfectandelegant.fullhealth")));
         for(int i = 0; i < 2; i++) {
             TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), level * attributes_amount.get(i), list);
+        }
+    }
+    @Override
+    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+        UUID uuid = this.getUUID(context.getChangedSlot());
+        if(uuid != null)
+        {
+            for(int i = 0; i < 2; i++) {
+                AttributeInstance instance = context.getEntity().getAttribute(attributes.get(i));
+                if(instance != null)
+                {
+                    instance.removeModifier(uuid);
+                }
+            }
         }
     }
 }

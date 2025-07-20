@@ -6,8 +6,6 @@ import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import slimeknights.tconstruct.library.modifiers.Modifier;

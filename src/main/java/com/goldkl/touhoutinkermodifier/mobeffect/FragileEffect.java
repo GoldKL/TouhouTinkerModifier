@@ -22,11 +22,6 @@ public class FragileEffect extends MobEffect {
     public FragileEffect() {
         super(MobEffectCategory.HARMFUL,0xFF0000);
     }
-    @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
-    }
-
     @SubscribeEvent
     static void livingDamage(LivingDamageEvent event) {
         LivingEntity entity = event.getEntity();

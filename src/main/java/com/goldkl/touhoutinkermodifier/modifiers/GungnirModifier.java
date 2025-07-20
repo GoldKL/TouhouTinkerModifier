@@ -2,8 +2,11 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.CriticalAttackModifierHook;
+import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
+import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
@@ -50,30 +53,12 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
     {
         if(tool.hasTag(TagsRegistry.ItemsTag.SPEAR)&&!context.isExtraAttack()) {
-            /*LivingEntity attacker = context.getAttacker();
-            LivingEntity target = context.getLivingTarget();
-            double entitySpellPowerModifier = 1;
-            double entitySchoolPowerModifier = 1;
-            float configPowerModifier = 1;
-            float baseSpellPower = 12;
-            float spellPowerPerLevel = 2;
-            entitySpellPowerModifier = (float) attacker.getAttributeValue(AttributeRegistry.SPELL_POWER.get());
-            entitySchoolPowerModifier = (float) attacker.getAttributeValue(AttributeRegistry.BLOOD_SPELL_POWER.get());
-            int level = modifier.getLevel();
-            float basedamage = (float) ((baseSpellPower + spellPowerPerLevel * (level - 1)) * entitySpellPowerModifier * entitySchoolPowerModifier * configPowerModifier);
-            if (target != null) {
-                float finaldamage = basedamage * DamageSources.getResist(target, SchoolRegistry.BLOOD.get());
-                Optional<Holder.Reference<DamageType>> option = attacker.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolder(DamageTypes.MAGIC);
-                Holder<DamageType> holder = option.isPresent() ? (Holder) option.get() : attacker.level().damageSources().genericKill().typeHolder();
-                target.invulnerableTime = 0;
-                target.hurt(new DamageSource(holder, attacker), finaldamage);
-            }*/
             LivingEntity attacker = context.getAttacker();
             LivingEntity target = context.getLivingTarget();
             if(target != null)
             {
                 int level = modifier.getLevel();
-                target.invulnerableTime = 0;
+                TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
                 DamageSources.applyDamage(target, SpellsRegistry.gungnir.get().getSpellPower(level,attacker), SpellsRegistry.gungnir.get().getDamageSource(attacker));
             }
         }

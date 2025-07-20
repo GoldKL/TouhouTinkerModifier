@@ -2,10 +2,7 @@ package com.goldkl.touhoutinkermodifier.registries;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 
-import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
-import com.goldkl.touhoutinkermodifier.hook.BetterCombatAtackRangeHook;
-import com.goldkl.touhoutinkermodifier.hook.EntityDodgeHook;
-import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
+import com.goldkl.touhoutinkermodifier.hook.*;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -33,6 +30,7 @@ public class ModifierHooksRegistry {
         ATTACK_RANGE_MUL = register("attack_range_mul", BetterCombatAtackRangeHook.class, merger, fallback);
     }
     public static final ModuleHook<EntityDodgeHook> ENTITY_DODGE_HOOK = register("entity_dodge_hook", EntityDodgeHook.class, EntityDodgeHook.AllMerger::new,new EntityDodgeHook() {});
+    public static final ModuleHook<EntityHealHook> ENTITY_HEAL_HOOK = register("entity_heal_hook", EntityHealHook.class, EntityHealHook.AllMerger::new,new EntityHealHook() {});
 
     private static <T> ModuleHook<T> register(String name, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
         return ModifierHooks.register(TouhouTinkerModifier.getResource(name), filter, merger, defaultInstance);

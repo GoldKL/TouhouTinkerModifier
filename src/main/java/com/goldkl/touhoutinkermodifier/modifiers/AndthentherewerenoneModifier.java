@@ -1,8 +1,11 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -70,7 +73,7 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
                 if (livingentity != projectile.getOwner() && !(projectile.distanceToSqr(livingentity) > d0*d0)) {
                     float f1 = f * (float)Math.sqrt((d0 - (double)projectile.distanceTo(livingentity)) / d0);
                     livingentity.hurt(new DamageSource(projectile.level().damageSources().outOfBorder().typeHolder(), projectile.getOwner()), f1);
-                    livingentity.invulnerableTime = 0;
+                    TTMEntityUtils.clearLivingEntityInvulnerableTime(livingentity);
                 }
             }
         }

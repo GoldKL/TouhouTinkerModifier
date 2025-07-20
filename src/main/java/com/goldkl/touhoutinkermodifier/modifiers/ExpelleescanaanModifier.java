@@ -42,7 +42,7 @@ public class ExpelleescanaanModifier extends Modifier implements OnAttackedModif
                     {
                         int level = modifier.getLevel();
                         attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2 * level - 1,false,true));
-                        attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 9, false, true));
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true));
                     }
                 }
             }

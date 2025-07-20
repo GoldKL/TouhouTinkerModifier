@@ -6,8 +6,12 @@
   "refmap": "touhoutinkermodifier.refmap.json",
   "plugin": "com.goldkl.touhoutinkermodifier.MixinConfigPlugin",
   "mixins": [
+    "LevelMixin",
+    "LivingEntityMixin",
+    "MobEffectsMixin",
     "arsnouveau.ArsNouveauAPIMixin",
     "attributeslib.AttributeEventsMixin",
+    "cataclysm.LLibrary_Boss_MonsterAccessor",
     "ironspell.AbstractSpellMixin",
     "ironspell.CastingItemMixin",
     "ironspell.MagicManagerMixin",
@@ -16,7 +20,9 @@
     "ironspell.SpellWheelOverlayMixin",
     "ironspell.TooltipsUtilsMixin",
     "sakuratinker.FountainMagicModifierMixin",
-    "tconstruct.ToolAttackUtilMixin"
+    "tconstruct.ToolAttackUtilMixin",
+    "youkaishomecoming.FleshFoodItemMixin",
+    "youkaishomecoming.FleshSaucerItemMixin",
   ],
   "client": [
     "LightTextureMixin",

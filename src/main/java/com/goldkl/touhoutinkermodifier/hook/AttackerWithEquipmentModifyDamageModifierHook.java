@@ -29,7 +29,7 @@ public interface AttackerWithEquipmentModifyDamageModifierHook {
             if (toolStack != null && !toolStack.isBroken()) {
                 for (ModifierEntry entry : toolStack.getModifierList()) {
                     amount = entry.getHook(hook).attackermodifyDamageTaken(toolStack, entry, context, slotType, source, baseamount, amount, isDirectDamage);
-                    if (amount < 0) {
+                    if (amount <= 0) {
                         return 0;
                     }
                 }

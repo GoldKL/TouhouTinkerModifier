@@ -33,6 +33,16 @@ public class ModifierIds {
     public static final ModifierId jacktheripper = id("jacktheripper");
     public static final ModifierId perfectandelegant = id("perfectandelegant");
     public static final ModifierId pocketwatchofblood = id("pocketwatchofblood");
+    public static final ModifierId theworld = id("theworld");
+    public static final ModifierId rainbowtaichi = id("rainbowtaichi");
+    public static final ModifierId fanghuaxuanlan = id("fanghuaxuanlan");
+    public static final ModifierId bengshancaiji = id("bengshancaiji");
+    public static final ModifierId midnightbird = id("midnightbird");
+    public static final ModifierId apparitionsstalkthenight = id("apparitionsstalkthenight");
+    public static final ModifierId sonanoka = id("sonanoka");
+    public static final ModifierId devourdarkness = id("devourdarkness");
+    public static final ModifierId kojisousamadesita = id("kojisousamadesita");
+    public static final ModifierId avatarofdarkness = id("avatarofdarkness");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }
