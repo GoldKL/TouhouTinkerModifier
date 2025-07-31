@@ -46,6 +46,9 @@ public class ModifierRegistry {
     public static final StaticModifier<ApparitionsstalkthenightModifier>apparitionsstalkthenight = MODIFIERS.register("apparitionsstalkthenight",ApparitionsstalkthenightModifier::new);
     public static final StaticModifier<DevourdarknessModifier>devourdarkness = MODIFIERS.register("devourdarkness",DevourdarknessModifier::new);
     public static final StaticModifier<KojisousamadesitaModifier>kojisousamadesita = MODIFIERS.register("kojisousamadesita",KojisousamadesitaModifier::new);
+    public static final StaticModifier<AvatarofdarknessModifier>avatarofdarkness = MODIFIERS.register("avatarofdarkness",AvatarofdarknessModifier::new);
+    public static final StaticModifier<JikicoercionModifier>jikicoercion = MODIFIERS.register("jikicoercion", JikicoercionModifier::new);
+    public static final StaticModifier<FullfirepowerModifier>fullfirepower = MODIFIERS.register("fullfirepower",FullfirepowerModifier::new);
 
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);

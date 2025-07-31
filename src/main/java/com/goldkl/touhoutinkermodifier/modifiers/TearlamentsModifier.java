@@ -2,10 +2,12 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
+import com.goldkl.touhoutinkermodifier.registries.AttributesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.mojang.blaze3d.shaders.FogShape;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
+import dev.xkmc.youkaishomecoming.content.item.curio.hat.FlyingToken;
 import net.minecraft.client.Camera;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
@@ -43,7 +45,7 @@ import java.util.UUID;
 public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook, NightVisionHook {
     //珠泪哀歌：若鹭姬
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.tearlaments);
-    public static final TinkerDataCapability.TinkerDataKey<TTMEntityUtils.BooleanStat> IsinWater = TinkerDataCapability.ComputableDataKey.of(ModifierIds.tearlaments.withSuffix("_isinwater"), TTMEntityUtils.BooleanStat::new);
+    //public static final TinkerDataCapability.TinkerDataKey<TTMEntityUtils.BooleanStat> IsinWater = TinkerDataCapability.ComputableDataKey.of(ModifierIds.tearlaments.withSuffix("_isinwater"), TTMEntityUtils.BooleanStat::new);
     private static final UUID uuid = UUID.nameUUIDFromBytes((ModifierIds.tearlaments.toString()).getBytes());
     final SlotInChargeModule SICM;
     public TearlamentsModifier()
@@ -126,9 +128,20 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     @Override
     public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(world.isClientSide())return;
-        if(isCorrectSlot)
+        if(isCorrectSlot && livingEntity instanceof Player player)
         {
-            EquipmentSlot slot = null;
+            updatavalue(livingEntity);
+            boolean check = player.isInWater();
+            if(check)
+            {
+                FlyingToken.tickFlying(player);
+                if(!player.getAbilities().flying && player.getAbilities().mayfly &&!(player.isCreative()||player.isSpectator()))
+                {
+                    player.getAbilities().flying = true;
+                    player.onUpdateAbilities();
+                }
+            }
+            /*EquipmentSlot slot = null;
             for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
             {
                 if(livingEntity.getItemBySlot(equipmentSlot) == itemStack)
@@ -167,8 +180,6 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                             player.getAbilities().flying = player.getAbilities().mayfly;
                             player.onUpdateAbilities();
                         }
-                        player.getAbilities().flying = player.isCreative()||player.isSpectator();
-                        player.onUpdateAbilities();
                     }
                 }
                 livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
@@ -182,7 +193,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                         data.put(IsinWater,new TTMEntityUtils.BooleanStat(state[0]));
                     }
                 });
-            }
+            }*/
         }
     }
     void updatavalue(LivingEntity entity)
@@ -211,6 +222,14 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                 instance2.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.MULTIPLY_BASE));
             }
         }
+        AttributeInstance instance3 = (entity instanceof Player)?entity.getAttribute(AttributesRegistry.PLAYER_FLY_MOVEMENT.get()):entity.getAttribute(Attributes.FLYING_SPEED);
+        if (instance3 != null) {
+            instance3.removeModifier(uuid);
+            float attributeValue = (level>0 ? 1 : 0) * isinWater * 0.5f;
+            if (attributeValue != 0) {
+                instance3.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.MULTIPLY_BASE));
+            }
+        }
     }
     @Override
     public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context)
@@ -224,6 +243,8 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     {
         SICM.onUnequip(tool, modifier, context);
         if(!context.getEntity().level().isClientSide)
+            updatavalue(context.getEntity());
+        /*if(!context.getEntity().level().isClientSide)
         {
             updatavalue(context.getEntity());
             LivingEntity entity = context.getEntity();
@@ -238,18 +259,13 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                         break;
                     }
                 }
-                if(!check)
-                {
-                    player.getAbilities().flying = player.isCreative()||player.isSpectator();
-                    player.onUpdateAbilities();
-                }
-                /*if(!check&&!(player.isCreative()||player.isSpectator()))
+                if(!check&&!(player.isCreative()||player.isSpectator()))
                 {
                     player.getAbilities().flying = player.getAbilities().mayfly;
                     player.onUpdateAbilities();
-                }*/
+                }
             }
-        }
+        }*/
     }
 
 }

@@ -42,7 +42,7 @@ public class LaevateinModifier extends Modifier implements MeleeDamageModifierHo
         if(tool.hasTag(TagsRegistry.ItemsTag.CLAYMORE)&&!context.isExtraAttack())
         {
             int level = modifier.getLevel();
-            damage *= 1.0f + 0.25f*level;
+            damage *= 1.0f + 0.5f*level;
         }
         return damage;
     }

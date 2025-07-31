@@ -23,8 +23,8 @@ public class CrimsonfantasySpell extends AbstractSpell {
             .build();
     public CrimsonfantasySpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 10;
-        this.spellPowerPerLevel = 4;
+        this.baseSpellPower = 25;
+        this.spellPowerPerLevel = 8;
         this.castTime = 0;
         this.baseManaCost = 0;
     }

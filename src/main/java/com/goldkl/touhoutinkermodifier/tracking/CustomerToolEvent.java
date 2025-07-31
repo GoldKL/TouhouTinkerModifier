@@ -15,6 +15,8 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +27,9 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifier
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 @Mod.EventBusSubscriber(modid = TouhouTinkerModifier.MODID)
 public class CustomerToolEvent {
@@ -106,6 +110,24 @@ public class CustomerToolEvent {
         if(heal <= 0.0F)
         {
             event.setCanceled(true);
+        }
+    }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void EffectApply(MobEffectEvent.Applicable event){
+        if (event.getEntity()!=null) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                if (event.getEntity().getItemBySlot(slot).getItem() instanceof IModifiable) {
+                    ToolStack tool = ToolStack.from(event.getEntity().getItemBySlot(slot));
+                    boolean notApplicable = event.getResult()== Event.Result.DENY;
+                    for (ModifierEntry entry:tool.getModifierList()){
+                        notApplicable = entry.getHook(ModifierHooksRegistry.ENTITY_EFFECT_APPLICABLE_HURT).isApplicable(tool,entry,slot,event.getEffectInstance(),event.getEntity(),notApplicable);
+                        if (notApplicable){
+                            event.setResult(Event.Result.DENY);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

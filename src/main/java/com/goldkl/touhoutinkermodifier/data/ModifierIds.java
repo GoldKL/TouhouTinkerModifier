@@ -43,6 +43,8 @@ public class ModifierIds {
     public static final ModifierId devourdarkness = id("devourdarkness");
     public static final ModifierId kojisousamadesita = id("kojisousamadesita");
     public static final ModifierId avatarofdarkness = id("avatarofdarkness");
+    public static final ModifierId jikicoercion = id("jikicoercion");
+    public static final ModifierId fullfirepower = id("fullfirepower");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

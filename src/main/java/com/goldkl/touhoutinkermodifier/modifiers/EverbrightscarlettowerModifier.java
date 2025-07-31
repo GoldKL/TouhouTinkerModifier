@@ -28,7 +28,8 @@ public class EverbrightscarlettowerModifier extends NoLevelsModifier implements 
     final String unique = ModifierIds.everbrightscarlettower.getNamespace()+  ".modifier."+ModifierIds.everbrightscarlettower.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(AttributeRegistry.COOLDOWN_REDUCTION.get(), PerkAttributes.MANA_REGEN_BONUS.get());
-    private static final List<Float> attributes_amount = List.of(0.1f,0.025f);
+    private static final List<Float> attributes_amount = List.of(0.1f,5f);
+    private static final List<AttributeModifier.Operation> attribute_operation = List.of(AttributeModifier.Operation.MULTIPLY_BASE,AttributeModifier.Operation.ADDITION);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
@@ -65,6 +66,6 @@ public class EverbrightscarlettowerModifier extends NoLevelsModifier implements 
     }
     private @Nullable AttributeModifier createModifier(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot,int level,int index) {
         UUID uuid = this.getUUID(slot);
-        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * attributes_amount.get(index), AttributeModifier.Operation.MULTIPLY_BASE) : null;
+        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * attributes_amount.get(index), attribute_operation.get(index)) : null;
     }
 }

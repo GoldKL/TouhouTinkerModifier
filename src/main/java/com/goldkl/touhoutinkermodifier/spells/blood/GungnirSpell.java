@@ -24,8 +24,8 @@ public class GungnirSpell extends AbstractSpell {
             .build();
     public GungnirSpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 12;
-        this.spellPowerPerLevel = 2;
+        this.baseSpellPower = 30;
+        this.spellPowerPerLevel = 10;
         this.castTime = 0;
         this.baseManaCost = 0;
     }

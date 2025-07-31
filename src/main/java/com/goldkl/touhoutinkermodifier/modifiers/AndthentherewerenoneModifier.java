@@ -5,6 +5,7 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
+import com.goldkl.touhoutinkermodifier.tracking.ChannelEventTracker;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.particles.ParticleTypes;
@@ -63,10 +64,10 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
                 explosion1.putByte("Type", (byte) 4);
                 explosions.add(explosion1);
                 fireworkNBT.put("Explosions", explosions);
-                TouhouTinkerModifier.channel.send(PacketDistributor.ALL.noArg(), new FireworkMessage(projectile.getX(),projectile.getY(),projectile.getZ(),0,0,0,fireworkNBT));
+                ChannelEventTracker.sendToAllPlayers(new FireworkMessage(projectile.getX(),projectile.getY(),projectile.getZ(),0,0,0,fireworkNBT));
             }
-            double d0 = 2.5 * (level + 1);
-            float f = 20 + 5 * level;
+            double d0 = 5 * (level + 1);
+            float f = 40 + 10 * level;
             Vec3 vec3 = projectile.position();
 
             for(LivingEntity livingentity : projectile.level().getEntitiesOfClass(LivingEntity.class, projectile.getBoundingBox().inflate(d0))) {

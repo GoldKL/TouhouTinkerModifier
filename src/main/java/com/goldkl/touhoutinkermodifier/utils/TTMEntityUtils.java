@@ -3,6 +3,8 @@ package com.goldkl.touhoutinkermodifier.utils;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
+import com.goldkl.touhoutinkermodifier.mixin.youkaishomecoming.BossYoukaiEntityAccessor;
+import dev.xkmc.youkaishomecoming.content.entity.boss.BossYoukaiEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -19,6 +21,10 @@ public class TTMEntityUtils {
         if(entity instanceof LLibrary_Boss_Monster lLibraryBossMonster)
         {
             ((LLibrary_Boss_MonsterAccessor)lLibraryBossMonster).setreducedDamageTicks(0);
+        }
+        if(entity instanceof BossYoukaiEntity bossYoukaiEntity)
+        {
+            ((BossYoukaiEntityAccessor)bossYoukaiEntity).sethurtCD(1000);
         }
     }
     public static boolean hasModifier(LivingEntity entity, ModifierId modifier) {
@@ -48,50 +54,6 @@ public class TTMEntityUtils {
         }
         return false;
     }
+    //这两个词条会修改妖归的怪肉判断，目前是写死的
     public static List<ModifierId>FleshModifiers = List.of(ModifierIds.devourdarkness,ModifierIds.apparitionsstalkthenight);
-    public static class BooleanStat {
-        boolean booleanstat;
-        public BooleanStat(){
-            booleanstat = false;
-        }
-        public BooleanStat(boolean Stat){
-            this.booleanstat = Stat;
-        }
-        public boolean getBooleanstat(){
-            return booleanstat;
-        }
-        public void setBooleanstat(boolean booleanstat){
-            this.booleanstat = booleanstat;
-        }
-    }
-    public static class IntStat {
-        int intstat;
-        public IntStat(){
-            intstat = 0;
-        }
-        public IntStat(int stat){
-            this.intstat = stat;
-        }
-        public int getIntStat(){
-            return intstat;
-        }
-        public void setIntStat(int stat){
-            this.intstat = stat;
-        }
-    }
-    public static class LongStat {
-        long longstat;
-        public LongStat(){
-            longstat = 0;
-        }
-        public LongStat(long stat){
-            this.longstat = stat;
-        }
-        public long getLongStat(){
-            return longstat;
-        }
-        public void setLongStat(long stat){
-            this.longstat = stat;
-        }
-    }
 }

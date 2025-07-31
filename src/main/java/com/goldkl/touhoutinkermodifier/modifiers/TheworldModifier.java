@@ -44,7 +44,7 @@ public class TheworldModifier extends Modifier implements GeneralInteractionModi
                 int level = modifier.getLevel();
                 player.addEffect(new MobEffectInstance(MobeffectRegistry.TIMESTOP.get(),
                     80 + 20*level,
-                            level/2,
+                    level/2,
                     false,
                     true));
             }

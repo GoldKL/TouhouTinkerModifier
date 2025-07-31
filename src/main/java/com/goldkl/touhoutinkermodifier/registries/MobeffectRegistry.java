@@ -15,6 +15,9 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> IMPRISON = REGISTRY.register("imprison",ImprisonEffect::new);
     public static final RegistryObject<MobEffect> TIMESTOP = REGISTRY.register("timestop", TimestopEffect::new);
     public static final RegistryObject<MobEffect> INTERNALINJURY = REGISTRY.register("internal_injury",InternalinjuryEffect::new);
+    public static final RegistryObject<MobEffect> SONANOKA = REGISTRY.register("sonanoka", SonanokaEffect::new);
+    public static final RegistryObject<MobEffect> BREAKDARKNESS = REGISTRY.register("breakdarkness", BreakdarknessEffect::new);
+    public static final RegistryObject<MobEffect> MELT = REGISTRY.register("melt", MeltEffect::new);
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

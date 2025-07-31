@@ -95,6 +95,6 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
     }
     private @Nullable AttributeModifier createModifier(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot,int level,int index) {
         UUID uuid = this.getUUID(slot);
-        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * attributes_amount.get(index), AttributeModifier.Operation.MULTIPLY_BASE) : null;
+        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * attributes_amount.get(index), AttributeModifier.Operation.ADDITION) : null;
     }
 }
