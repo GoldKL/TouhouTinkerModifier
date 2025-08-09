@@ -16,8 +16,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "com.goldkl.touhoutinkermodifier.mixin.tconstruct.ToolAttackUtilMixin", () ->LoadingModList.get().getModFileById("bettercombat") !=null
-
+            "com.goldkl.touhoutinkermodifier.mixin.tconstruct.ToolAttackUtilMixin", () ->LoadingModList.get().getModFileById("bettercombat") != null
     );
 
 

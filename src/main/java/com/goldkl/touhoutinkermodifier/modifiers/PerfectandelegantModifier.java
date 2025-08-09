@@ -102,12 +102,12 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
         return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * attributes_amount.get(index), AttributeModifier.Operation.ADDITION) : null;
     }
     @Override
-    public void addTooltip(IToolStackView tool, ModifierEntry modifier, @org.jetbrains.annotations.Nullable Player player, List<Component> list, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> list, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
         int level = modifier.getLevel();
         list.add(modifier.getModifier().applyStyle(Component.translatable("modifier.touhoutinkermodifier.perfectandelegant.fullhealth")));
-        for(int i = 0; i < 2; i++) {
-            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), level * attributes_amount.get(i), list);
-        }
+        TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(0).getDescriptionId()), level * attributes_amount.get(0), list);
+        TooltipModifierHook.addFlatBoost(modifier.getModifier(), Component.translatable(attributes.get(1).getDescriptionId()), level * attributes_amount.get(1), list);
+
     }
     @Override
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {

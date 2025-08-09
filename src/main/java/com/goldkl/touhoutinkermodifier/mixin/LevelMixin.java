@@ -1,12 +1,9 @@
 package com.goldkl.touhoutinkermodifier.mixin;
 
-import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
 import com.goldkl.touhoutinkermodifier.api.LevelhaveLivingEntityTimeStop;
 import com.goldkl.touhoutinkermodifier.api.LivingEntityCanStopTime;
-import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
 import com.goldkl.touhoutinkermodifier.mobeffect.TimestopEffect;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,11 +34,11 @@ public class LevelMixin implements LevelhaveLivingEntityTimeStop {
     @Inject(method = "guardEntityTick",at = @At("HEAD"), cancellable = true)
     public <T extends Entity> void test(Consumer<T> consumer, T entity, CallbackInfo ci)
     {
-        boolean flag1 = false;
+        boolean flag1 = false;//是否无视时停
+        this.touhouTinkerModifier$updataTimeStop(entity);
         if (entity instanceof LivingEntity lventity) {
             if(((LivingEntityCanStopTime)lventity).touhouTinkerModifier$isCanStopTime() > -1)
             {
-                ((LevelhaveLivingEntityTimeStop)(Object)this).touhouTinkerModifier$getLivingEntitiesHavingTimeStop().add(lventity);
                 flag1 = true;
             }
             else
@@ -49,12 +46,11 @@ public class LevelMixin implements LevelhaveLivingEntityTimeStop {
                 if(lventity instanceof Player player && (player.isCreative() || player.isSpectator())) {
                     flag1 = true;
                 }
-                ((LevelhaveLivingEntityTimeStop)(Object)this).touhouTinkerModifier$getLivingEntitiesHavingTimeStop().remove(lventity);
             }
         }
         if(!flag1)
         {
-            boolean flag = true;
+            boolean flag = true;//是否没有被时停
             for(LivingEntity livingEntity:((LevelhaveLivingEntityTimeStop)(Object)this).touhouTinkerModifier$getLivingEntitiesHavingTimeStop())
             {
                 if(!livingEntity.isRemoved())
@@ -73,8 +69,30 @@ public class LevelMixin implements LevelhaveLivingEntityTimeStop {
                 {
                     TTMEntityUtils.clearLivingEntityInvulnerableTime(livingEntity);
                 }
+                for(Entity rider:entity.getPassengers())
+                {
+                    rider.stopRiding();
+                }
                 ci.cancel();
             }
+        }
+    }
+    @Unique
+    void touhouTinkerModifier$updataTimeStop(Entity entity)
+    {
+        if (entity instanceof LivingEntity lventity) {
+            if(((LivingEntityCanStopTime)lventity).touhouTinkerModifier$isCanStopTime() > -1)
+            {
+                ((LevelhaveLivingEntityTimeStop)(Object)this).touhouTinkerModifier$getLivingEntitiesHavingTimeStop().add(lventity);
+            }
+            else
+            {
+                ((LevelhaveLivingEntityTimeStop)(Object)this).touhouTinkerModifier$getLivingEntitiesHavingTimeStop().remove(lventity);
+            }
+        }
+        for(Entity rider:entity.getPassengers())
+        {
+            this.touhouTinkerModifier$updataTimeStop(rider);
         }
     }
 }

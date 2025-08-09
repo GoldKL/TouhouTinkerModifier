@@ -52,6 +52,21 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     @Inject(method = "tickEffects",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;updateInvisibilityStatus()V"))
     void tickeffectupdatanewdata(CallbackInfo ci)
     {
+        this.touhouTinkerModifier$updatetimestop();
+    }
+    @Inject(method = "sendEffectToPassengers",at = @At("HEAD"))
+    void updatatimestopmixin(CallbackInfo ci)
+    {
+        this.touhouTinkerModifier$updatetimestop();
+    }
+    @Inject(method = "onEffectRemoved",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;removeAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V"))
+    void onEffectRemovedMixin(MobEffectInstance p_21126_, CallbackInfo ci)
+    {
+        this.touhouTinkerModifier$updatetimestop();
+    }
+    @Unique
+    void touhouTinkerModifier$updatetimestop()
+    {
         boolean flag = this.hasEffect(MobeffectRegistry.TIMESTOP.get());
         if(flag)
         {

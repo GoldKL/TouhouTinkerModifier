@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import java.util.List;
 
 public class ApparitionsstalkthenightModifier extends Modifier implements ProcessLootModifierHook {
+    //妖魔夜行：露米娅
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         hookBuilder.addHook(this, ModifierHooks.PROCESS_LOOT);

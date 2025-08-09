@@ -49,6 +49,8 @@ public class ModifierRegistry {
     public static final StaticModifier<AvatarofdarknessModifier>avatarofdarkness = MODIFIERS.register("avatarofdarkness",AvatarofdarknessModifier::new);
     public static final StaticModifier<JikicoercionModifier>jikicoercion = MODIFIERS.register("jikicoercion", JikicoercionModifier::new);
     public static final StaticModifier<FullfirepowerModifier>fullfirepower = MODIFIERS.register("fullfirepower",FullfirepowerModifier::new);
+    public static final StaticModifier<ArcticstormModifier>arcticstorm = MODIFIERS.register("arcticstorm",ArcticstormModifier::new);
+    public static final StaticModifier<OverroseModifier>overrose = MODIFIERS.register("overrose",OverroseModifier::new);
 
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);

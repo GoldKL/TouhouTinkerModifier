@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.tracking;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
 import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientAbsolutezeroParticles;
+import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientArcticstormParticles;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,6 +30,11 @@ public class ChannelEventTracker {
                 .encoder(ClientAbsolutezeroParticles::toBytes)
                 .decoder(ClientAbsolutezeroParticles::new)
                 .consumerMainThread(ClientAbsolutezeroParticles::handle)
+                .add();
+        TouhouTinkerModifier.channel.messageBuilder(ClientArcticstormParticles.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ClientArcticstormParticles::toBytes)
+                .decoder(ClientArcticstormParticles::new)
+                .consumerMainThread(ClientArcticstormParticles::handle)
                 .add();
     }
     public static <MSG> void sendToServer(MSG message) {

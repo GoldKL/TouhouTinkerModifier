@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.mixin.ironspell.SchoolTypeAccessor;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;

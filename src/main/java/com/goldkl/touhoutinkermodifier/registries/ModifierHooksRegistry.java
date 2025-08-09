@@ -39,6 +39,7 @@ public class ModifierHooksRegistry {
     public static final ModuleHook<EntityDodgeHook> ENTITY_DODGE_HOOK = register("entity_dodge_hook", EntityDodgeHook.class, EntityDodgeHook.AllMerger::new,new EntityDodgeHook() {});
     public static final ModuleHook<EntityHealHook> ENTITY_HEAL_HOOK = register("entity_heal_hook", EntityHealHook.class, EntityHealHook.AllMerger::new,new EntityHealHook() {});
     public static final ModuleHook<EntityEffectApplicableModifierHook>ENTITY_EFFECT_APPLICABLE_HURT = register("entity_effect_applicable_modifier_hook",EntityEffectApplicableModifierHook.class,EntityEffectApplicableModifierHook.AllMerger::new, (tool, entry, slot, instance, entity, notApplicable) -> notApplicable);
+    public static final ModuleHook<MeleeDamagePercentModifierHook>MELEE_DAMAGE_PERCENT = register("melee_damage_percent_hook", MeleeDamagePercentModifierHook.class,MeleeDamagePercentModifierHook.AllMerger::new,new MeleeDamagePercentModifierHook(){});
     private static <T> ModuleHook<T> register(String name, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
         return ModifierHooks.register(TouhouTinkerModifier.getResource(name), filter, merger, defaultInstance);
     }

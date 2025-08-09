@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class AvatarofdarknessModifier extends Modifier implements ModifyDamageModifierHook, InventoryTickModifierHook {
+    //黑暗化身：EX露米娅
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.avatarofdarkness);
     public int getPriority() {
         return 15;
@@ -70,7 +71,7 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
                 int light = Math.max(world.getBrightness(LightLayer.BLOCK, livingEntity.blockPosition()), world.getBrightness(LightLayer.SKY, livingEntity.blockPosition()));
                 if(light < 10)level *= 2;
                 float absorbmax = livingEntity.getMaxHealth() * 0.5f;
-                livingEntity.setAbsorptionAmount(Math.max(livingEntity.getAbsorptionAmount() + level * 0.5f, absorbmax));
+                livingEntity.setAbsorptionAmount(Math.min(livingEntity.getAbsorptionAmount() + level * 0.5f, absorbmax));
             }
         }
 

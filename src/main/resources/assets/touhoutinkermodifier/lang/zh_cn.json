@@ -90,7 +90,7 @@
   "modifier.touhoutinkermodifier.theworld.description": "使用后，周围的时间流动仿佛停滞了，但格外消耗体力",
   "modifier.touhoutinkermodifier.rainbowtaichi": "虹色太极",
   "modifier.touhoutinkermodifier.rainbowtaichi.flavor": "我的手上，已经掌握了拳理！",
-  "modifier.touhoutinkermodifier.rainbowtaichi.description": "你的呼吸效率得以增加，可以消耗‘气’来增加伤害，减免伤害，过低的伤害在气息充足时可以免疫，当你用盾牌格挡伤害，你回复相当于一定伤害比例的‘气’",
+  "modifier.touhoutinkermodifier.rainbowtaichi.description": "你的呼吸效率得以增加，在武器上时，你可以消耗‘气’来增加伤害；在防具上时，你可以消耗‘气’来减免伤害，过低的伤害在气息充足时可以免疫；当你用盾牌格挡伤害，你回复相当于一定伤害比例的‘气’",
   "modifier.touhoutinkermodifier.fanghuaxuanlan": "芳华绚烂",
   "modifier.touhoutinkermodifier.fanghuaxuanlan.flavor": "你所走过的路，我们早在4000年就已经走过了！",
   "modifier.touhoutinkermodifier.fanghuaxuanlan.description": "你的箭矢会对敌人造成[内伤]，且每次攻击[内伤]都会加重",
@@ -121,6 +121,12 @@
   "modifier.touhoutinkermodifier.fullfirepower": "火力全开",
   "modifier.touhoutinkermodifier.fullfirepower.flavor": "势 不 可 挡",
   "modifier.touhoutinkermodifier.fullfirepower.description": "你的弹幕伤害提升",
+  "modifier.touhoutinkermodifier.arcticstorm": "冻原风暴",
+  "modifier.touhoutinkermodifier.arcticstorm.flavor": "穿过冰雪之门！",
+  "modifier.touhoutinkermodifier.arcticstorm.description": "当你连续三次使用该武器攻击敌人，你释放与该词条等级相同的[冻原风暴]",
+  "modifier.touhoutinkermodifier.overrose": "蔓盛蔷薇",
+  "modifier.touhoutinkermodifier.overrose.flavor": "不断盛开的地底蔷薇",
+  "modifier.touhoutinkermodifier.overrose.description": "每秒回复一定比例的黏液覆层，[无意识]的香气好像能促使他生长的更快",
 
   "effect.touhoutinkermodifier.holymantle" : "神圣屏障",
   "effect.touhoutinkermodifier.fragile" : "脆弱",
@@ -130,22 +136,32 @@
   "effect.touhoutinkermodifier.breakdarkness" : "黑暗破碎",
   "effect.touhoutinkermodifier.melt" : "溶解",
   "effect.touhoutinkermodifier.sonanoka" : "是～这样吗？",
+  "effect.touhoutinkermodifier.arcticstorm" : "冻原风暴",
 
   "spell.touhoutinkermodifier.gungnir": "冈格尼尔",
   "spell.touhoutinkermodifier.laevatein": "莱瓦汀",
   "spell.touhoutinkermodifier.crimsonfantasy": "深红幻想",
   "spell.touhoutinkermodifier.absolutezero": "绝对零度",
   "spell.touhoutinkermodifier.absolutezero.guide": "吟唱期间获得护盾、不能移动并令范围内敌人持续冷冻，吟唱结束时基于吟唱时间造成巨大伤害",
+  "spell.touhoutinkermodifier.arcticstorm": "冻原风暴",
+  "spell.touhoutinkermodifier.arcticstorm.guide": "施放后持续对周围敌人造成伤害",
+  "spell.touhoutinkermodifier.skysplitter": "霹天雳地",
+  "spell.touhoutinkermodifier.skysplitter.guide": "朝指定区域召唤雷电，一定延迟后落下，对范围内敌人造成伤害，若雷电命中了施法者，为自身提供护盾",
+
 
   "death.attack.touhoutinkermodifier.gungnir": "%1$s被%2$s的冈格尼尔穿透了胸膛。",
   "death.attack.touhoutinkermodifier.laevatein": "%1$s被%2$s的莱瓦汀平均分成了四块。",
   "death.attack.touhoutinkermodifier.crimsonfantasy": "%1$s被%2$s的深红幻想穿透了。",
   "death.attack.touhoutinkermodifier.absolutezero": "%1$s冻毙在%2$s的绝对零度所带来的暴风雪。",
+  "death.attack.touhoutinkermodifier.arcticstorm": "%1$s被%2$s的冻原风暴冻成了冰雕。",
+  "death.attack.touhoutinkermodifier.skysplitter": "%1$s被%2$s的霹天雳地电成了灰烬。",
 
   "death.attack.touhoutinkermodifier.gungnir.item": "%1$s被%2$s用%3$s的冈格尼尔穿透了胸膛。",
   "death.attack.touhoutinkermodifier.laevatein.item": "%1$s被%2$s用%3$s的莱瓦汀平均分成了四块。",
   "death.attack.touhoutinkermodifier.crimsonfantasy.item": "%1$s被%2$s用%3$s的深红幻想穿透了。",
   "death.attack.touhoutinkermodifier.absolutezero.item": "%1$s冻毙在%2$s用%3$s的绝对零度所带来的暴风雪。",
+  "death.attack.touhoutinkermodifier.arcticstorm.item": "%1$s被%2$s用%3$s的冻原风暴冻成了冰雕。",
+  "death.attack.touhoutinkermodifier.skysplitter.item": "%1$s被%2$s用%3$s的霹天雳地电成了灰烬。",
 
   "attribute.touhoutinkermodifier.mana_cost_reduction": "魔耗缩减",
   "attribute.touhoutinkermodifier.mana_cost_reduction.desc": "降低你的魔法需求的法力消耗",
@@ -153,5 +169,8 @@
   "attribute.touhoutinkermodifier.player_fly_movement.desc": "修正你的飞行速度",
   "modifier.touhoutinkermodifier.perfectandelegant.fullhealth": "生命值为满时：",
   "modifier.touhoutinkermodifier.devourdarkness.needtoeat": "该通过食用[怪肉]来摄取[黑暗]了",
-  "modifier.touhoutinkermodifier.devourdarkness.nottoeat": "距离下次补充[黑暗]还有%1$s秒"
+  "modifier.touhoutinkermodifier.devourdarkness.nottoeat": "距离下次补充[黑暗]还有%1$s秒",
+
+  "entity.touhoutinkermodifier.sky_splitter": "霹天雳地",
+  "ui.touhoutinkermodifier.maxhealth_percent": "%d%% 最大生命值 "
 }

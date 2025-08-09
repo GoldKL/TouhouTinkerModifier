@@ -6,10 +6,12 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import java.util.Iterator;
 
@@ -20,24 +22,26 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.TOOL_STATS);
+        hookBuilder.addModule(StatBoostModule.add(OverslimeModifier.OVERSLIME_STAT).eachLevel(100));
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
         int level = getlevelcount(context);
-        float amount = modifier.getLevel()*level*0.1f;
+        float amount = 1.0f + modifier.getLevel()*level*0.1f;
         if (amount > 0) {
             if (context.hasTag(TinkerTags.Items.MELEE)) {
-                ToolStats.ATTACK_DAMAGE.percent(builder, amount);
+                ToolStats.ATTACK_DAMAGE.multiply(builder, amount);
+                ToolStats.ATTACK_SPEED.multiply(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.HARVEST)) {
-                ToolStats.MINING_SPEED.percent(builder, amount);
+                ToolStats.MINING_SPEED.multiply(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.ARMOR)) {
-                ToolStats.ARMOR.percent(builder, amount);
-                ToolStats.ARMOR_TOUGHNESS.percent(builder, amount);
+                ToolStats.ARMOR.multiply(builder, amount);
+                ToolStats.ARMOR_TOUGHNESS.multiply(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.RANGED)) {
-                ToolStats.VELOCITY.percent(builder, amount);
+                ToolStats.VELOCITY.multiply(builder, amount);
             }
         }
     }
@@ -48,7 +52,7 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
         while(it.hasNext())
         {
             ModifierEntry entry = it.next();
-            if (ModifierManager.isInTag(entry.getId(), TinkerTags.Modifiers.OVERSLIME_FRIEND)) {
+            if (entry.matches(TinkerTags.Modifiers.OVERSLIME_FRIEND)) {
                 level += entry.getLevel();
             }
         }

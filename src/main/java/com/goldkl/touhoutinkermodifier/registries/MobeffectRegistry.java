@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MobeffectRegistry {
-    public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TouhouTinkerModifier.MODID);
+    private static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TouhouTinkerModifier.MODID);
     public static final RegistryObject<MobEffect> HOLYMANTLE = REGISTRY.register("holymantle", HolymantleEffect::new);
     public static final RegistryObject<MobEffect> FRAGILE = REGISTRY.register("fragile", FragileEffect::new);
     public static final RegistryObject<MobEffect> IMPRISON = REGISTRY.register("imprison",ImprisonEffect::new);
@@ -18,6 +18,8 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> SONANOKA = REGISTRY.register("sonanoka", SonanokaEffect::new);
     public static final RegistryObject<MobEffect> BREAKDARKNESS = REGISTRY.register("breakdarkness", BreakdarknessEffect::new);
     public static final RegistryObject<MobEffect> MELT = REGISTRY.register("melt", MeltEffect::new);
+    public static final RegistryObject<MobEffect> ARCTICSTROM = REGISTRY.register("arcticstorm", ArcticstormEffect::new);
+
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

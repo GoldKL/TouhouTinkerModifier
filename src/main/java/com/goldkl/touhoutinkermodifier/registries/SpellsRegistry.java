@@ -5,6 +5,8 @@ import com.goldkl.touhoutinkermodifier.spells.blood.CrimsonfantasySpell;
 import com.goldkl.touhoutinkermodifier.spells.blood.GungnirSpell;
 import com.goldkl.touhoutinkermodifier.spells.blood.LaevateinSpell;
 import com.goldkl.touhoutinkermodifier.spells.ice.AbsolutezeroSpell;
+import com.goldkl.touhoutinkermodifier.spells.ice.ArcticstormSpell;
+import com.goldkl.touhoutinkermodifier.spells.lightning.SkysplitterSpell;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,8 +21,9 @@ public class SpellsRegistry {
     public static final RegistryObject<AbstractSpell> crimsonfantasy = registerSpell(new CrimsonfantasySpell());
     //Ice
     public static final RegistryObject<AbstractSpell> absolutezero = registerSpell(new AbsolutezeroSpell());
-
-
+    public static final RegistryObject<AbstractSpell> arcticstorm = registerSpell(new ArcticstormSpell());
+    //Lightning
+    public static final RegistryObject<AbstractSpell> skysplitter = registerSpell(new SkysplitterSpell());
 
     public static RegistryObject<AbstractSpell> registerSpell(AbstractSpell spell)
     {
