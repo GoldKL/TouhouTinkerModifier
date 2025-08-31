@@ -1,20 +1,16 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -22,7 +18,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 public class ExpelleescanaanModifier extends Modifier implements OnAttackedModifierHook, ToolStatsModifierHook {
     //应许之地：犬走椛
@@ -41,8 +36,8 @@ public class ExpelleescanaanModifier extends Modifier implements OnAttackedModif
                     if(context.getEntity().getTicksUsingItem() <= PARRYTICK)
                     {
                         int level = modifier.getLevel();
-                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2 * level - 1,false,true));
-                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true));
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(),60,2 * level - 1,false,true),context.getEntity());
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true),context.getEntity());
                     }
                 }
             }

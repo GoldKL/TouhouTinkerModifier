@@ -1,6 +1,9 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,7 +33,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.function.BiFunction;
 
-public class RainbowtaichiModifier extends Modifier implements MeleeDamageModifierHook, ModifyDamageModifierHook, OnAttackedModifierHook, ProjectileLaunchModifierHook {
+public class RainbowtaichiModifier extends Modifier implements ModifyDamageModifierHook, OnAttackedModifierHook, MeleeDamagePercentModifierHook, ProjectileLaunchModifierHook {//MeleeDamageModifierHook,
     //虹色太极：红美铃
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.rainbowtaichi);
     public RainbowtaichiModifier()
@@ -40,7 +43,7 @@ public class RainbowtaichiModifier extends Modifier implements MeleeDamageModifi
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MODIFY_HURT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED);
+        hookBuilder.addHook(this, ModifierHooks.MODIFY_HURT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooksRegistry.MELEE_DAMAGE_PERCENT);//ModifierHooks.MELEE_DAMAGE
         hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     private static int getlevel(LivingEntity entity, BiFunction<Integer,Integer,Integer> function)
@@ -68,6 +71,35 @@ public class RainbowtaichiModifier extends Modifier implements MeleeDamageModifi
         }
     }
     @Override
+    public void getMeleeDamageModifier(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, DamageModifier damagemodifier)
+    {
+        LivingEntity attacker = context.getAttacker();
+        if(attacker.getAirSupply() >= MELLEE_AIRCOST)
+        {
+            int level = getlevel(attacker, TOTALLEVEL);
+            if(level > 0)
+            {
+                attacker.setAirSupply(Math.max(0,attacker.getAirSupply() - MELLEE_AIRCOST));
+                damagemodifier.addPercent(level * 0.1f);
+            }
+        }
+    }
+    /*@Override
+    public float getMeleePercent(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float percent)
+    {
+        LivingEntity attacker = context.getAttacker();
+        if(attacker.getAirSupply() >= MELLEE_AIRCOST)
+        {
+            int level = getlevel(attacker, TOTALLEVEL);
+            if(level > 0)
+            {
+                attacker.setAirSupply(Math.max(0,attacker.getAirSupply() - MELLEE_AIRCOST));
+                percent += level * 0.1f;
+            }
+        }
+        return percent;
+    }*/
+    /*@Override
     public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
         LivingEntity attacker = context.getAttacker();
         if(attacker.getAirSupply() >= MELLEE_AIRCOST)
@@ -80,9 +112,10 @@ public class RainbowtaichiModifier extends Modifier implements MeleeDamageModifi
             }
         }
         return damage;
-    }
+    }*/
     @Override
     public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+        if(source.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER))return amount;
         LivingEntity entity = context.getEntity();
         if(entity.getAirSupply() > 0 && SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType))
         {

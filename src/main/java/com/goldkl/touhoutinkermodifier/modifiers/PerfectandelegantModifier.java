@@ -4,6 +4,7 @@ import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.EntityDodgeHook;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.network.chat.Component;
@@ -55,19 +56,15 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
         if(attacker instanceof LivingEntity livingEntity)
         {
             int level = modifier.getLevel();
-            livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true));
-            livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(), 60, level - 1, false, true));
+            livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.IMPRISON.get(), 60, 0, false, true),context.getEntity());
+            livingEntity.addEffect(new MobEffectInstance(MobeffectRegistry.FRAGILE.get(), 60, level - 1, false, true),context.getEntity());
         }
     }
     @Override
     public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity entity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(world.isClientSide())return;
-        if(isCorrectSlot)
+        if(TTMEntityUtils.validArmorTool(tool,isCorrectSlot,entity,itemStack))
         {
-            if(Float.compare(entity.getMaxHealth(),entity.getHealth()) != 0)
-            {
-                return;
-            }
             EquipmentSlot slot = null;
             for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
             {
@@ -87,7 +84,10 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
                         AttributeModifier attributeModifier = this.createModifier(tool, modifier, slot, level,i);
                         if (attributeModifier != null) {
                             instance.removeModifier(attributeModifier);
-                            instance.addTransientModifier(attributeModifier);
+                            if(Float.compare(entity.getMaxHealth(),entity.getHealth()) == 0)
+                            {
+                                instance.addTransientModifier(attributeModifier);
+                            }
                         }
                     }
                 }
@@ -107,7 +107,6 @@ public class PerfectandelegantModifier extends Modifier implements EntityDodgeHo
         list.add(modifier.getModifier().applyStyle(Component.translatable("modifier.touhoutinkermodifier.perfectandelegant.fullhealth")));
         TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(0).getDescriptionId()), level * attributes_amount.get(0), list);
         TooltipModifierHook.addFlatBoost(modifier.getModifier(), Component.translatable(attributes.get(1).getDescriptionId()), level * attributes_amount.get(1), list);
-
     }
     @Override
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {

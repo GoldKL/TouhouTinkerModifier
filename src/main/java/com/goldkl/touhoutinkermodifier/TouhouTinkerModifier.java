@@ -1,32 +1,19 @@
 package com.goldkl.touhoutinkermodifier;
 
-import com.goldkl.touhoutinkermodifier.data.tags.TouhouModifierTagProvider;
 import com.goldkl.touhoutinkermodifier.helper.BetterCombatHelper;
 import com.goldkl.touhoutinkermodifier.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -35,6 +22,8 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+
+import java.util.Locale;
 
 import static org.antlr.runtime.debug.DebugEventListener.PROTOCOL_VERSION;
 
@@ -81,7 +70,8 @@ public class TouhouTinkerModifier
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
-        ITEMS.register(modEventBus);
+        //ITEMS.register(modEventBus);
+        ItemsRegistry.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         //CREATIVE_MODE_TABS.register(modEventBus);
         ModifierRegistry.register(modEventBus);
@@ -141,6 +131,9 @@ public class TouhouTinkerModifier
     }
     public static ResourceLocation getResource(String name) {
         return ResourceLocation.fromNamespaceAndPath(MODID, name);
+    }
+    public static String prefix(String name) {
+        return MODID + "." + name.toLowerCase(Locale.US);
     }
     public static SimpleChannel channel = NetworkRegistry.ChannelBuilder
             .named(ResourceLocation.fromNamespaceAndPath(MODID,"main"))

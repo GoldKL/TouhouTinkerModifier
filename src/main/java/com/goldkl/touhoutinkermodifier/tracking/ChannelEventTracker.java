@@ -2,6 +2,7 @@ package com.goldkl.touhoutinkermodifier.tracking;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
+import com.goldkl.touhoutinkermodifier.communication.TheKindofKillDataMessage;
 import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientAbsolutezeroParticles;
 import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientArcticstormParticles;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,6 +36,11 @@ public class ChannelEventTracker {
                 .encoder(ClientArcticstormParticles::toBytes)
                 .decoder(ClientArcticstormParticles::new)
                 .consumerMainThread(ClientArcticstormParticles::handle)
+                .add();
+        TouhouTinkerModifier.channel.messageBuilder(TheKindofKillDataMessage.class, id())
+                .encoder(TheKindofKillDataMessage::write)
+                .decoder(TheKindofKillDataMessage::new)
+                .consumerMainThread(TheKindofKillDataMessage::handle)
                 .add();
     }
     public static <MSG> void sendToServer(MSG message) {

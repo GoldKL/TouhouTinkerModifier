@@ -1,5 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -26,7 +28,7 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-        int level = getlevelcount(context);
+        int level = TTMEntityUtils.gettotallevelwithtag(context, TinkerTags.Modifiers.OVERSLIME_FRIEND);
         float amount = 1.0f + modifier.getLevel()*level*0.1f;
         if (amount > 0) {
             if (context.hasTag(TinkerTags.Items.MELEE)) {
@@ -44,18 +46,5 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
                 ToolStats.VELOCITY.multiply(builder, amount);
             }
         }
-    }
-    private int getlevelcount(IToolContext tool)
-    {
-        Iterator<ModifierEntry> it = tool.getModifiers().iterator();
-        int level = 0;
-        while(it.hasNext())
-        {
-            ModifierEntry entry = it.next();
-            if (entry.matches(TinkerTags.Modifiers.OVERSLIME_FRIEND)) {
-                level += entry.getLevel();
-            }
-        }
-        return level;
     }
 }

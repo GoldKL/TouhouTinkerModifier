@@ -19,6 +19,13 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> BREAKDARKNESS = REGISTRY.register("breakdarkness", BreakdarknessEffect::new);
     public static final RegistryObject<MobEffect> MELT = REGISTRY.register("melt", MeltEffect::new);
     public static final RegistryObject<MobEffect> ARCTICSTROM = REGISTRY.register("arcticstorm", ArcticstormEffect::new);
+    public static final RegistryObject<MobEffect> BROKENPOCKETWATCH = REGISTRY.register("brokenpocketwatch", BrokenpocketwatchEffect::new);
+    public static final RegistryObject<MobEffect> WORLDENDER = REGISTRY.register("worldender", WorldenderEffect::new);
+    public static final RegistryObject<MobEffect> EXHAUSTED = REGISTRY.register("exhausted", ExhaustedEffect::new);
+    public static final RegistryObject<MobEffect> TRIPLEFATALITY = REGISTRY.register("triplefatality", TriplefatalityEffect::new);
+    public static final RegistryObject<MobEffect> FINEDRUNK = REGISTRY.register("finedrunk", FinedrunkEffect::new);
+    public static final RegistryObject<MobEffect> DEATHFIRE = REGISTRY.register("deathfire", DeathfireEffect::new);
+    public static final RegistryObject<MobEffect> RADIATION = REGISTRY.register("radiation", RadiationEffect::new);
 
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);

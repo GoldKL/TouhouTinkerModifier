@@ -59,7 +59,7 @@ public class BetterCombatHelper {
                                 hand = ((Boolean)attackhand_isoffhand.invoke(attackhand.cast(obj)))?InteractionHand.OFF_HAND:InteractionHand.MAIN_HAND;
                             }
                             double fixrange = BetterCombatAtackRangeHook.attackermodifyBetterCombatAtackRange(ModifierHooksRegistry.ATTACK_RANGE_ADD,equipmentContext,true,0,base,hand);
-                            return Modifier_constructor.newInstance(fixrange ,ADD);
+                            return Modifier_constructor.newInstance(fixrange , ADD);
                         } catch (InstantiationException|IllegalAccessException|InvocationTargetException e) {
                             TouhouTinkerModifier.LOGGER.error("error to register better combat add",e);
                         }

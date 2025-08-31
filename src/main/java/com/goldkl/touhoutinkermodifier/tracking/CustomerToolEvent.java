@@ -3,6 +3,8 @@ package com.goldkl.touhoutinkermodifier.tracking;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.api.event.OndodgeEvent;
 import com.goldkl.touhoutinkermodifier.api.event.PredodgeEvent;
+import com.goldkl.touhoutinkermodifier.capability.TheKindofKillDataCapability;
+import com.goldkl.touhoutinkermodifier.hook.AfterAttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.hook.EntityHealHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
@@ -12,10 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -33,19 +32,38 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 @Mod.EventBusSubscriber(modid = TouhouTinkerModifier.MODID)
 public class CustomerToolEvent {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    static void livingDeath(LivingDeathEvent event) {
+        if(event.isCanceled())return;
+        LivingEntity target = event.getEntity();
+        if(target.level().isClientSide())return;
+        Entity attacker = event.getSource().getEntity();
+        if(attacker instanceof Player player) {
+            player.getCapability(TheKindofKillDataCapability.CAPABILITY).ifPresent(data ->{
+                    data.addEntity(target);
+                }
+            );
+            TheKindofKillDataCapability.sync(player);
+        }
+    }
     @SubscribeEvent
     static void livingHurt(LivingHurtEvent event) {
         Entity entity = event.getSource().getEntity();
+        LivingEntity target = event.getEntity();
         if (entity instanceof LivingEntity attacker)
         {
-            float originalDamage = event.getAmount();
-            float basedamage = originalDamage;
+            float basedamage = event.getAmount();
             DamageSource source = event.getSource();
             EquipmentContext context = new EquipmentContext(attacker);
-            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_HURT, context, source,basedamage, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
-            event.setAmount(originalDamage);
-            if (originalDamage <= 0.0F) {
+            AttackerWithEquipmentModifyDamageModifierHook.DamageModifier damageModifier = new AttackerWithEquipmentModifyDamageModifierHook.DamageModifier(basedamage);
+            AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_HURT,target, context, source,basedamage, damageModifier, OnAttackedModifierHook.isDirectDamage(source));
+            event.setAmount(damageModifier.getamount());
+            if (damageModifier.getamount() <= 0.0F) {
                 event.setCanceled(true);
+            }
+            else
+            {
+                AfterAttackerWithEquipmentModifyDamageModifierHook.afterattackermodifyDamageTaken(ModifierHooksRegistry.AFTER_ATTACKER_MODIFY_HURT,context,source,damageModifier.getamount(),OnAttackedModifierHook.isDirectDamage(source));
             }
         }
 
@@ -53,16 +71,21 @@ public class CustomerToolEvent {
     @SubscribeEvent(priority = EventPriority.HIGH)
     static void livingDamage(LivingDamageEvent event) {
         Entity entity = event.getSource().getEntity();
+        LivingEntity target = event.getEntity();
         if (entity instanceof LivingEntity attacker)
         {
-            float originalDamage = event.getAmount();
-            float basedamage = originalDamage;
+            float basedamage = event.getAmount();
             DamageSource source = event.getSource();
             EquipmentContext context = new EquipmentContext(attacker);
-            originalDamage = AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_DAMAGE, context, source,basedamage , originalDamage, OnAttackedModifierHook.isDirectDamage(source));
-            event.setAmount(originalDamage);
-            if (originalDamage <= 0.0F) {
+            AttackerWithEquipmentModifyDamageModifierHook.DamageModifier damageModifier = new AttackerWithEquipmentModifyDamageModifierHook.DamageModifier(basedamage);
+            AttackerWithEquipmentModifyDamageModifierHook.attackermodifyDamageTaken(ModifierHooksRegistry.ATTACKER_MODIFY_DAMAGE,target, context, source,basedamage , damageModifier, OnAttackedModifierHook.isDirectDamage(source));
+            event.setAmount(damageModifier.getamount());
+            if (damageModifier.getamount() <= 0.0F) {
                 event.setCanceled(true);
+            }
+            else
+            {
+                AfterAttackerWithEquipmentModifyDamageModifierHook.afterattackermodifyDamageTaken(ModifierHooksRegistry.AFTER_ATTACKER_MODIFY_DAMAGE,context,source,damageModifier.getamount(),OnAttackedModifierHook.isDirectDamage(source));
             }
         }
     }
@@ -102,7 +125,7 @@ public class CustomerToolEvent {
         }
     }
     @SubscribeEvent
-    static void OnLivingEntityHeall(LivingHealEvent event) {
+    static void OnLivingEntityHeal(LivingHealEvent event) {
         LivingEntity entity = event.getEntity();
         EquipmentContext context = new EquipmentContext(entity);
         float heal = EntityHealHook.modifyhealTaken(context,event.getAmount(),event.getAmount());
@@ -113,18 +136,13 @@ public class CustomerToolEvent {
         }
     }
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void EffectApply(MobEffectEvent.Applicable event){
+    public static void EffectApply(MobEffectEvent.Added event){
         if (event.getEntity()!=null) {
             for (EquipmentSlot slot : EquipmentSlot.values()) {
                 if (event.getEntity().getItemBySlot(slot).getItem() instanceof IModifiable) {
                     ToolStack tool = ToolStack.from(event.getEntity().getItemBySlot(slot));
-                    boolean notApplicable = event.getResult()== Event.Result.DENY;
                     for (ModifierEntry entry:tool.getModifierList()){
-                        notApplicable = entry.getHook(ModifierHooksRegistry.ENTITY_EFFECT_APPLICABLE_HURT).isApplicable(tool,entry,slot,event.getEffectInstance(),event.getEntity(),notApplicable);
-                        if (notApplicable){
-                            event.setResult(Event.Result.DENY);
-                            break;
-                        }
+                        entry.getHook(ModifierHooksRegistry.ENTITY_EFFECT_APPLICABLE_HURT).onApplicable(tool,entry,slot,event.getEffectInstance(),event.getEntity());
                     }
                 }
             }

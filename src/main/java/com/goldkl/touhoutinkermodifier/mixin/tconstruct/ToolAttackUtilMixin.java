@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin.tconstruct;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -20,12 +20,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
+import java.util.Stack;
 import java.util.function.DoubleSupplier;
 
 import static slimeknights.tconstruct.library.tools.helper.ToolAttackUtil.getCooldownFunction;
@@ -36,10 +38,14 @@ public abstract class ToolAttackUtilMixin {
     public static boolean attackEntity(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
         return false;
     }
-    @Unique
+    /*@Unique
     private static boolean touhouTinkerModifier$Havedelatdamage = false;
     @Unique
-    private static float touhouTinkerModifier$delatdamage = 0;
+    private static float touhouTinkerModifier$delatdamage = 0;*/
+    @Unique
+    private static ThreadLocal<Stack<Boolean>> touhouTinkerModifier$Havedelatdamage = new ThreadLocal<>();
+    @Unique
+    private static ThreadLocal<Stack<Float>> touhouTinkerModifier$delatdamage = new ThreadLocal<>();
 
     @Inject(method = "attackEntity(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;)Z",at = @At("HEAD"),cancellable = true,remap = false)
     private static void attackEntitymixinbettercombat(IToolStackView tool, Player attacker, Entity targetEntity, CallbackInfoReturnable<Boolean> cir) {
@@ -60,8 +66,29 @@ public abstract class ToolAttackUtilMixin {
     ,at = @At("HEAD"),remap = false)
     private static void attackEntitymixinhead(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlot sourceSlot, CallbackInfoReturnable<Boolean> cir)
     {
-        touhouTinkerModifier$Havedelatdamage = false;
-        touhouTinkerModifier$delatdamage = 0;
+        /*touhouTinkerModifier$Havedelatdamage = false;
+        touhouTinkerModifier$delatdamage = 0;*/
+        if(touhouTinkerModifier$Havedelatdamage.get() == null)
+        {
+            touhouTinkerModifier$Havedelatdamage.set(new Stack<>());
+            touhouTinkerModifier$delatdamage.set(new Stack<>());
+        }
+        touhouTinkerModifier$Havedelatdamage.get().push(false);
+        touhouTinkerModifier$delatdamage.get().push(0f);
+    }
+    @Inject(method = "attackEntity(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/entity/Entity;Ljava/util/function/DoubleSupplier;ZLnet/minecraft/world/entity/EquipmentSlot;)Z"
+            ,at = @At("RETURN"),remap = false)
+    private static void attackEntitymixinreturn(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlot sourceSlot, CallbackInfoReturnable<Boolean> cir)
+    {
+        /*touhouTinkerModifier$Havedelatdamage = false;
+        touhouTinkerModifier$delatdamage = 0;*/
+        touhouTinkerModifier$Havedelatdamage.get().pop();
+        touhouTinkerModifier$delatdamage.get().pop();
+        if(touhouTinkerModifier$Havedelatdamage.get().isEmpty())
+        {
+            touhouTinkerModifier$Havedelatdamage.remove();
+            touhouTinkerModifier$delatdamage.remove();
+        }
     }
     @WrapOperation(method = "attackEntity(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/entity/Entity;Ljava/util/function/DoubleSupplier;ZLnet/minecraft/world/entity/EquipmentSlot;)Z"
     ,at = @At(value = "INVOKE",
@@ -69,34 +96,48 @@ public abstract class ToolAttackUtilMixin {
     remap = false)
     private static float attackEntitymixindamagedelta(MeleeDamageModifierHook instance, IToolStackView tool, ModifierEntry ingore, ToolAttackContext context, float basedamage, float damage, Operation<Float> original)
     {
-        if(!ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage)
+        /*if(!ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage)
         {
-            float[] modifierNum = new float[5];
-            modifierNum[0] = 0;
-            modifierNum[1] = 0;
-            modifierNum[2] = 0;
-            modifierNum[3] = 1.0f;
-            modifierNum[4] = 0;
+            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(basedamage);
             List<ModifierEntry> modifiers = tool.getModifierList();
             for(ModifierEntry entry : modifiers) {
                 damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, basedamage, damage);
             }
-            modifierNum[0] = damage - basedamage;
+            float originDamagefix = damage - basedamage;
+            damageModifier.addAdd(originDamagefix);
             for(ModifierEntry entry : modifiers) {
-                modifierNum[1] = entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeAdd(tool, entry, context, basedamage, damage ,modifierNum[1]);
-            }
-            for(ModifierEntry entry : modifiers) {
-                modifierNum[2] = entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleePercent(tool, entry, context, basedamage, damage ,modifierNum[2]);
-            }
-            for(ModifierEntry entry : modifiers) {
-                modifierNum[3] *= entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeMultiply(tool, entry, context, basedamage , damage);
-            }
-            for(ModifierEntry entry : modifiers) {
-                modifierNum[4] = entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeFixed(tool, entry, context, basedamage , damage,modifierNum[4]);
+                entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, basedamage, damage, damageModifier);
             }
             ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage = true;
-            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage = (basedamage + modifierNum[0] + modifierNum[1]) * (1 + modifierNum[2]) * modifierNum[3] + modifierNum[4];
+            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage = damageModifier.getamount();
         }
-        return ToolAttackUtilMixin.touhouTinkerModifier$delatdamage;
+        return ToolAttackUtilMixin.touhouTinkerModifier$delatdamage;*/
+        if(!ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().peek())
+        {
+            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(basedamage);
+            List<ModifierEntry> modifiers = tool.getModifierList();
+            for(ModifierEntry entry : modifiers) {
+                damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, basedamage, damage);
+            }
+            float originDamagefix = damage - basedamage;
+            damageModifier.addAdd(originDamagefix);
+            for(ModifierEntry entry : modifiers) {
+                entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, basedamage, damage, damageModifier);
+            }
+            ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().pop();
+            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().pop();
+            ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().push(true);
+            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().push(damageModifier.getamount());
+        }
+        return ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().peek();
+    }
+    @WrapOperation(method = "attackEntity(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/entity/Entity;Ljava/util/function/DoubleSupplier;ZLnet/minecraft/world/entity/EquipmentSlot;)Z"
+            ,at = @At(value = "INVOKE",
+                target = "Lslimeknights/tconstruct/library/modifiers/hook/combat/MeleeHitModifierHook;afterMeleeHit(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/modifiers/ModifierEntry;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;F)V"),remap = false)
+    private static void aftermeleehitmixin(MeleeHitModifierHook instance, IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt, Operation<Void> original)
+    {
+        original.call(instance, tool, modifier, context, damageDealt);
+        //modifier.getHook(ModifierHooksRegistry.AFTER_MELEE_HIT).afterMeleeHitWithTheoryDamage(tool,modifier,context,ToolAttackUtilMixin.touhouTinkerModifier$delatdamage);
+        modifier.getHook(ModifierHooksRegistry.AFTER_MELEE_HIT).afterMeleeHitWithTheoryDamage(tool,modifier,context,ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().peek());
     }
 }

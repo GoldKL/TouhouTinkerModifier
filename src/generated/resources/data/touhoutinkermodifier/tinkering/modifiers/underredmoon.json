@@ -1,0 +1,33 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "l2damagetracker:crit_damage",
+      "each_level": 0.5,
+      "operation": "addition",
+      "slots": [
+        "mainhand"
+      ]
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "l2damagetracker:crit_rate",
+      "each_level": 0.1,
+      "operation": "addition",
+      "slots": [
+        "mainhand"
+      ]
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "attributeslib:armor_shred",
+      "each_level": 0.1,
+      "operation": "addition",
+      "slots": [
+        "mainhand"
+      ]
+    }
+  ],
+  "tooltip_display": "always"
+}

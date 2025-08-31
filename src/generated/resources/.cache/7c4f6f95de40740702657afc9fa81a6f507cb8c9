@@ -1,0 +1,8 @@
+// 1.20.1	2025-08-31T01:53:13.7672179	Touhou Tinkers Modifier's Damage Type Tags
+c2f9fcc7e9f975ae26c570b608de8eb295d3fa80 data/minecraft/tags/damage_type/bypasses_armor.json
+c2f9fcc7e9f975ae26c570b608de8eb295d3fa80 data/minecraft/tags/damage_type/bypasses_cooldown.json
+c2f9fcc7e9f975ae26c570b608de8eb295d3fa80 data/minecraft/tags/damage_type/bypasses_effects.json
+c2f9fcc7e9f975ae26c570b608de8eb295d3fa80 data/minecraft/tags/damage_type/bypasses_enchantments.json
+c2f9fcc7e9f975ae26c570b608de8eb295d3fa80 data/minecraft/tags/damage_type/bypasses_resistance.json
+ab138edd514c081fef4b7fabb332072199a6a6a6 data/touhoutinkermodifier/tags/damage_type/pass_portion_modifier.json
+9bf0cccab12f67abb162ac9ff9a84bd7a69a6424 data/touhoutinkermodifier/tags/damage_type/pass_world_ender.json

@@ -97,9 +97,7 @@ public class ArcticstormSpell extends AbstractSpell {
             if (target instanceof LivingEntity livingEntity && livingEntity.distanceToSqr(caster) < radius * radius) {
                 if(caster.tickCount % 10 == 0){
                     MagicManager.spawnParticles(level, ParticleHelper.SNOWFLAKE, livingEntity.getX(), livingEntity.getY() + livingEntity.getBbHeight() * .5f, livingEntity.getZ(), 50, livingEntity.getBbWidth() * .5f, livingEntity.getBbHeight() * .5f, livingEntity.getBbWidth() * .5f, .03, false);
-                }
-                if(livingEntity.invulnerableTime <= 10 || ((LivingEntityAccessor)livingEntity).getlastHurt() < damage)
-                {
+                    TTMEntityUtils.clearLivingEntityInvulnerableTime(livingEntity);
                     DamageSources.applyDamage(livingEntity, damage, this.getDamageSource(caster));
                 }
                 livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze(), livingEntity.getTicksFrozen() + 4));

@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -28,18 +29,18 @@ public class TexasnightModifier extends Modifier implements ModifyDamageModifier
     }
     @Override
     public float modifyDamageTaken(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentContext context, EquipmentSlot equipmentSlot, DamageSource damageSource, float amount, boolean isDirectDamage) {
-        if(!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))
+        if(!(damageSource.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER)||damageSource.is(DamageTypes.STARVE)))
         {
             if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, equipmentSlot))
             {
                 LivingEntity entity = context.getEntity();
                 int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, equipmentSlot);
                 AttributeInstance lucky = entity.getAttribute(Attributes.LUCK);
-                double A = 0.0;
+                double A = 1.0;
                 double B = 0.0;
                 if(lucky != null)
                 {
-                    double luck = lucky.getBaseValue();
+                    double luck = lucky.getBaseValue()/50;
                     if(luck + level >= 0.5)
                     {
                         A = 0.0;

@@ -1,7 +1,9 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
+import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
@@ -25,14 +27,36 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Optional;
 
-public class LaevateinModifier extends Modifier implements MeleeDamageModifierHook, MeleeHitModifierHook {
+public class LaevateinModifier extends Modifier implements MeleeHitModifierHook, MeleeDamagePercentModifierHook {//MeleeDamageModifierHook,
     //莱瓦汀：芙兰朵露·斯卡雷特
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         //hookBuilder.addHook(this);
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.MELEE_DAMAGE,ModifierHooks.MELEE_HIT);
+        hookBuilder.addHook(this,ModifierHooks.MELEE_HIT, ModifierHooksRegistry.MELEE_DAMAGE_PERCENT);//, ModifierHooks.MELEE_DAMAGE
     }
+    @Override
+    public void getMeleeDamageModifier(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, DamageModifier damagemodifier)
+    {
+        if(tool.hasTag(TagsRegistry.ItemsTag.CLAYMORE)&&!context.isExtraAttack())
+        {
+            int level = modifier.getLevel();
+            damagemodifier.addMultiply(1.0f + 0.5f * level);
+        }
+    }
+    /*@Override
+    public float getMeleeMultiply(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage)
+    {
+        float multiply = 1.0f;
+        if(tool.hasTag(TagsRegistry.ItemsTag.CLAYMORE)&&!context.isExtraAttack())
+        {
+            int level = modifier.getLevel();
+           multiply += 0.5f * level;
+        }
+        return multiply;
+    }*/
+
+    /*
     //尽可能下降优先级来保证增伤害吃满
     public int getPriority() {
         return 50;
@@ -45,7 +69,7 @@ public class LaevateinModifier extends Modifier implements MeleeDamageModifierHo
             damage *= 1.0f + 0.5f*level;
         }
         return damage;
-    }
+    }*/
     @Override
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
     {

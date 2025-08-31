@@ -1,0 +1,37 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":   "touhoutinkermodifier:item/tool/spear/head",
+    "handle": "touhoutinkermodifier:item/tool/spear/handle",
+    "grip":  "touhoutinkermodifier:item/tool/spear/grip",
+    "accessory": "touhoutinkermodifier:item/tool/spear/accessory",
+
+    "large_head":   "touhoutinkermodifier:item/tool/spear/large/head",
+    "large_handle": "touhoutinkermodifier:item/tool/spear/large/handle",
+    "large_grip":  "touhoutinkermodifier:item/tool/spear/large/grip",
+    "large_accessory": "touhoutinkermodifier:item/tool/spear/large/accessory"
+  },
+  "modifier_roots": {
+    "small": [ "touhoutinkermodifier:item/tool/spear/modifiers/" ],
+    "large": [ "touhoutinkermodifier:item/tool/spear/large/modifiers/" ]
+  },
+  "large": true,
+  "large_offset": [-2, 2],
+  "parts": [
+    { "name": "handle", "index": 1 },
+    { "name": "head",   "index": 0 },
+    { "name": "grip", "index": 3 },
+    { "name": "accessory",  "index": 2 }
+  ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "touhoutinkermodifier:item/tool/spear/blocking"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "touhoutinkermodifier:item/tool/spear/broken"
+    }
+  ]
+}

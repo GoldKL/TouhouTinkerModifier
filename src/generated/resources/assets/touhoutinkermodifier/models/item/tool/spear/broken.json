@@ -1,0 +1,47 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head": "touhoutinkermodifier:item/tool/spear/head_broken",
+    "handle": "touhoutinkermodifier:item/tool/spear/handle",
+    "grip": "touhoutinkermodifier:item/tool/spear/guard",
+    "accessory": "touhoutinkermodifier:item/tool/spear/shield",
+    "large_head": "touhoutinkermodifier:item/tool/spear/large/head_broken",
+    "large_handle": "touhoutinkermodifier:item/tool/spear/large/handle",
+    "large_grip": "touhoutinkermodifier:item/tool/spear/large/guard",
+    "large_accessory": "touhoutinkermodifier:item/tool/spear/large/shield"
+  },
+  "modifier_roots": {
+    "small": [
+      "touhoutinkermodifier:item/tool/spear/modifiers/broken/",
+      "touhoutinkermodifier:item/tool/spear/modifiers/"
+    ],
+    "large": [
+      "touhoutinkermodifier:item/tool/spear/large/modifiers/broken/",
+      "touhoutinkermodifier:item/tool/spear/large/modifiers/"
+    ]
+  },
+  "large": true,
+  "large_offset": [
+    -2,
+    2
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 1
+    },
+    {
+      "name": "head",
+      "index": 0
+    },
+    {
+      "name": "grip",
+      "index": 3
+    },
+    {
+      "name": "accessory",
+      "index": 2
+    }
+  ]
+}

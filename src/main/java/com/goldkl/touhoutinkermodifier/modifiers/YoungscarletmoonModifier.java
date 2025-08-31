@@ -2,6 +2,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,6 +31,7 @@ public class YoungscarletmoonModifier extends Modifier implements ModifyDamageMo
 
     @Override
     public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+        if(source.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER))return amount;
         int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
         if(level > 0)
         {

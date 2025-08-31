@@ -8,56 +8,83 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 
 public interface MeleeDamagePercentModifierHook {
-    default float getMeleeAdd(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float add)
+    default void getMeleeDamageModifier(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, DamageModifier damagemodifier)
     {
-        return add;
+
     }
-    default float getMeleePercent(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float percent)
-    {
-        return percent;
-    }
-    default float getMeleeMultiply(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage)
-    {
-        return 1.0f;
-    }
-    default float getMeleeFixed(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float fixed)
-    {
-        return fixed;
-    }
-    /** Merger that runs all nested hooks */
     record AllMerger(Collection<MeleeDamagePercentModifierHook> modules) implements MeleeDamagePercentModifierHook {
         @Override
-        public float getMeleeAdd(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float add)
+        public void getMeleeDamageModifier(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, DamageModifier damagemodifier)
         {
             for (MeleeDamagePercentModifierHook module : modules) {
-                add = module.getMeleeAdd(tool, modifier, context, baseDamage, damage, add);
+                module.getMeleeDamageModifier(tool, modifier, context, baseDamage, damage, damagemodifier);
             }
+        }
+    }
+    class DamageModifier{
+        float baseamount;
+        float add;
+        float percent;
+        float multiply;
+        float fixed;
+        public float getBaseamount() {
+            return baseamount;
+        }
+        public float getAdd() {
             return add;
         }
-        @Override
-        public float getMeleePercent(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float percent)
-        {
-            for (MeleeDamagePercentModifierHook module : modules) {
-                percent = module.getMeleePercent(tool, modifier, context, baseDamage, damage, percent);
-            }
+        public float getPercent() {
             return percent;
         }
-        @Override
-        public float getMeleeMultiply(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage)
-        {
-            float multiplier = 1.0f;
-            for (MeleeDamagePercentModifierHook module : modules) {
-                multiplier *= module.getMeleeMultiply(tool, modifier, context, baseDamage, damage);
-            }
-            return multiplier;
+        public float getMultiply() {
+            return multiply;
         }
-        @Override
-        public float getMeleeFixed(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage, float fixed)
-        {
-            for (MeleeDamagePercentModifierHook module : modules) {
-                fixed = module.getMeleeFixed(tool, modifier, context, baseDamage, damage, fixed);
-            }
+        public float getFixed() {
             return fixed;
+        }
+        public float getamount(){
+            return (baseamount + add) * (1 + percent) * multiply + fixed;
+        }
+        public DamageModifier(float baseamount) {
+            this.baseamount = baseamount;
+            this.add = 0;
+            this.percent = 0;
+            this.multiply = 1;
+            this.fixed = 0;
+        }
+        public DamageModifier(AttackerWithEquipmentModifyDamageModifierHook.DamageModifier other) {
+            this.baseamount = other.baseamount;
+            this.add = other.add;
+            this.percent = other.percent;
+            this.multiply = other.multiply;
+            this.fixed = other.fixed;
+        }
+        public void addAdd(float add) {
+            this.add += add;
+        }
+        public void addPercent(float percent) {
+            this.percent += percent;
+        }
+        public void addMultiply(float multiply) {
+            this.multiply *= multiply;
+        }
+        public void addFixed(float fixed) {
+            this.fixed += fixed;
+        }
+        public void setBaseamount(float baseamount) {
+            this.baseamount = baseamount;
+        }
+        public void setAdd(float add) {
+            this.add = add;
+        }
+        public void setPercent(float percent) {
+            this.percent = percent;
+        }
+        public void setMultiply(float multiply) {
+            this.multiply = multiply;
+        }
+        public void setFixed(float fixed) {
+            this.fixed = fixed;
         }
     }
 }

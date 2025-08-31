@@ -2,7 +2,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 
-import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+
 public class HolymantleModifier extends Modifier implements InventoryTickModifierHook, DamageBlockModifierHook, EquipmentChangeModifierHook  {
     //神圣屏障：西行寺幽幽子
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.holymantle);
@@ -47,7 +48,7 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
     public boolean isDamageBlocked(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentContext equipmentContext, EquipmentSlot equipmentSlot, DamageSource damageSource, float v) {
         if((!iToolStackView.isBroken())&&ModifierUtil.validArmorSlot(iToolStackView, equipmentSlot)&&SlotInChargeModule.isInCharge(equipmentContext.getTinkerData(), SLOT_IN_CHARGE,equipmentSlot))
         {
-            if(!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))//!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))
+            if(!(damageSource.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER)||damageSource.is(DamageTypes.STARVE)))//!(damageSource.is(DamageTypes.GENERIC_KILL)||damageSource.is(DamageTypes.FELL_OUT_OF_WORLD)||damageSource.is(DamageTypes.OUTSIDE_BORDER)||damageSource.is(DamageTypes.STARVE)))
             {
                 LivingEntity entity = equipmentContext.getEntity();
                 if(!entity.level().isClientSide)

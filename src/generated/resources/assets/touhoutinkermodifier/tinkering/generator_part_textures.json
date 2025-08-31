@@ -1,0 +1,45 @@
+{
+  "parts": [
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/grip",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/accessory",
+      "stat_type": "tconstruct:binding"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/large/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/large/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/large/grip",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/large/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/spear/large/accessory",
+      "stat_type": "tconstruct:binding"
+    }
+  ],
+  "replace": false
+}

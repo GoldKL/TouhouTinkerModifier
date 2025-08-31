@@ -4,6 +4,7 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.spells.blood.CrimsonfantasySpell;
 import com.goldkl.touhoutinkermodifier.spells.blood.GungnirSpell;
 import com.goldkl.touhoutinkermodifier.spells.blood.LaevateinSpell;
+import com.goldkl.touhoutinkermodifier.spells.blood.WorldenderSpell;
 import com.goldkl.touhoutinkermodifier.spells.ice.AbsolutezeroSpell;
 import com.goldkl.touhoutinkermodifier.spells.ice.ArcticstormSpell;
 import com.goldkl.touhoutinkermodifier.spells.lightning.SkysplitterSpell;
@@ -19,6 +20,7 @@ public class SpellsRegistry {
     public static final RegistryObject<AbstractSpell> gungnir = registerSpell(new GungnirSpell());
     public static final RegistryObject<AbstractSpell> laevatein = registerSpell(new LaevateinSpell());
     public static final RegistryObject<AbstractSpell> crimsonfantasy = registerSpell(new CrimsonfantasySpell());
+    public static final RegistryObject<AbstractSpell> worldender = registerSpell(new WorldenderSpell());
     //Ice
     public static final RegistryObject<AbstractSpell> absolutezero = registerSpell(new AbsolutezeroSpell());
     public static final RegistryObject<AbstractSpell> arcticstorm = registerSpell(new ArcticstormSpell());

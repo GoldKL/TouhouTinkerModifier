@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -26,10 +27,22 @@ public class TagsRegistry {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", name));
         }
     }
+    public static class DamageTypeTag{
+        public static final TagKey<DamageType> PASS_REFLECTIVE = local("pass_reflective");
+        public static final TagKey<DamageType> PASS_PORTION_MODIFIER = local("pass_portion_modifier");
+        public static final TagKey<DamageType> PASS_WORLD_ENDER = local("pass_world_ender");
+        private static TagKey<DamageType> local(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
+        }
+
+        private static TagKey<DamageType> common(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("forge", name));
+        }
+    }
     public static class ModifiersTag{
         public static final TagKey<Modifier> ScarletDevilMansion = local("scarlet_devil_mansion");
         public static final TagKey<Modifier> SilverModifier = local("silver_modifier");
-
+        public static final TagKey<Modifier> Chireiden = local("chireiden");
         private static TagKey<Modifier> local(String name) {
             return TagKey.create(ModifierManager.REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
         }

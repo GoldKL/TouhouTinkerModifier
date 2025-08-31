@@ -2,14 +2,17 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.EntityDodgeHook;
+import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.hollingsworth.arsnouveau.api.perk.PerkAttributes;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.network.ClientboundSyncMana;
 import io.redspace.ironsspellbooks.setup.Messages;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
@@ -50,9 +54,20 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
         {
             MagicData entitymagicdata = MagicData.getPlayerMagicData(player);
             float mana = entitymagicdata.getMana();
-            if(mana >= 1600)
+            float costmana = 200;
+            int costlevel = -1;
+            MobEffectInstance instance = player.getEffect(MobeffectRegistry.BROKENPOCKETWATCH.get());
+            if(instance != null)
             {
-                entitymagicdata.setMana(mana - 200);
+                costlevel = instance.getAmplifier();
+            }
+            costlevel += 1;
+            costmana *= (float) Math.pow(2,costlevel);
+            if(mana >= 1600 && mana >= costmana)
+            {
+                entitymagicdata.setMana(mana - costmana);
+                player.removeEffect(MobeffectRegistry.BROKENPOCKETWATCH.get());
+                player.addEffect(new MobEffectInstance(MobeffectRegistry.BROKENPOCKETWATCH.get(),3000 , costlevel));
                 Messages.sendToPlayer(new ClientboundSyncMana(entitymagicdata), player);
                 return true;
             }
@@ -60,31 +75,17 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
         }
         else
         {
-            double dodge_chane = 0.1*Math.min(getlevelcount(tool),8);
+            double dodge_chane = 0.1 * Math.min(TTMEntityUtils.gettotallevelwithtag(tool,TagsRegistry.ModifiersTag.ScarletDevilMansion),5);
             return RANDOM.nextDouble() < dodge_chane;
         }
     }
     private @Nullable UUID getUUID(EquipmentSlot slot) {
         return this.slotUUIDs[slot.getFilterFlag()];
     }
-    private int getlevelcount(IToolStackView tool)
-    {
-        Iterator<ModifierEntry> it = tool.getModifiers().iterator();
-        int level = 0;
-        while(it.hasNext())
-        {
-            ModifierEntry entry = it.next();
-            if (ModifierManager.isInTag(entry.getId(), TagsRegistry.ModifiersTag.ScarletDevilMansion)) {
-                level += entry.getLevel();
-            }
-        }
-        return level;
-    }
-
     @Override
     public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Attribute, AttributeModifier> consumer) {
         if (ModifierCondition.ANY_TOOL.matches(tool, modifier)) {
-            int level = getlevelcount(tool);
+            int level = TTMEntityUtils.gettotallevelwithtag(tool,TagsRegistry.ModifiersTag.ScarletDevilMansion);
             for(int i = 0; i < 1; i++) {
                 AttributeModifier attributeModifier = this.createModifier(tool, modifier, slot, level,i);
                 if (attributeModifier != null) {

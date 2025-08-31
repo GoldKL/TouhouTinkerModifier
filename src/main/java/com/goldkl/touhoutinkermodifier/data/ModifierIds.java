@@ -46,7 +46,39 @@ public class ModifierIds {
     public static final ModifierId jikicoercion = id("jikicoercion");
     public static final ModifierId fullfirepower = id("fullfirepower");
     public static final ModifierId arcticstorm = id("arcticstorm");
+    //地灵殿
+    //古明地恋
     public static final ModifierId overrose = id("overrose");
+    public static final ModifierId missmary = id("missmary");
+    public static final ModifierId koishiseye = id("koishiseye");
+    public static final ModifierId loveburiedembers = id("loveburiedembers");
+    public static final ModifierId idliberation = id("idliberation");
+    public static final ModifierId superegoinhibition = id("superegoinhibition");
+    //黑谷山女
+    public static final ModifierId tsuchigumo = id("tsuchigumo");
+    public static final ModifierId fieldmiasma = id("fieldmiasma");
+    //琪斯美
+    public static final ModifierId welldestructor = id("welldestructor");
+    //星熊勇仪
+    public static final ModifierId triplefatality = id("triplefatality");
+    public static final ModifierId thebloodofoni = id("thebloodofoni");
+    public static final ModifierId thepowerofmountain = id("thepowerofmountain");
+    //灵乌路空
+    public static final ModifierId tokamak = id("tokamak");
+    public static final ModifierId undergroundsun = id("undergroundsun");
+    public static final ModifierId thousandtrillionflare = id("thousandtrillionflare");
+    public static final ModifierId hellcrow = id("hellcrow");
+    //古明地觉
+    public static final ModifierId terriblesouvenir = id("terriblesouvenir");
+    public static final ModifierId overthinking = id("overthinking");
+    //觉觉 & 恋恋
+    public static final ModifierId komeijisisters = id("komeijisisters");
+    //火焰猫燐
+    public static final ModifierId hellstrafficaccident = id("hellstrafficaccident");
+    public static final ModifierId rekindlingofdeadashes = id("rekindlingofdeadashes");
+    //锦上京
+    //渡里贝子
+    public static final ModifierId deepbaloney = id("deepbaloney");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

@@ -64,7 +64,7 @@ public class MidnightbirdModifier extends Modifier implements AttributesModifier
         if(uuid != null)
         {
             int level = modifierEntry.getLevel();
-            AttributeModifier attributeModifier = new AttributeModifier(uuid, this.unique + "." + slot.getName(), 0.2 * level, AttributeModifier.Operation.MULTIPLY_BASE);
+            AttributeModifier attributeModifier = new AttributeModifier(uuid, this.unique + "." + slot.getName(), 0.15 * level, AttributeModifier.Operation.MULTIPLY_BASE);
             biConsumer.accept(AttributeRegistry.ENDER_SPELL_POWER.get(), attributeModifier);
         }
     }

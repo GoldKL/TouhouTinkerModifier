@@ -2,6 +2,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.hollingsworth.arsnouveau.api.perk.PerkAttributes;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -28,7 +29,7 @@ public class EverbrightscarlettowerModifier extends NoLevelsModifier implements 
     final String unique = ModifierIds.everbrightscarlettower.getNamespace()+  ".modifier."+ModifierIds.everbrightscarlettower.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(AttributeRegistry.COOLDOWN_REDUCTION.get(), PerkAttributes.MANA_REGEN_BONUS.get());
-    private static final List<Float> attributes_amount = List.of(0.1f,5f);
+    private static final List<Float> attributes_amount = List.of(0.05f,5f);
     private static final List<AttributeModifier.Operation> attribute_operation = List.of(AttributeModifier.Operation.MULTIPLY_BASE,AttributeModifier.Operation.ADDITION);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
@@ -38,24 +39,11 @@ public class EverbrightscarlettowerModifier extends NoLevelsModifier implements 
     private @Nullable UUID getUUID(EquipmentSlot slot) {
         return this.slotUUIDs[slot.getFilterFlag()];
     }
-    private int getlevelcount(IToolStackView tool)
-    {
-        Iterator<ModifierEntry> it = tool.getModifiers().iterator();
-        int level = 0;
-        while(it.hasNext())
-        {
-            ModifierEntry entry = it.next();
-            if (ModifierManager.isInTag(entry.getId(), TagsRegistry.ModifiersTag.ScarletDevilMansion)) {
-                level += entry.getLevel();
-            }
-        }
-        return level;
-    }
 
     @Override
     public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Attribute, AttributeModifier> consumer) {
         if (ModifierCondition.ANY_TOOL.matches(tool, modifier)) {
-            int level = getlevelcount(tool);
+            int level = TTMEntityUtils.gettotallevelwithtag(tool,TagsRegistry.ModifiersTag.ScarletDevilMansion);
             for(int i = 0; i < 2; i++) {
                 AttributeModifier attributeModifier = this.createModifier(tool, modifier, slot, level,i);
                 if (attributeModifier != null) {

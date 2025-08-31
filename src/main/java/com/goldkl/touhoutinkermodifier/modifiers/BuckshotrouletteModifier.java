@@ -31,7 +31,7 @@ public class BuckshotrouletteModifier extends Modifier implements AttackerWithEq
         hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     @Override
-    public float attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source,float baseamount, float amount, boolean isDirectDamage) {
+    public void attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier,LivingEntity target, EquipmentContext context, EquipmentSlot slotType, DamageSource source,float baseamount, DamageModifier damageModifier, boolean isDirectDamage) {
         if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)){
             LivingEntity entity = context.getEntity();
             int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
@@ -40,16 +40,16 @@ public class BuckshotrouletteModifier extends Modifier implements AttackerWithEq
             double damagep = 1.0;
             if(lucky != null)
             {
-                if(lucky.getValue() > 0.0) {
-                    damagep = damagep / (lucky.getValue() + 1.0);
+                double luck = lucky.getValue()/50;
+                if(luck > 0.0) {
+                    damagep = damagep / (luck + 1.0);
                 }
                 else{
-                    damagep = damagep - lucky.getValue();
+                    damagep = damagep - luck;
                 }
+                double parameter = truelevel * Math.pow(RANDOM.nextDouble(), damagep);
+                damageModifier.addMultiply((float) parameter);
             }
-            double parameter = truelevel * Math.pow(RANDOM.nextDouble(), damagep);
-            return (float)  (amount * parameter);
         }
-        return amount;
     }
 }

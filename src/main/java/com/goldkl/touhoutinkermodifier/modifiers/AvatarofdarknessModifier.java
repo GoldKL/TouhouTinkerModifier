@@ -2,8 +2,11 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.ModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
+import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,8 +37,9 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
         hookBuilder.addHook(this,ModifierHooks.INVENTORY_TICK, ModifierHooks.MODIFY_HURT);
     }
     @Override
-    public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+    public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource damageSource, float amount, boolean isDirectDamage) {
         if(context.getEntity().hasEffect(MobeffectRegistry.BREAKDARKNESS.get()))return amount;
+        if(damageSource.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER))return amount;
         int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
         if(level > 0)
         {
@@ -70,8 +74,9 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
                 int level = SlotInChargeModule.getLevel(livingEntity.getCapability(TinkerDataCapability.CAPABILITY), SLOT_IN_CHARGE, slot);
                 int light = Math.max(world.getBrightness(LightLayer.BLOCK, livingEntity.blockPosition()), world.getBrightness(LightLayer.SKY, livingEntity.blockPosition()));
                 if(light < 10)level *= 2;
-                float absorbmax = livingEntity.getMaxHealth() * 0.5f;
-                livingEntity.setAbsorptionAmount(Math.min(livingEntity.getAbsorptionAmount() + level * 0.5f, absorbmax));
+                float absorb = level * 0.5f;
+                if(absorb > 0.0f)
+                    TTMEntityUtils.addLivingEntityAbsorptionAmountByMax(livingEntity, absorb);
             }
         }
 

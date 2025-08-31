@@ -53,6 +53,7 @@ public class UshinokokumairiModifier extends Modifier implements MeleeHitModifie
     {
         int level = modifier.intEffectiveLevel() - 1;
         LivingEntity entity = context.getLivingTarget();
+        LivingEntity attacker = context.getAttacker();
         if(entity != null)
         {
             for(MobEffectInstance effect : entity.getActiveEffects())
@@ -64,14 +65,13 @@ public class UshinokokumairiModifier extends Modifier implements MeleeHitModifie
                             effect.getAmplifier(),
                             effect.isAmbient(),
                             effect.isVisible(),
-                            effect.showIcon()));
+                            effect.showIcon()),attacker);
                 }
             }
             for(int i = 0 ; i < 7 ; ++i)
             {
-                if(!entity.canBeAffected(new MobEffectInstance(mobEffectList.get(i), BASETICK, level, false, true))||entity.hasEffect(mobEffectList.get(i)))
+                if(entity.hasEffect(mobEffectList.get(i))||!entity.addEffect(new MobEffectInstance(mobEffectList.get(i), BASETICK, level, false, true),attacker))
                     continue;
-                entity.addEffect(new MobEffectInstance(mobEffectList.get(i), BASETICK, level, false, true));
                 break;
             }
         }

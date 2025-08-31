@@ -26,7 +26,7 @@ public class OverroseModifier extends Modifier implements InventoryTickModifierH
         if (!world.isClientSide && holder.tickCount % 20 == 0 && holder.getUseItem() != stack) {
             OverslimeModifier overslime = TinkerModifiers.overslime.get();
             ModifierEntry entry = tool.getModifier(TinkerModifiers.overslime.getId());
-            double percent = holder.hasEffect(YHEffects.UNCONSCIOUS.get()) ? 2.0 : 1.0;
+            double percent = (holder.hasEffect(YHEffects.UNCONSCIOUS.get()) ? 2.0 : 1.0) * (0.8 + entry.getLevel() * 0.2);
             if (entry.getLevel() > 0 && overslime.getShield(tool) < overslime.getShieldCapacity(tool, entry)) {
                 int addover = (int) (overslime.getShieldCapacity(tool, entry) * percent);
                 overslime.addOverslime(tool, entry, addover);

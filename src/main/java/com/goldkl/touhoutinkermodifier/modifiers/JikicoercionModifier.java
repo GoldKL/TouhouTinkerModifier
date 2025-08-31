@@ -2,6 +2,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
@@ -28,18 +29,18 @@ public class JikicoercionModifier extends Modifier implements ProjectileHitModif
     @Override
     public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
         if(target != null) {
-            applyEffect(target, modifier.getLevel());
+            applyEffect(target, modifier.getLevel(),attacker);
         }
         return false;
     }
     @Override
     public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
         if(context.getLivingTarget() != null) {
-            applyEffect(context.getLivingTarget(), modifier.getLevel());
+            applyEffect(context.getLivingTarget(), modifier.getLevel(),context.getAttacker());
         }
         return knockback;
     }
-    private void applyEffect(LivingEntity entity,int level)
+    private void applyEffect(LivingEntity entity, int level, Entity attacker)
     {
         int amplifier = -1;
         MobEffectInstance instance = entity.getEffect(MobeffectRegistry.MELT.get());
@@ -48,6 +49,6 @@ public class JikicoercionModifier extends Modifier implements ProjectileHitModif
             amplifier = instance.getAmplifier();
             entity.removeEffect(MobeffectRegistry.MELT.get());
         }
-        entity.addEffect(new MobEffectInstance(MobeffectRegistry.MELT.get(),100 * level, Math.min(2,amplifier + 1)));
+        entity.addEffect(new MobEffectInstance(MobeffectRegistry.MELT.get(),100 * level, Math.min(2,amplifier + 1)),attacker);
     }
 }

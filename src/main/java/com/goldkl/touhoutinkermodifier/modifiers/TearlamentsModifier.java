@@ -10,14 +10,17 @@ import dev.shadowsoffire.attributeslib.api.ALObjects;
 import dev.xkmc.youkaishomecoming.content.item.curio.hat.FlyingToken;
 import net.minecraft.client.Camera;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,11 +29,14 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingBreatheEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -40,17 +46,31 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
-public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook, NightVisionHook {
+public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, TooltipModifierHook, EquipmentChangeModifierHook, NightVisionHook {
     //珠泪哀歌：若鹭姬
-    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.tearlaments);
-    //public static final TinkerDataCapability.TinkerDataKey<TTMEntityUtils.BooleanStat> IsinWater = TinkerDataCapability.ComputableDataKey.of(ModifierIds.tearlaments.withSuffix("_isinwater"), TTMEntityUtils.BooleanStat::new);
-    private static final UUID uuid = UUID.nameUUIDFromBytes((ModifierIds.tearlaments.toString()).getBytes());
-    final SlotInChargeModule SICM;
+    final String unique = ModifierIds.tearlaments.getNamespace()+  ".modifier."+ModifierIds.tearlaments.getPath();
+    final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
+    private static final List<Attribute> attributes = List.of(
+            Attributes.ATTACK_DAMAGE,
+            ALObjects.Attributes.ARROW_DAMAGE.get(),
+            AttributesRegistry.PLAYER_FLY_MOVEMENT.get(),
+            Attributes.FLYING_SPEED);
+    private static final List<Float> attributes_amount = List.of(
+            3f,
+            0.05f,
+            0.5f,
+            0.5f);
+    private static final List<AttributeModifier.Operation> attributes_operation = List.of(
+            AttributeModifier.Operation.ADDITION,
+            AttributeModifier.Operation.MULTIPLY_BASE,
+            AttributeModifier.Operation.MULTIPLY_BASE,
+            AttributeModifier.Operation.MULTIPLY_BASE);
     public TearlamentsModifier()
     {
-        SICM = new SlotInChargeModule(SLOT_IN_CHARGE);
         MinecraftForge.EVENT_BUS.addListener(this::LivingBreathInWater);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             MinecraftForge.EVENT_BUS.addListener(this::ClearWaterFog);
@@ -62,18 +82,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
         LivingEntity entity = event.getEntity();
         if(entity.canDrownInFluidType(ForgeMod.WATER_TYPE.get()) && entity.getEyeInFluidType() == ForgeMod.WATER_TYPE.get())
         {
-            boolean check = false;
-            for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
-            {
-                if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-                ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-                if(tool.getModifier(ModifierIds.tearlaments)!=ModifierEntry.EMPTY)
-                {
-                    check = true;
-                    break;
-                }
-            }
-            if(check)
+            if(TTMEntityUtils.hasModifier(entity, ModifierIds.tearlaments))
             {
                 event.setCanBreathe(true);
                 event.setCanRefillAir(true);
@@ -88,18 +97,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
             Entity cameraEntity = camera.getEntity();
             if(cameraEntity instanceof LivingEntity entity)
             {
-                boolean check = false;
-                for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
-                {
-                    if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-                    ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-                    if(tool.getModifier(ModifierIds.tearlaments)!=ModifierEntry.EMPTY)
-                    {
-                        check = true;
-                        break;
-                    }
-                }
-                if(check)
+                if(TTMEntityUtils.hasModifier(entity, ModifierIds.tearlaments))
                 {
                     float waterVision = camera.getEntity() instanceof LocalPlayer player ? Math.max(0.25f, player.getWaterVision()) : 1.0f;
                     event.setFogShape(FogShape.CYLINDER);
@@ -123,25 +121,15 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK,ModifierHooks.EQUIPMENT_CHANGE, ModifierHooksRegistry.NIGHT_VISION_HOOK);
+        hookBuilder.addHook(this, ModifierHooks.TOOLTIP, ModifierHooks.INVENTORY_TICK,ModifierHooks.EQUIPMENT_CHANGE, ModifierHooksRegistry.NIGHT_VISION_HOOK);
     }
     @Override
-    public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
+    public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(world.isClientSide())return;
-        if(isCorrectSlot && livingEntity instanceof Player player)
+        if(TTMEntityUtils.validArmorTool(tool,isCorrectSlot,livingEntity,itemStack))
         {
-            updatavalue(livingEntity);
-            boolean check = player.isInWater();
-            if(check)
-            {
-                FlyingToken.tickFlying(player);
-                if(!player.getAbilities().flying && player.getAbilities().mayfly &&!(player.isCreative()||player.isSpectator()))
-                {
-                    player.getAbilities().flying = true;
-                    player.onUpdateAbilities();
-                }
-            }
-            /*EquipmentSlot slot = null;
+            int isinWater = livingEntity.isInWaterRainOrBubble()?1:0;
+            EquipmentSlot slot = null;
             for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
             {
                 if(livingEntity.getItemBySlot(equipmentSlot) == itemStack)
@@ -150,122 +138,84 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
                     break;
                 }
             }
-            if(slot!=null && SlotInChargeModule.isInCharge(livingEntity.getCapability(TinkerDataCapability.CAPABILITY), SLOT_IN_CHARGE, slot))
+            if(slot != null)
             {
-                updatavalue(livingEntity);
-                final boolean[] state = {livingEntity.isInWater(),false};
-                livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-                    TTMEntityUtils.BooleanStat oldstate = (TTMEntityUtils.BooleanStat)data.get(IsinWater);
-                    if(oldstate != null)
+                int level = modifier.getLevel();
+                for(int i = 0; i < 4; i++) {
+                    AttributeInstance instance = livingEntity.getAttribute(attributes.get(i));
+                    if(instance != null)
                     {
-                        state[1] = oldstate.getBooleanstat();
+                        AttributeModifier attributeModifier = this.createModifier(tool, isinWater, modifier, slot, level, i);
+                        if (attributeModifier != null) {
+                            instance.removeModifier(attributeModifier);
+                            instance.addTransientModifier(attributeModifier);
+                        }
                     }
-                });
-                if(state[0])
+                }
+            }
+            if(livingEntity instanceof Player player)
+            {
+                boolean check = player.isInWater();
+                if(check)
                 {
-                    //现在在水里
-                    if(livingEntity instanceof Player player)
+                    FlyingToken.tickFlying(player);
+                    if(!player.getAbilities().flying && player.getAbilities().mayfly &&!(player.isCreative()||player.isSpectator()))
                     {
                         player.getAbilities().flying = true;
                         player.onUpdateAbilities();
                     }
                 }
-                else if(state[1])
-                {
-                    //之前在水里现在不在水里
-                    if(livingEntity instanceof Player player)
-                    {
-                        if(!(player.isCreative()||player.isSpectator()))
-                        {
-                            player.getAbilities().flying = player.getAbilities().mayfly;
-                            player.onUpdateAbilities();
-                        }
-                    }
-                }
-                livingEntity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-                    TTMEntityUtils.BooleanStat oldstate = (TTMEntityUtils.BooleanStat)data.get(IsinWater);
-                    if(oldstate != null)
-                    {
-                        oldstate.setBooleanstat(state[0]);
-                    }
-                    else
-                    {
-                        data.put(IsinWater,new TTMEntityUtils.BooleanStat(state[0]));
-                    }
-                });
-            }*/
+            }
         }
     }
-    void updatavalue(LivingEntity entity)
+    private double getAttributeNum(int level,int waterpercent,int index)
     {
-        int level = 0;
-        int isinWater = entity.isInWaterRainOrBubble()?1:0;
-        for(EquipmentSlot slot : EquipmentSlot.values())
+        if(index <= 1)
         {
-            level = SlotInChargeModule.getLevel(entity.getCapability(TinkerDataCapability.CAPABILITY), SLOT_IN_CHARGE, slot);
-            if(level != 0)
-                break;
+            return level * waterpercent * attributes_amount.get(index);
         }
-        AttributeInstance instance = entity.getAttribute(Attributes.ATTACK_DAMAGE);
-        if (instance != null) {
-            instance.removeModifier(uuid);
-            float attributeValue = level * isinWater * 3;
-            if (attributeValue != 0) {
-                instance.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.ADDITION));
-            }
+        else
+        {
+            return waterpercent * attributes_amount.get(index);
         }
-        AttributeInstance instance2 = entity.getAttribute(ALObjects.Attributes.ARROW_DAMAGE.get());
-        if (instance2 != null) {
-            instance2.removeModifier(uuid);
-            float attributeValue = level * isinWater * 0.05f;
-            if (attributeValue != 0) {
-                instance2.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.MULTIPLY_BASE));
-            }
-        }
-        AttributeInstance instance3 = (entity instanceof Player)?entity.getAttribute(AttributesRegistry.PLAYER_FLY_MOVEMENT.get()):entity.getAttribute(Attributes.FLYING_SPEED);
-        if (instance3 != null) {
-            instance3.removeModifier(uuid);
-            float attributeValue = (level>0 ? 1 : 0) * isinWater * 0.5f;
-            if (attributeValue != 0) {
-                instance3.addTransientModifier(new AttributeModifier(uuid, ModifierIds.tearlaments.toString(), attributeValue, AttributeModifier.Operation.MULTIPLY_BASE));
-            }
-        }
+    }
+    private @Nullable UUID getUUID(EquipmentSlot slot) {
+        return this.slotUUIDs[slot.getFilterFlag()];
+    }
+    private @Nullable AttributeModifier createModifier(IToolStackView tool,int isinwater, ModifierEntry modifier, EquipmentSlot slot, int level, int index) {
+        UUID uuid = this.getUUID(slot);
+        if(isinwater == 0)return null;
+        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), getAttributeNum(level,isinwater,index), attributes_operation.get(index)) : null;
     }
     @Override
-    public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context)
-    {
-        SICM.onEquip(tool, modifier, context);
-        if(!context.getEntity().level().isClientSide)
-            updatavalue(context.getEntity());
-    }
-    @Override
-    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context)
-    {
-        SICM.onUnequip(tool, modifier, context);
-        if(!context.getEntity().level().isClientSide)
-            updatavalue(context.getEntity());
-        /*if(!context.getEntity().level().isClientSide)
+    public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> list, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+        if(player == null)return;
+        int level = modifier.getLevel();
+        list.add(modifier.getModifier().applyStyle(Component.translatable("modifier.touhoutinkermodifier.tearlaments.inwater")));
+        for(int i = 0; i < 4 ;++i)
         {
-            updatavalue(context.getEntity());
-            LivingEntity entity = context.getEntity();
-            if(entity instanceof Player player)
+            if(attributes_operation.get(i) == AttributeModifier.Operation.ADDITION)
             {
-                boolean check = false;
-                for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
+                TooltipModifierHook.addFlatBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), getAttributeNum(level,1,i), list);
+            }
+            else
+            {
+                TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), getAttributeNum(level,1,i), list);
+            }
+        }
+    }
+    @Override
+    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+        UUID uuid = this.getUUID(context.getChangedSlot());
+        if(uuid != null)
+        {
+            for(Attribute attribute : attributes) {
+                AttributeInstance instance = context.getEntity().getAttribute(attribute);
+                if(instance != null)
                 {
-                    if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, equipmentSlot))
-                    {
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check&&!(player.isCreative()||player.isSpectator()))
-                {
-                    player.getAbilities().flying = player.getAbilities().mayfly;
-                    player.onUpdateAbilities();
+                    instance.removeModifier(uuid);
                 }
             }
-        }*/
+        }
     }
-
 }

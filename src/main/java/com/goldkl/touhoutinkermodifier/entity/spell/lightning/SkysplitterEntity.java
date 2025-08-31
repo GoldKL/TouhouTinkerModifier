@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.entity.spell.lightning;
 import com.goldkl.touhoutinkermodifier.registries.EntitiesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.spells.lightning.SkysplitterSpell;
+import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -82,9 +83,9 @@ public class SkysplitterEntity extends AoeEntity implements AntiMagicSusceptible
                     if(distanceSqr < explosionRadiusSqr && this.getOwner() != null && entity == this.getOwner())
                     {
                         if(entity instanceof LivingEntity livingEntity) {
-                            float absorbmax = livingEntity.getMaxHealth() * 0.5f;
                             float absorb = this.absorb + ((SkysplitterSpell)SpellsRegistry.skysplitter.get()).getPercenthealthabsorb(this.spelllevel,livingEntity);
-                            livingEntity.setAbsorptionAmount(Math.min(livingEntity.getAbsorptionAmount() + absorb, absorbmax));
+                            if(absorb > 0.0f)
+                                TTMEntityUtils.addLivingEntityAbsorptionAmountByMax(livingEntity, absorb);
                         }
                     }
                 }

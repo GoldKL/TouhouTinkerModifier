@@ -37,7 +37,7 @@ public class FanghuaxuanlanModifier extends Modifier implements ProjectileHitMod
                 target.removeEffect(MobeffectRegistry.INTERNALINJURY.get());
             }
             int neweffectlevel = Math.max(level + 2 , Effectlevel + 1);
-            target.addEffect(new MobEffectInstance(MobeffectRegistry.INTERNALINJURY.get(),EFFECT_DURATION,neweffectlevel,false,true));
+            target.addEffect(new MobEffectInstance(MobeffectRegistry.INTERNALINJURY.get(),EFFECT_DURATION,neweffectlevel,false,true),attacker);
         }
         return false;
     }

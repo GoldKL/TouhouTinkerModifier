@@ -1,0 +1,11 @@
+// 1.20.1	2025-08-31T02:07:07.6451509	Touhou Tinkers Modifier's Item Tags
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/minecraft/tags/items/swords.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/bonus_slots.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/durability.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/harvest.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/interactable/right.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/melee/parry.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/melee/primary.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/multipart.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/small.json
+1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/touhoutinkermodifier/tags/items/modifiable/melee/spear.json
