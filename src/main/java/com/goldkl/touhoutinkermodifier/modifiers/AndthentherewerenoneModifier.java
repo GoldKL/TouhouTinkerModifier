@@ -1,7 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.tracking.ChannelEventTracker;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import net.minecraft.nbt.CompoundTag;
@@ -36,18 +36,18 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
     @Override
     public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
         if(arrow != null && arrow.isCritArrow() && primary) {
-            persistentData.putBoolean(ModifierIds.andthentherewerenone,true);
+            persistentData.putBoolean(TTMModifierIds.andthentherewerenone,true);
         }
     }
     @Override
     public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-        if(persistentData.getBoolean(ModifierIds.andthentherewerenone))
+        if(persistentData.getBoolean(TTMModifierIds.andthentherewerenone))
             explode(projectile,modifier.getLevel());
         return false;
     }
     @Override
     public void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
-        if(persistentData.getBoolean(ModifierIds.andthentherewerenone))
+        if(persistentData.getBoolean(TTMModifierIds.andthentherewerenone))
             explode(projectile,modifier.getLevel());
     }
     void explode(Projectile projectile,int level) {

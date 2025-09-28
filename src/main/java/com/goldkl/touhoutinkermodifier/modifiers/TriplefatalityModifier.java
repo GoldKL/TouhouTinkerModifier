@@ -42,7 +42,11 @@ public class TriplefatalityModifier extends Modifier implements MeleeDamagePerce
                     attacker.removeEffect(MobeffectRegistry.TRIPLEFATALITY.get());
                     if(!target.isDeadOrDying())
                     {
-                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.EXHAUSTED.get(), 3600, 2));
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.EXHAUSTED.get(), 3600, 3));
+                    }
+                    else
+                    {
+                        attacker.addEffect(new MobEffectInstance(MobeffectRegistry.EXHAUSTED.get(), 200, 0));
                     }
                 }
                 else

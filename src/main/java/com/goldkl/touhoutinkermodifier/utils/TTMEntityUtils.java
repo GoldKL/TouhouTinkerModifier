@@ -2,7 +2,9 @@ package com.goldkl.touhoutinkermodifier.utils;
 
 import com.Polarice3.Goety.common.entities.boss.Apostle;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.LLibrary_Boss_Monster;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.mixin.cataclysm.LLibrary_Boss_MonsterAccessor;
 import com.goldkl.touhoutinkermodifier.mixin.tconstruct.BasicModifierAccessor;
 import com.goldkl.touhoutinkermodifier.mixin.youkaishomecoming.BossYoukaiEntityAccessor;
@@ -43,20 +45,6 @@ public class TTMEntityUtils {
         if(entity instanceof Apostle apostle) {
             apostle.moddedInvul = 0;
         }
-        /*if (entity instanceof Apostle apostle && apostle instanceof ApollyonAbilityHelper helper && apostle instanceof Apollyon2Interface apollyon2Interface) {
-            if (helper.allTitlesApostle_1_20_1$isApollyon())
-            {
-                if (helper.allTitlesApostle_1_20_1$getHitCooldown() > 0) {
-                    helper.allTitlesApostle_1_20_1$setHitCooldown(0);
-                }
-                if (helper.getApollyonTime() > 0) {
-                    helper.setApollyonTime(0);
-                }
-                if (apollyon2Interface.revelaionfix$getHitCooldown() > 0) {
-                    apollyon2Interface.revelaionfix$setHitCooldown(0);
-                }
-            }
-        }*/
     }
     public static void addLivingEntityAbsorptionAmountByMax(LivingEntity entity, float absorb)
     {
@@ -187,5 +175,11 @@ public class TTMEntityUtils {
         return false;
     }
     //这两个词条会修改妖归的怪肉判断，目前是写死的
-    public static List<ModifierId>FleshModifiers = List.of(ModifierIds.devourdarkness,ModifierIds.apparitionsstalkthenight);
+    public static List<ModifierId>FleshModifiers = List.of(TTMModifierIds.devourdarkness, TTMModifierIds.apparitionsstalkthenight);
+    //获取目标的power值的整数部分，没有的话返回0
+    public static int getPowerValue(LivingEntity entity)
+    {
+        PowerCapability powerCapability = entity.getCapability(PowerCapabilityProvider.POWER_CAP).orElse(null);
+        return powerCapability != null? (int) powerCapability.get() :0;
+    }
 }

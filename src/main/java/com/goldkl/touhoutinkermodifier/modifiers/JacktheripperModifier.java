@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.BetterCombatAtackRangeHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
@@ -31,7 +31,7 @@ import java.util.function.BiConsumer;
 
 public class JacktheripperModifier extends NoLevelsModifier implements BetterCombatAtackRangeHook, ToolStatsModifierHook, AttributesModifierHook {
     //开膛杰克：十六夜咲夜
-    final String unique = ModifierIds.jacktheripper.getNamespace()+  ".modifier."+ModifierIds.jacktheripper.getPath();
+    final String unique = TTMModifierIds.jacktheripper.getNamespace()+  ".modifier."+ TTMModifierIds.jacktheripper.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

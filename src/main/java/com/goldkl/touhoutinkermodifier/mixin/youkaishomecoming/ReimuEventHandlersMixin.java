@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin.youkaishomecoming;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import dev.xkmc.youkaishomecoming.events.ReimuEventHandlers;
 import dev.xkmc.youkaishomecoming.init.data.YHLangData;
@@ -24,16 +24,16 @@ public class ReimuEventHandlersMixin {
     private static void koishiBlockReimuMixin(LivingEntity le, CallbackInfoReturnable<Boolean> cir)
     {
         if(le instanceof ServerPlayer sp
-                && TTMEntityUtils.hasModifier(sp, ModifierIds.koishiseye, ModifiableArmorMaterial.ARMOR_SLOTS))
+                && TTMEntityUtils.hasModifier(sp, TTMModifierIds.koishiseye, ModifiableArmorMaterial.ARMOR_SLOTS))
         {
             sp.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data->{
-                int time = data.getInt(ModifierIds.koishiseye);
+                int time = data.getInt(TTMModifierIds.koishiseye);
                 if(time == 0)
                 {
                     if (sp.hasEffect(YHEffects.UNCONSCIOUS.get())) {
                         sp.removeEffect(YHEffects.UNCONSCIOUS.get());
                     }
-                    data.putInt(ModifierIds.koishiseye, 1200);
+                    data.putInt(TTMModifierIds.koishiseye, 1200);
                     TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), sp);
                     sp.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
                     sp.sendSystemMessage(YHLangData.KOISHI_REIMU.get(), true);

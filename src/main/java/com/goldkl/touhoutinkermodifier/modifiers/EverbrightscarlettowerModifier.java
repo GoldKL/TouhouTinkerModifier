@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.hollingsworth.arsnouveau.api.perk.PerkAttributes;
@@ -11,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
@@ -19,14 +18,13 @@ import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class EverbrightscarlettowerModifier extends NoLevelsModifier implements AttributesModifierHook {
     //不夜红楼：小恶魔
-    final String unique = ModifierIds.everbrightscarlettower.getNamespace()+  ".modifier."+ModifierIds.everbrightscarlettower.getPath();
+    final String unique = TTMModifierIds.everbrightscarlettower.getNamespace()+  ".modifier."+ TTMModifierIds.everbrightscarlettower.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(AttributeRegistry.COOLDOWN_REDUCTION.get(), PerkAttributes.MANA_REGEN_BONUS.get());
     private static final List<Float> attributes_amount = List.of(0.05f,5f);

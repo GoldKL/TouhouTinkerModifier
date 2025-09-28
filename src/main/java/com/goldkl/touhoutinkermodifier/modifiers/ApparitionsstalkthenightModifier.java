@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import dev.xkmc.youkaishomecoming.init.food.YHFood;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -40,7 +40,7 @@ public class ApparitionsstalkthenightModifier extends Modifier implements Proces
                 {
                     if(!(lvingentitiy.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
                     ToolStack nwtool = ToolStack.from(lvingentitiy.getItemBySlot(equipmentSlot));
-                    level += nwtool.getModifier(ModifierIds.apparitionsstalkthenight).intEffectiveLevel();
+                    level += nwtool.getModifier(TTMModifierIds.apparitionsstalkthenight).intEffectiveLevel();
                 }
             }
             else

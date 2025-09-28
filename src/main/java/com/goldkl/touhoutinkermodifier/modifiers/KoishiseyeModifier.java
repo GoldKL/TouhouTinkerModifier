@@ -1,13 +1,11 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import dev.xkmc.l2library.base.effects.EffectUtil;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -37,10 +35,10 @@ public class KoishiseyeModifier extends NoLevelsModifier implements InventoryTic
         LivingEntity entity = event.getEntity();
         if(!entity.isAlive())return;
         entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-            int time = data.getInt(ModifierIds.koishiseye);
+            int time = data.getInt(TTMModifierIds.koishiseye);
             if(time > 0)
             {
-                data.putInt(ModifierIds.koishiseye, time - 1);
+                data.putInt(TTMModifierIds.koishiseye, time - 1);
             }
         });
     }
@@ -53,7 +51,7 @@ public class KoishiseyeModifier extends NoLevelsModifier implements InventoryTic
     public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity entity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(!isCorrectSlot||world.isClientSide)return;
         entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-            int time = data.getInt(ModifierIds.koishiseye);
+            int time = data.getInt(TTMModifierIds.koishiseye);
             if(time == 0)
             {
                 EffectUtil.refreshEffect(entity, new MobEffectInstance(YHEffects.UNCONSCIOUS.get(), 40, 0, true, true), EffectUtil.AddReason.SELF, entity);
@@ -67,7 +65,7 @@ public class KoishiseyeModifier extends NoLevelsModifier implements InventoryTic
         {
             final int[] tick = {0};
             player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-                tick[0] = data.getInt(ModifierIds.koishiseye);
+                tick[0] = data.getInt(TTMModifierIds.koishiseye);
             });
             int time = tick[0] / 20;
             if(tick[0] == 0)

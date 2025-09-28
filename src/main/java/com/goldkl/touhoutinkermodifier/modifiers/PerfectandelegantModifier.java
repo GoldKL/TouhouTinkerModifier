@@ -1,15 +1,13 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.EntityDodgeHook;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
-import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +31,6 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -42,7 +39,7 @@ import java.util.UUID;
 
 public class PerfectandelegantModifier extends Modifier implements EntityDodgeHook, InventoryTickModifierHook, TooltipModifierHook , EquipmentChangeModifierHook {
     //完美潇洒：十六夜咲夜
-    final String unique = ModifierIds.perfectandelegant.getNamespace()+  ".modifier."+ModifierIds.perfectandelegant.getPath();
+    final String unique = TTMModifierIds.perfectandelegant.getNamespace()+  ".modifier."+ TTMModifierIds.perfectandelegant.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(ALObjects.Attributes.DODGE_CHANCE.get(),Attributes.ARMOR);
     private static final List<Float> attributes_amount = List.of(0.0625f,6.0f);

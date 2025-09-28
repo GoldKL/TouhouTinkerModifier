@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin.ironspell;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import net.minecraft.core.Holder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,7 +35,7 @@ public abstract class SpellDamageSourceMixin extends DamageSource {
             {
                 if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
                 ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-                if(tool.getModifier(ModifierIds.scarletdevil)!= ModifierEntry.EMPTY)
+                if(tool.getModifier(TTMModifierIds.scarletdevil)!= ModifierEntry.EMPTY)
                 {
                     flag = true;
                     break;

@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -17,7 +17,7 @@ public class MobEffectMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     boolean applyEffectTickMixin(LivingEntity entity, DamageSource source, float ev, Operation<Boolean> original)
     {
-        boolean flag = TTMEntityUtils.hasModifier(entity, ModifierIds.fieldmiasma);
+        boolean flag = TTMEntityUtils.hasModifier(entity, TTMModifierIds.fieldmiasma);
         if(flag)
         {
             if(((MobEffect) (Object)this) == MobEffects.POISON)

@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.network.chat.Component;
@@ -30,7 +30,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class IdliberationModifier extends Modifier implements AttributesModifierHook, InventoryTickModifierHook, EquipmentChangeModifierHook, ModifierRemovalHook {
-    final String unique = ModifierIds.idliberation.getNamespace()+  ".modifier."+ModifierIds.idliberation.getPath();
+    final String unique = TTMModifierIds.idliberation.getNamespace()+  ".modifier."+ TTMModifierIds.idliberation.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
@@ -43,7 +43,7 @@ public class IdliberationModifier extends Modifier implements AttributesModifier
         if(equipmentSlot == EquipmentSlot.OFFHAND && iToolStackView.hasTag(TinkerTags.Items.BOWS)) {
             UUID uuid = this.getUUID(equipmentSlot);
             int level = modifierEntry.getLevel();
-            boolean flag = iToolStackView.getPersistentData().getBoolean(ModifierIds.idliberation);
+            boolean flag = iToolStackView.getPersistentData().getBoolean(TTMModifierIds.idliberation);
             if(flag) {
                 level *= 2;
             }
@@ -81,16 +81,16 @@ public class IdliberationModifier extends Modifier implements AttributesModifier
     @Nullable
     @Override
     public Component onRemoved(IToolStackView tool, Modifier modifier) {
-        tool.getPersistentData().remove(ModifierIds.idliberation);
+        tool.getPersistentData().remove(TTMModifierIds.idliberation);
         return null;
     }
 
     void updatevalue(IToolStackView tool, boolean flag1)
     {
-        boolean flag = tool.getPersistentData().getBoolean(ModifierIds.idliberation);
+        boolean flag = tool.getPersistentData().getBoolean(TTMModifierIds.idliberation);
         if(flag != flag1)
         {
-            tool.getPersistentData().putBoolean(ModifierIds.idliberation, flag1);
+            tool.getPersistentData().putBoolean(TTMModifierIds.idliberation, flag1);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.mixin.ironspell.SchoolTypeAccessor;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -32,43 +31,18 @@ import java.util.UUID;
 
 public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChangeModifierHook, TooltipModifierHook {
     //凝视深渊：本居小铃
-    final String unique = ModifierIds.rlyehtext.getNamespace()+  ".modifier."+ModifierIds.rlyehtext.getPath();
+    final String unique = TTMModifierIds.rlyehtext.getNamespace()+  ".modifier."+ TTMModifierIds.rlyehtext.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this,ModifierHooks.TOOLTIP,ModifierHooks.EQUIPMENT_CHANGE);
-        hookBuilder.addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.bibliophilia,1).modifierKey(ModifierIds.rlyehtext).build());
+        hookBuilder.addModule(ModifierRequirementsModule.builder().requireModifier(TTMModifierIds.bibliophilia,1).modifierKey(TTMModifierIds.rlyehtext).build());
     }
-    /*@Override
-    public void addAttributes(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot equipmentSlot, BiConsumer<Attribute, AttributeModifier> biConsumer) {
-        if (iToolStackView.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
-            int level = iToolStackView.getModifierLevel(ModifierIds.bibliophilia);
-            UUID uuid = this.getUUID(equipmentSlot);
-            if(uuid != null) {
-                for(SchoolType schoolType : SchoolRegistry.REGISTRY.get())
-                {
-                    Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().orElse(null);
-                    if(attribute != null)
-                    {
-                        if(attribute == AttributeRegistry.ELDRITCH_SPELL_POWER.get()) {
-                            biConsumer.accept(attribute, new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), level * 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
-                        }
-                        else {
-                            biConsumer.accept(attribute, new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), -0.5, AttributeModifier.Operation.MULTIPLY_TOTAL));
-                        }
-                    }
-                }
-            }
-        }
-    }*/
     public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-        /*if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
-            return;
-        }*/
         if(context.getEntity().level().isClientSide)return;
-        if (tool.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
-            int level = tool.getModifierLevel(ModifierIds.bibliophilia);
+        if (tool.getModifier(TTMModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
+            int level = tool.getModifierLevel(TTMModifierIds.bibliophilia);
             for (SchoolType schoolType : SchoolRegistry.REGISTRY.get()){
                 Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().orElse(null);
                 if(attribute != null)
@@ -96,11 +70,8 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
     }
 
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-        /*if(tool.getItem() instanceof ModifiableArmorItem modifiableArmorItem && modifiableArmorItem.getEquipmentSlot() != context.getChangedSlot()) {
-            return;
-        }*/
         if(context.getEntity().level().isClientSide)return;
-        if (tool.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
+        if (tool.getModifier(TTMModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
             UUID uuid = this.getUUID(context.getChangedSlot());
             if (uuid != null) {
                 for (SchoolType schoolType : SchoolRegistry.REGISTRY.get()) {
@@ -125,8 +96,8 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
 
     @Override
     public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> list, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-        if (tool.getModifier(ModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
-            int level = tool.getModifierLevel(ModifierIds.bibliophilia);
+        if (tool.getModifier(TTMModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
+            int level = tool.getModifierLevel(TTMModifierIds.bibliophilia);
             TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(AttributeRegistry.ELDRITCH_SPELL_POWER.get().getDescriptionId()), 0.6 * level, list);
             list.add(modifier.getModifier().applyStyle(Component.literal(Util.MULTIPLIER_FORMAT.format(0.5) + " ").append(Component.translatable("modifier.touhoutinkermodifier.rlyehtext.anotherspellpower"))));
         }

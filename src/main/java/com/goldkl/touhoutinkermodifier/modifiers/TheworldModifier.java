@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,7 +20,7 @@ public class TheworldModifier extends Modifier implements GeneralInteractionModi
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         hookBuilder.addHook(this, ModifierHooks.GENERAL_INTERACT);
-        hookBuilder.addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.jacktheripper,1).requireModifier(ModifierIds.vanhelsingprogeny,1).modifierKey(ModifierIds.theworld).build());
+        hookBuilder.addModule(ModifierRequirementsModule.builder().requireModifier(TTMModifierIds.jacktheripper,1).requireModifier(TTMModifierIds.vanhelsingprogeny,1).modifierKey(TTMModifierIds.theworld).build());
     }
 
     @Override

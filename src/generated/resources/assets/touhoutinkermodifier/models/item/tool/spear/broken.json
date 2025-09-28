@@ -4,12 +4,12 @@
   "textures": {
     "head": "touhoutinkermodifier:item/tool/spear/head_broken",
     "handle": "touhoutinkermodifier:item/tool/spear/handle",
-    "grip": "touhoutinkermodifier:item/tool/spear/guard",
-    "accessory": "touhoutinkermodifier:item/tool/spear/shield",
+    "grip": "touhoutinkermodifier:item/tool/spear/grip",
+    "accessory": "touhoutinkermodifier:item/tool/spear/accessory",
     "large_head": "touhoutinkermodifier:item/tool/spear/large/head_broken",
     "large_handle": "touhoutinkermodifier:item/tool/spear/large/handle",
-    "large_grip": "touhoutinkermodifier:item/tool/spear/large/guard",
-    "large_accessory": "touhoutinkermodifier:item/tool/spear/large/shield"
+    "large_grip": "touhoutinkermodifier:item/tool/spear/large/grip",
+    "large_accessory": "touhoutinkermodifier:item/tool/spear/large/accessory"
   },
   "modifier_roots": {
     "small": [

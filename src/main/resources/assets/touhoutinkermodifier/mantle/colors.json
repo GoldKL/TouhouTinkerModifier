@@ -60,6 +60,20 @@
     "komeijisisters": "#d8bef8",
     "hellstrafficaccident": "#e86163",
     "rekindlingofdeadashes": "#60a081",
-    "deepbaloney": "#cacd82"
+    "deepbaloney": "#cacd82",
+    "harvestjoy": "#daa345",
+    "thefadingautumn": "#c21f30"
+  },
+  "bullet_type.touhoutinkermodifier": {
+    "common_bullet": "#8F999F",
+    "reimu_type_a_bullet": "#FFB6C1",
+    "reimu_type_b_bullet": "#E72512"
+  },
+  "material.touhoutinkermodifier": {
+    "yinangorb": "#ff0000",
+    "spellpaper": "#f85a47",
+    "persuasionneedle": "#c82a37",
+    "konpeito": "#ffd800",
+    "eighttrigramsfurnace": "#FFFFFF"
   }
 }

@@ -16,6 +16,10 @@ public class ExhaustedEffect extends MobEffect {
         this.addAttributeModifier(Attributes.ATTACK_DAMAGE, "fdf0aadb-46be-4a3a-8b88-8b7b1a235da1", -4, AttributeModifier.Operation.ADDITION);
     }
     @Override
+    public double getAttributeModifierValue(int p_19457_, AttributeModifier p_19458_) {
+        return p_19458_.getAmount() * p_19457_;
+    }
+    @Override
     public List<ItemStack> getCurativeItems() {
         return new ArrayList<>();
     }

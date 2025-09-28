@@ -13,8 +13,8 @@ import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -44,27 +44,26 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-public record CurioAttributeModule(String unique, Attribute attribute, AttributeModifier.Operation operation, ToolFormula formula, Set<String> blackslots, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements ModifierModule, CurioAttributeModifierHook, CurioEquipmentChangeModifierHook, TooltipModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
+public record CurioAttributeModule(String unique, Attribute attribute, AttributeModifier.Operation operation, ToolFormula formula,boolean blacklist, Set<String> slotslist, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements ModifierModule, CurioAttributeModifierHook, CurioEquipmentChangeModifierHook, TooltipModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
     private static final String[] VARIABLES = { "level" };
     private static final RecordLoadable<ToolFormula> VARIABLE_LOADER = new VariableFormulaLoadable<>(ToolVariable.LOADER, VARIABLES, ModifierFormula.FallbackFormula.IDENTITY, (formula, variables, percent) -> new ToolFormula(formula, variables, VariableFormula.EMPTY_STRINGS));
     private static final List<ModuleHook<?>> ATTRIBUTE_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_ATTRIBUTE);
     private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
     private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_EQUIPMENT_CHANGE);
-    private static final StringLoadable<String> CURIO_SLOT = StringLoadable.DEFAULT;
-    private static final Loadable<Set<String>> CURIO_SLOT_SET = CURIO_SLOT.set(0);
     public static final RecordLoadable<CurioAttributeModule> LOADER = RecordLoadable.create(
             new AttributeUniqueField<>(CurioAttributeModule::unique),
             Loadables.ATTRIBUTE.requiredField("attribute", CurioAttributeModule::attribute),
             TinkerLoadables.OPERATION.requiredField("operation", CurioAttributeModule::operation),
             VARIABLE_LOADER.directField(CurioAttributeModule::formula),
-            CURIO_SLOT_SET.nullableField("black_slot", CurioAttributeModule::blackslots),
+            BooleanLoadable.INSTANCE.defaultField("black_list", false, CurioAttributeModule::blacklist),
+            StringLoadable.DEFAULT.set(0).nullableField("slot_list", CurioAttributeModule::slotslist),
             TooltipStyle.LOADABLE.defaultField("tooltip_style", TooltipStyle.ATTRIBUTE, CurioAttributeModule::tooltipStyle),
             ModifierCondition.TOOL_FIELD,
             CurioAttributeModule::new);
 
     @Nullable
     public UUID getUUID(SlotContext slot) {
-        if(blackslots.contains(slot.identifier())) return null;
+        if(this.blacklist == this.slotslist.contains(slot.identifier())) return null;
         return UUID.nameUUIDFromBytes((unique + "." + slot.identifier() + "." + slot.index()).getBytes());
     }
     /** Creates a new builder instance */
@@ -162,7 +161,8 @@ public record CurioAttributeModule(String unique, Attribute attribute, Attribute
         protected final Attribute attribute;
         protected final AttributeModifier.Operation operation;
         protected String unique = "";
-        private final Set<String> blackslots= new HashSet<>();
+        protected boolean blacklist = false;
+        private final Set<String> slotslist= new HashSet<>();
         private TooltipStyle tooltipStyle;
 
         protected Builder(Attribute attribute, AttributeModifier.Operation operation) {
@@ -173,7 +173,7 @@ public record CurioAttributeModule(String unique, Attribute attribute, Attribute
         }
 
         public Builder slots(String... slots) {
-            blackslots.addAll(Arrays.asList(slots));
+            slotslist.addAll(Arrays.asList(slots));
             return this;
         }
 
@@ -183,7 +183,7 @@ public record CurioAttributeModule(String unique, Attribute attribute, Attribute
         }
 
         protected CurioAttributeModule build(ModifierFormula formula) {
-            return new CurioAttributeModule(this.unique, this.attribute, this.operation, new ToolFormula(formula, this.variables), this.blackslots, this.tooltipStyle, this.condition);
+            return new CurioAttributeModule(this.unique, this.attribute, this.operation, new ToolFormula(formula, this.variables), this.blacklist, this.slotslist, this.tooltipStyle, this.condition);
         }
 
         public Builder unique(String unique) {
@@ -193,6 +193,11 @@ public record CurioAttributeModule(String unique, Attribute attribute, Attribute
 
         public Builder tooltipStyle(TooltipStyle tooltipStyle) {
             this.tooltipStyle = tooltipStyle;
+            return this;
+        }
+
+        public Builder blacklist(boolean blacklist) {
+            this.blacklist = blacklist;
             return this;
         }
     }

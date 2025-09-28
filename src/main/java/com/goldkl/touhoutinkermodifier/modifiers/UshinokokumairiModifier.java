@@ -1,11 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
-import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,24 +10,17 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
-import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class UshinokokumairiModifier extends Modifier implements MeleeHitModifierHook {
     //丑时参拜：水桥帕露西
-    private static final ResourceLocation USHINOKOKUMAIRI = ModifierIds.ushinokokumairi;
+    private static final ResourceLocation USHINOKOKUMAIRI = TTMModifierIds.ushinokokumairi;
     private static final int EXTENDTICK = 100;
     private static final int BASETICK = 100;
     private static final List<MobEffect> mobEffectList

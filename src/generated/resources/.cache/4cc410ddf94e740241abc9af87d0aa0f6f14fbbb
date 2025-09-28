@@ -1,11 +1,23 @@
-// 1.20.1	2025-08-31T02:07:07.6451509	Touhou Tinkers Modifier's Item Tags
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/minecraft/tags/items/swords.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/bonus_slots.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/durability.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/harvest.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/interactable/right.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/melee/parry.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/melee/primary.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/multipart.json
-1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/tconstruct/tags/items/modifiable/small.json
+// 1.20.1	2025-09-21T22:30:35.2889869	Touhou Tinkers Modifier's Item Tags
+7de43b544c09103845ef711d1cc8813b035a3ba4 data/minecraft/tags/items/swords.json
+915b9ae342d01acd6d84cf1767e2c9603b380949 data/tconstruct/tags/items/casts/gold.json
+20f3fc7c9c5fc6a6deea4c3dce2ba31068ec419e data/tconstruct/tags/items/casts/multi_use.json
+7f062afecf0c2b60a027087c0b05d4f89f393d38 data/tconstruct/tags/items/casts/red_sand.json
+2d167b205128d70e14e15eba7ef1cdd4284f4045 data/tconstruct/tags/items/casts/sand.json
+7c4e105085b1fdd348df1618f3b20f9d2ca5507e data/tconstruct/tags/items/casts/single_use.json
+7de447363c312b1ec1ece9895f132cc3432cbb5f data/tconstruct/tags/items/modifiable/armor/held.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/bonus_slots.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/durability.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/harvest.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/interactable/right.json
+ceabf7d5d62a8c254a72aeadd6098eb9f1344157 data/tconstruct/tags/items/modifiable/melee/parry.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/melee/primary.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/multipart.json
+680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/small.json
+7de447363c312b1ec1ece9895f132cc3432cbb5f data/tconstruct/tags/items/modifiable/unsalvageable.json
+fe4b6b4f98c85b76ed673a1fd03cf2dbc7e8d05a data/tconstruct/tags/items/parts/bartered.json
+915b9ae342d01acd6d84cf1767e2c9603b380949 data/touhoutinkermodifier/tags/items/casts/multi_use/gohei_core.json
+f068433d12687e98de2a66ba055846c3ebc3dd0c data/touhoutinkermodifier/tags/items/casts/single_use/gohei_core.json
+18938b10628cd60a4bfac24fbf8c65a9acd9cb81 data/touhoutinkermodifier/tags/items/modifiable/gohei.json
+1e6ceabe98636f66c15e5427c132c9cf38ac8fe9 data/touhoutinkermodifier/tags/items/modifiable/melee/dagger.json
 1ea51039c75e9bedcd65be9c0acf7a61126ea958 data/touhoutinkermodifier/tags/items/modifiable/melee/spear.json

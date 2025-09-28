@@ -14,15 +14,12 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
-import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
-import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import com.goldkl.touhoutinkermodifier.module.CurioAttributeModule;
 
 public class ModifiersProvider extends AbstractModifierProvider implements IConditionBuilder {
     public ModifiersProvider(PackOutput packOutput) {
@@ -31,11 +28,11 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
     @Override
     protected void addModifiers() {
         //识文解字：本居小铃
-        buildModifier(ModifierIds.bibliophilia)
+        buildModifier(TTMModifierIds.bibliophilia)
                 .addModule(AttributeModule.builder(AttributeRegistry.SPELL_POWER.get(), AttributeModifier.Operation.MULTIPLY_BASE)
                     .eachLevel(0.15f));
         //绯色月下：芙兰朵路·斯卡雷特
-        buildModifier(ModifierIds.underredmoon)
+        buildModifier(TTMModifierIds.underredmoon)
                 .addModule(AttributeModule.builder(L2DamageTracker.CRIT_DMG.get(), AttributeModifier.Operation.ADDITION)
                         .slots(EquipmentSlot.MAINHAND)
                         .eachLevel(0.5f))
@@ -46,7 +43,7 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                         .slots(EquipmentSlot.MAINHAND)
                         .eachLevel(0.1f));
         //七曜魔女：帕秋莉
-        buildModifier(ModifierIds.sevenluminarieswizard)
+        buildModifier(TTMModifierIds.sevenluminarieswizard)
                 .addModule(AttributeModule.builder(AttributesRegistry.MANA_COST_REDUCTION, AttributeModifier.Operation.MULTIPLY_BASE)
                         .eachLevel(0.075f))
                 .addModule(AttributeModule.builder(AttributeRegistry.FIRE_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
@@ -83,14 +80,14 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                         .tool(ToolStackPredicate.tag(TinkerTags.Items.BOWS))
                         .eachLevel(0.25f));*/
         //山之佐伯：黑谷山女
-        buildModifier(ModifierIds.tsuchigumo)
+        buildModifier(TTMModifierIds.tsuchigumo)
                 .addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), AttributeModifier.Operation.ADDITION)
                         .amount(1f,1f/3));
         //瘴气四溢：黑谷山女
-        buildModifier(ModifierIds.fieldmiasma)
+        buildModifier(TTMModifierIds.fieldmiasma)
                 .levelDisplay(ModifierLevelDisplay.NO_LEVELS);
         //鬼之血脉：星熊勇仪，伊吹萃香，茨木华扇，（矜羯罗？）
-        buildModifier(ModifierIds.thebloodofoni)
+        buildModifier(TTMModifierIds.thebloodofoni)
                 .addModule(AttributeModule.builder(Attributes.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADDITION)
                         .eachLevel(0.125f))
                 .addModule(AttributeModule.builder(Attributes.MAX_HEALTH, AttributeModifier.Operation.ADDITION)

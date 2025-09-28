@@ -1,8 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
-import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
-import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -25,7 +23,7 @@ public class KomeijisistersModifier extends NoLevelsModifier implements Modifier
 
     @Override
     public void addTraits(IToolContext context, ModifierEntry modifier, ModifierTraitHook.TraitBuilder builder, boolean firstEncounter) {
-        builder.add(ModifierIds.terriblesouvenir,1);
+        builder.add(TTMModifierIds.terriblesouvenir,1);
     }
     @Override
     public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
@@ -38,8 +36,8 @@ public class KomeijisistersModifier extends NoLevelsModifier implements Modifier
     }
     public static boolean KomeijisisterscanUse(IToolStackView tool)
     {
-        return tool.getModifier(ModifierIds.komeijisisters) != ModifierEntry.EMPTY
-                && tool.getModifier(ModifierIds.terriblesouvenir) != ModifierEntry.EMPTY
-                && tool.getModifier(ModifierIds.koishiseye) != ModifierEntry.EMPTY;
+        return tool.getModifier(TTMModifierIds.komeijisisters) != ModifierEntry.EMPTY
+                && tool.getModifier(TTMModifierIds.terriblesouvenir) != ModifierEntry.EMPTY
+                && tool.getModifier(TTMModifierIds.koishiseye) != ModifierEntry.EMPTY;
     }
 }

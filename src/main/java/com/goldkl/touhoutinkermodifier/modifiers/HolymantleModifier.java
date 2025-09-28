@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
@@ -32,7 +32,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class HolymantleModifier extends Modifier implements InventoryTickModifierHook, DamageBlockModifierHook, EquipmentChangeModifierHook  {
     //神圣屏障：西行寺幽幽子
-    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.holymantle);
+    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.holymantle);
     final SlotInChargeModule SICM;
     public HolymantleModifier() {
         SICM = new SlotInChargeModule(SLOT_IN_CHARGE);
@@ -42,7 +42,7 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK,ModifierHooks.DAMAGE_BLOCK,ModifierHooks.EQUIPMENT_CHANGE);
-        hookBuilder.addModule(AttributeModule.builder(Attributes.MAX_HEALTH, AttributeModifier.Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.holymantle).formula().constant(0.8f).variable(ModifierFormula.LEVEL).power().constant(1.0f).subtract().build());
+        hookBuilder.addModule(AttributeModule.builder(Attributes.MAX_HEALTH, AttributeModifier.Operation.MULTIPLY_TOTAL).uniqueFrom(TTMModifierIds.holymantle).formula().constant(0.8f).variable(ModifierFormula.LEVEL).power().constant(1.0f).subtract().build());
     }
     @Override
     public boolean isDamageBlocked(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentContext equipmentContext, EquipmentSlot equipmentSlot, DamageSource damageSource, float v) {

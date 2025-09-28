@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.NightVisionHook;
 import com.goldkl.touhoutinkermodifier.registries.AttributesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
@@ -37,14 +37,10 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModif
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
-import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -52,7 +48,7 @@ import java.util.UUID;
 
 public class TearlamentsModifier extends Modifier implements InventoryTickModifierHook, TooltipModifierHook, EquipmentChangeModifierHook, NightVisionHook {
     //珠泪哀歌：若鹭姬
-    final String unique = ModifierIds.tearlaments.getNamespace()+  ".modifier."+ModifierIds.tearlaments.getPath();
+    final String unique = TTMModifierIds.tearlaments.getNamespace()+  ".modifier."+ TTMModifierIds.tearlaments.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(
             Attributes.ATTACK_DAMAGE,
@@ -82,7 +78,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
         LivingEntity entity = event.getEntity();
         if(entity.canDrownInFluidType(ForgeMod.WATER_TYPE.get()) && entity.getEyeInFluidType() == ForgeMod.WATER_TYPE.get())
         {
-            if(TTMEntityUtils.hasModifier(entity, ModifierIds.tearlaments))
+            if(TTMEntityUtils.hasModifier(entity, TTMModifierIds.tearlaments))
             {
                 event.setCanBreathe(true);
                 event.setCanRefillAir(true);
@@ -97,7 +93,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
             Entity cameraEntity = camera.getEntity();
             if(cameraEntity instanceof LivingEntity entity)
             {
-                if(TTMEntityUtils.hasModifier(entity, ModifierIds.tearlaments))
+                if(TTMEntityUtils.hasModifier(entity, TTMModifierIds.tearlaments))
                 {
                     float waterVision = camera.getEntity() instanceof LocalPlayer player ? Math.max(0.25f, player.getWaterVision()) : 1.0f;
                     event.setFogShape(FogShape.CYLINDER);

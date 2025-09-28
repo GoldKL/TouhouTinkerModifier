@@ -1,12 +1,10 @@
 package com.goldkl.touhoutinkermodifier.mixin.youkaishomecoming;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.util.Pair;
-import dev.xkmc.youkaishomecoming.content.item.curio.hat.TouhouHatItem;
-import dev.xkmc.youkaishomecoming.content.item.food.FleshFoodItem;
 import dev.xkmc.youkaishomecoming.content.item.food.FleshSaucerItem;
 import dev.xkmc.youkaishomecoming.content.item.food.IFleshFoodItem;
 import dev.xkmc.youkaishomecoming.init.data.YHLangData;
@@ -15,7 +13,6 @@ import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -23,14 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
 import java.util.Objects;
@@ -78,14 +70,14 @@ public abstract class FleshSaucerItemMixin implements IFleshFoodItem {
             boolean flag = false;
             if(entity != null)
             {
-                if(TTMEntityUtils.hasModifier(entity,ModifierIds.devourdarkness))
+                if(TTMEntityUtils.hasModifier(entity, TTMModifierIds.devourdarkness))
                 {
                     builder.nutrition(20);
                     builder.saturationMod(1f);
                     builder.alwaysEat();
                     flag = true;
                 }
-                else if(TTMEntityUtils.hasModifier(entity,ModifierIds.apparitionsstalkthenight))
+                else if(TTMEntityUtils.hasModifier(entity, TTMModifierIds.apparitionsstalkthenight))
                 {
                     builder.nutrition((int) (old.getNutrition() * 1.5));
                     builder.saturationMod(old.getSaturationModifier());

@@ -1,3 +1,7 @@
-// 1.20.1	2025-08-31T01:53:13.7662168	Touhou Tinker Modifier's Tool Item Model Provider
+// 1.20.1	2025-09-21T22:30:35.2899871	Touhou Tinker Modifier's Tool Item Model Provider
+474238da51ceea15358e974abea11c80a38a352b assets/touhoutinkermodifier/models/item/tool/brass_knuckles/blocking.json
+d875058eeab9a09c3a40ebc744bef791954f4e16 assets/touhoutinkermodifier/models/item/tool/brass_knuckles/broken.json
+091aadedfc6568e4ecc5642c32b281a5cdd7297e assets/touhoutinkermodifier/models/item/tool/gohei/blocking.json
+d57edd7d5492561637816006302ab983efcd51dc assets/touhoutinkermodifier/models/item/tool/gohei/broken.json
 bee5b5f9f0dc694f940d1aff3d5120fb9e36d43d assets/touhoutinkermodifier/models/item/tool/spear/blocking.json
-3ed4a1deccc6196aadf4cf550449c6c7acbecd31 assets/touhoutinkermodifier/models/item/tool/spear/broken.json
+6325900724354609537e6ffb9bc60d458b79e522 assets/touhoutinkermodifier/models/item/tool/spear/broken.json

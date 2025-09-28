@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -22,9 +22,9 @@ public class TerriblesouvenirModifier extends Modifier implements ModifierTraitH
         for(ModifierEntry it : context.getModifierList())
         {
             if(it.matches(TagsRegistry.ModifiersTag.Chireiden)
-                    && !it.matches(ModifierIds.terriblesouvenir)
-                    && !it.matches(ModifierIds.overthinking)
-                    && !it.matches(ModifierIds.komeijisisters)
+                    && !it.matches(TTMModifierIds.terriblesouvenir)
+                    && !it.matches(TTMModifierIds.overthinking)
+                    && !it.matches(TTMModifierIds.komeijisisters)
                     && !TTMEntityUtils.isNolevelModifier(it))
             {
                 builder.add(it.getId(), modifier.getLevel());

@@ -2,7 +2,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.EffectApplicableModifierHook;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -50,10 +50,10 @@ public class UndergroundsunModifier extends Modifier implements OnAttackedModifi
         LivingEntity entity = event.getEntity();
         if(!entity.isAlive())return;
         entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-            int time = data.getInt(ModifierIds.undergroundsun);
+            int time = data.getInt(TTMModifierIds.undergroundsun);
             if(time > 0)
             {
-                data.putInt(ModifierIds.undergroundsun, time - 1);
+                data.putInt(TTMModifierIds.undergroundsun, time - 1);
             }
         });
     }
@@ -85,11 +85,11 @@ public class UndergroundsunModifier extends Modifier implements OnAttackedModifi
         boolean canuse = false;
         if(dataNBT != null)
         {
-            canuse = dataNBT.getInt(ModifierIds.undergroundsun) == 0;
+            canuse = dataNBT.getInt(TTMModifierIds.undergroundsun) == 0;
         }
         if(flag && berserk && canuse)
         {
-            int level = TTMEntityUtils.getModifiermaxLevel(holder,ModifierIds.undergroundsun);
+            int level = TTMEntityUtils.getModifiermaxLevel(holder, TTMModifierIds.undergroundsun);
             double radius = 3.0 + level;
             List<Entity> list = world.getEntities(holder, holder.getBoundingBox().inflate(radius));
             for(Entity entity : list) {
@@ -103,7 +103,7 @@ public class UndergroundsunModifier extends Modifier implements OnAttackedModifi
                 }
             }
             MagicManager.spawnParticles(world, new BlastwaveParticleOptions(SchoolRegistry.FIRE.get().getTargetingColor(), (float) radius), holder.getX(), holder.getY() + .165f, holder.getZ(), 1, 0, 0, 0, 0, true);
-            dataNBT.putInt(ModifierIds.undergroundsun, 400);
+            dataNBT.putInt(TTMModifierIds.undergroundsun, 400);
             if(holder instanceof Player player)
                 TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(dataNBT.getCopy()), player);
         }
@@ -114,7 +114,7 @@ public class UndergroundsunModifier extends Modifier implements OnAttackedModifi
         {
             final int[] tick = {0};
             player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-                tick[0] = data.getInt(ModifierIds.undergroundsun);
+                tick[0] = data.getInt(TTMModifierIds.undergroundsun);
             });
             int time = tick[0] / 20;
             if(tick[0] == 0)

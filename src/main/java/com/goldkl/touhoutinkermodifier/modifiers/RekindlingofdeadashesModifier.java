@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import net.minecraft.network.chat.Component;
@@ -35,7 +35,7 @@ import java.util.UUID;
 
 public class RekindlingofdeadashesModifier extends Modifier implements InventoryTickModifierHook, EquipmentChangeModifierHook, TooltipModifierHook, MeleeHitModifierHook {
     //死灰复燃：火焰猫燐
-    final String unique = ModifierIds.rekindlingofdeadashes.getNamespace()+  ".modifier."+ModifierIds.rekindlingofdeadashes.getPath();
+    final String unique = TTMModifierIds.rekindlingofdeadashes.getNamespace()+  ".modifier."+ TTMModifierIds.rekindlingofdeadashes.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(Attributes.ATTACK_DAMAGE,Attributes.ARMOR);
     @Override

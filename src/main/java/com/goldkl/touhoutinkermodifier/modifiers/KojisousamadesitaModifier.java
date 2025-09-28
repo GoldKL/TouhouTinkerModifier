@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.EntityHealHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
@@ -18,12 +18,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class KojisousamadesitaModifier extends Modifier implements EntityHealHook {
     //谢谢款待：EX露米娅
-    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.kojisousamadesita);
+    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.kojisousamadesita);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooksRegistry.ENTITY_HEAL_HOOK);
-        hookBuilder.addModule(AttributeModule.builder(ALObjects.Attributes.LIFE_STEAL.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(ModifierIds.kojisousamadesita).eachLevel(0.1f));
+        hookBuilder.addModule(AttributeModule.builder(ALObjects.Attributes.LIFE_STEAL.get(), AttributeModifier.Operation.ADDITION).uniqueFrom(TTMModifierIds.kojisousamadesita).eachLevel(0.1f));
         hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     @Override

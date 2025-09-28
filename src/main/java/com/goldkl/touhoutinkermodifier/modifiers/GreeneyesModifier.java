@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,10 +33,10 @@ import java.util.UUID;
 
 public class GreeneyesModifier extends Modifier implements MaxArmorLevelModule , EquipmentChangeModifierHook, InventoryTickModifierHook {
     //绿眼嫉妒：水桥帕露西
-    private static final UUID uuid = UUID.nameUUIDFromBytes((ModifierIds.greeneyes.toString()).getBytes());
+    private static final UUID uuid = UUID.nameUUIDFromBytes((TTMModifierIds.greeneyes.toString()).getBytes());
     private static final List<Attribute> attributes = List.of(Attributes.MAX_HEALTH,Attributes.ARMOR);
     private static final List<Float> attributes_amount = List.of(4.0f,2.0f);
-    private static final TinkerDataCapability.ComputableDataKey<ModifierMaxLevel> maxLevel = MaxArmorLevelModule.createKey(ModifierIds.greeneyes);
+    private static final TinkerDataCapability.ComputableDataKey<ModifierMaxLevel> maxLevel = MaxArmorLevelModule.createKey(TTMModifierIds.greeneyes);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
@@ -84,7 +84,7 @@ public class GreeneyesModifier extends Modifier implements MaxArmorLevelModule ,
                 instance.removeModifier(uuid);
                 float attributeValue = level*attributes_amount.get(i)*count[i];
                 if (attributeValue != 0) {
-                    instance.addTransientModifier(new AttributeModifier(uuid, ModifierIds.greeneyes.toString(), attributeValue, AttributeModifier.Operation.ADDITION));
+                    instance.addTransientModifier(new AttributeModifier(uuid, TTMModifierIds.greeneyes.toString(), attributeValue, AttributeModifier.Operation.ADDITION));
                 }
             }
         }

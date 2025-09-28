@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -25,9 +25,9 @@ public class OverthinkingModifier extends Modifier implements ModifierTraitHook 
         for(ModifierEntry it : context.getModifierList())
         {
             if(it.matches(TinkerTags.Modifiers.OVERSLIME_FRIEND)
-                    && !it.matches(ModifierIds.terriblesouvenir)
-                    && !it.matches(ModifierIds.overthinking)
-                    && !it.matches(ModifierIds.komeijisisters)
+                    && !it.matches(TTMModifierIds.terriblesouvenir)
+                    && !it.matches(TTMModifierIds.overthinking)
+                    && !it.matches(TTMModifierIds.komeijisisters)
                     && !TTMEntityUtils.isNolevelModifier(it))
             {
                 builder.add(it.getId(), modifier.getLevel());

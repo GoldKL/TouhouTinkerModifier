@@ -42,7 +42,8 @@
   ],
   "client": [
     "LightTextureMixin",
-    "ironspell.InscriptionTableScreenMixin"
+    "ironspell.InscriptionTableScreenMixin",
+    "touhoumaid.ShowPowerEventMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,7 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.ssakura49.sakuratinker.library.tinkering.tools.STToolStats;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
@@ -37,13 +36,13 @@ public class DeepbaloneyModifier extends Modifier implements InventoryTickModifi
     @Override
     @Nullable
     public Component onRemoved(IToolStackView tool, Modifier modifier) {
-        tool.getPersistentData().remove(ModifierIds.deepbaloney);
+        tool.getPersistentData().remove(TTMModifierIds.deepbaloney);
         return null;
     }
 
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-        Tag tag = context.getPersistentData().get(ModifierIds.deepbaloney);
+        Tag tag = context.getPersistentData().get(TTMModifierIds.deepbaloney);
         int StatCount = this.GetStatCount(context);
         float[] percent = new float[StatCount];
         if(tag instanceof ListTag list && list.size() == StatCount)
@@ -69,7 +68,7 @@ public class DeepbaloneyModifier extends Modifier implements InventoryTickModifi
     @Override
     public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
         if(world.isClientSide)return;
-        Tag tag = tool.getPersistentData().get(ModifierIds.deepbaloney);
+        Tag tag = tool.getPersistentData().get(TTMModifierIds.deepbaloney);
         int StatCount = this.GetStatCount(tool);
         int[] num = new int[StatCount];
         int count = 0;
@@ -120,7 +119,7 @@ public class DeepbaloneyModifier extends Modifier implements InventoryTickModifi
         {
             newlist.add(IntTag.valueOf(num[i]));
         }
-        tool.getPersistentData().put(ModifierIds.deepbaloney, newlist);
+        tool.getPersistentData().put(TTMModifierIds.deepbaloney, newlist);
         ToolStack.from(stack).rebuildStats();
     }
     private int GetStatCount(IToolContext tool) {

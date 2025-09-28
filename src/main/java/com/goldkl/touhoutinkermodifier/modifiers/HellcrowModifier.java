@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class HellcrowModifier extends NoLevelsModifier implements AttackerWithEquipmentModifyDamageModifierHook, ModifyDamageModifierHook {
-    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.hellcrow);
+    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.hellcrow);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
@@ -37,7 +37,7 @@ public class HellcrowModifier extends NoLevelsModifier implements AttackerWithEq
             LivingEntity entity = context.getEntity();
             if(entity.level().dimension() != Level.NETHER)
             {
-                int level = TTMEntityUtils.getModifiertotalLevel(entity, ModifierIds.hellcrow);
+                int level = TTMEntityUtils.getModifiertotalLevel(entity, TTMModifierIds.hellcrow);
                 amount *= 0.3f * level + 1;
             }
         }

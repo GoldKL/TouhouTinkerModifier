@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
@@ -18,7 +18,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
@@ -35,7 +34,7 @@ import java.util.function.BiFunction;
 
 public class RainbowtaichiModifier extends Modifier implements ModifyDamageModifierHook, OnAttackedModifierHook, MeleeDamagePercentModifierHook, ProjectileLaunchModifierHook {//MeleeDamageModifierHook,
     //虹色太极：红美铃
-    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(ModifierIds.rainbowtaichi);
+    public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.rainbowtaichi);
     public RainbowtaichiModifier()
     {
         MinecraftForge.EVENT_BUS.addListener(this::LivingBreath);
@@ -53,7 +52,7 @@ public class RainbowtaichiModifier extends Modifier implements ModifyDamageModif
         {
             if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
             ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            level = function.apply(level,tool.getModifierLevel(ModifierIds.rainbowtaichi));
+            level = function.apply(level,tool.getModifierLevel(TTMModifierIds.rainbowtaichi));
         }
         return level;
     }

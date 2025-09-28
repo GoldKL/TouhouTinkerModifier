@@ -1,0 +1,27 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head": "touhoutinkermodifier:item/tool/gohei/head_broken",
+    "core": "touhoutinkermodifier:item/tool/gohei/core",
+    "handle": "touhoutinkermodifier:item/tool/gohei/handle"
+  },
+  "modifier_roots": [
+    "touhoutinkermodifier:item/tool/gohei/modifiers/broken/",
+    "touhoutinkermodifier:item/tool/gohei/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 2
+    },
+    {
+      "name": "head",
+      "index": 0
+    },
+    {
+      "name": "core",
+      "index": 1
+    }
+  ]
+}

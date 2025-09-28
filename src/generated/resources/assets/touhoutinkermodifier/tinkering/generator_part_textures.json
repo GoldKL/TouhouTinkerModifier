@@ -1,6 +1,10 @@
 {
   "parts": [
     {
+      "path": "touhoutinkermodifier:item/tool/parts/gohei_core",
+      "stat_type": "touhoutinkermodifier:gohei"
+    },
+    {
       "path": "touhoutinkermodifier:item/tool/spear/head",
       "stat_type": "tconstruct:head"
     },
@@ -39,6 +43,94 @@
     {
       "path": "touhoutinkermodifier:item/tool/spear/large/accessory",
       "stat_type": "tconstruct:binding"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head1",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head1_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head2",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head2_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head3",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head3_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head4",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/head4_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/protector",
+      "stat_type": "tconstruct:plating_helmet"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head1",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head1_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head2",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head2_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head3",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head3_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head4",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/head4_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/brass_knuckles/large/protector",
+      "stat_type": "tconstruct:plating_helmet"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/gohei/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/gohei/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/gohei/core",
+      "stat_type": "touhoutinkermodifier:gohei"
+    },
+    {
+      "path": "touhoutinkermodifier:item/tool/gohei/handle",
+      "stat_type": "tconstruct:handle"
     }
   ],
   "replace": false

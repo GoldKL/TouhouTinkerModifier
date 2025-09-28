@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.spells.ice.ArcticstormSpell;
@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class ArcticstormModifier extends Modifier implements MeleeHitModifierHook {
     //冻原风暴：⑨或蕾蒂
-    TinkerDataCapability.ComputableDataKey<HitCount>hitcount = TinkerDataCapability.ComputableDataKey.of(ModifierIds.arcticstorm.withSuffix("_data"), HitCount::new);
+    TinkerDataCapability.ComputableDataKey<HitCount>hitcount = TinkerDataCapability.ComputableDataKey.of(TTMModifierIds.arcticstorm.withSuffix("_data"), HitCount::new);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);

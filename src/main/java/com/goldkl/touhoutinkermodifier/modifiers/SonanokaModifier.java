@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.EntityEffectAddModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
@@ -24,7 +24,7 @@ public class SonanokaModifier extends Modifier implements EntityEffectAddModifie
     @Override
     public void onApplicable(IToolStackView tool, ModifierEntry entry, EquipmentSlot slot, MobEffectInstance instance, LivingEntity entity) {
         if(!(instance.getEffect() == MobEffects.BLINDNESS || instance.getEffect() == MobEffects.DARKNESS))return;
-        int levelmax = TTMEntityUtils.getModifiertotalLevel(entity,ModifierIds.sonanoka) - 1;
+        int levelmax = TTMEntityUtils.getModifiertotalLevel(entity, TTMModifierIds.sonanoka) - 1;
         int nowlevel = -1;
         if(entity.hasEffect(MobeffectRegistry.SONANOKA.get()))
         {

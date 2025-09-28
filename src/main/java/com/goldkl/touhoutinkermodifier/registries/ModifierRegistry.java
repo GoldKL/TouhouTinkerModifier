@@ -4,12 +4,15 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.modifiers.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
 
 public class ModifierRegistry {
     private static final ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(TouhouTinkerModifier.MODID);
+    //通用
+    public static final StaticModifier<LongspearModifier> longspear = MODIFIERS.register("longspear", LongspearModifier::new);
     public static final StaticModifier<RlyehtextModifier> rlyehtext = MODIFIERS.register("rlyehtext", RlyehtextModifier::new);
     public static final StaticModifier<HolymantleModifier> holymantle = MODIFIERS.register("holymantle", HolymantleModifier::new);
     public static final StaticModifier<TexasnightModifier> texasnight = MODIFIERS.register("texasnight", TexasnightModifier::new);
@@ -70,6 +73,10 @@ public class ModifierRegistry {
     public static final StaticModifier<HellstrafficaccidentModifier>hellstrafficaccident = MODIFIERS.register("hellstrafficaccident",HellstrafficaccidentModifier::new);
     //锦上京
     public static final StaticModifier<DeepbaloneyModifier>deepbaloney = MODIFIERS.register("deepbaloney",DeepbaloneyModifier::new);
+    //风神录
+    public static final StaticModifier<HarvestjoyModifier>harvestjoy = MODIFIERS.register("harvestjoy",HarvestjoyModifier::new);
+    public static final StaticModifier<ThefadingautumnModifier>thefadingautumn = MODIFIERS.register("thefadingautumn",ThefadingautumnModifier::new);
+
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

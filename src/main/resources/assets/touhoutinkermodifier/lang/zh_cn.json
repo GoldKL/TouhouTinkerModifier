@@ -192,7 +192,15 @@
   "modifier.touhoutinkermodifier.deepbaloney": "深度胡扯",
   "modifier.touhoutinkermodifier.deepbaloney.flavor": "哈基米莫南北绿多，阿西噶哪路哈呀咕，欧马自里叮咚鸡，叮咚叮咚哈基米，大狗一段带一段，大布越大越难绿，哈呀咕欧马自里，曼波基米带段一",
   "modifier.touhoutinkermodifier.deepbaloney.description": "每次强化，随机一个属性提升3%，其余属性下降1%",
-
+  "modifier.touhoutinkermodifier.harvestjoy": "丰收之喜",
+  "modifier.touhoutinkermodifier.harvestjoy.flavor": "有一种丰收的喜悦，浑身充满了力量",
+  "modifier.touhoutinkermodifier.harvestjoy.description": "走过的耕地上的作物会快速生长，等级提升和[延展]强化均会扩大影响范围",
+  "modifier.touhoutinkermodifier.thefadingautumn": "凋落之秋",
+  "modifier.touhoutinkermodifier.thefadingautumn.flavor": "停车坐爱枫林晚，霜叶红于二月花",
+  "modifier.touhoutinkermodifier.thefadingautumn.description": "走过的附近的“特定植物”会被破坏，等级提升和[延展]强化均会扩大影响范围",
+  "modifier.touhoutinkermodifier.longspear": "长枪",
+  "modifier.touhoutinkermodifier.longspear.flavor": "长枪依在",
+  "modifier.touhoutinkermodifier.longspear.description": "攻击距离提升1.75倍",
 
   "effect.touhoutinkermodifier.holymantle" : "神圣屏障",
   "effect.touhoutinkermodifier.fragile" : "脆弱",
@@ -254,8 +262,48 @@
   "modifier.touhoutinkermodifier.hellstrafficaccident.damageadd": "基础伤害+%1$s",
 
   "entity.touhoutinkermodifier.sky_splitter": "霹天雳地",
+  "entity.touhoutinkermodifier.track_danmaku": "弹幕",
+  "entity.touhoutinkermodifier.modifiable_danmaku": "弹幕",
+
   "ui.touhoutinkermodifier.maxhealth_percent": "%d%% 最大生命值 ",
 
   "item.touhoutinkermodifier.spear": "长枪",
-  "item.touhoutinkermodifier.spear.description": "长枪是一种泛用性武器，长处是较为容易打击远处的敌人"
+  "item.touhoutinkermodifier.spear.description": "长枪是一种泛用性武器，长处是较为容易打击远处的敌人",
+  "item.touhoutinkermodifier.brass_knuckles": "指虎",
+  "item.touhoutinkermodifier.brass_knuckles.description": "指虎是一种近战武器，可兼容较多词条，攻速较快",
+  "item.touhoutinkermodifier.gohei_core_cast": "弹幕核心金质铸模",
+  "item.touhoutinkermodifier.gohei_core_sand_cast": "弹幕核心沙子铸模",
+  "item.touhoutinkermodifier.gohei_core_red_sand_cast": "弹幕核心红沙铸模",
+  "item.touhoutinkermodifier.gohei_core_dummy": "弹幕核心石质模板",
+  "item.touhoutinkermodifier.gohei_core": "弹幕核心",
+  "item.touhoutinkermodifier.yinangorb": "阴阳玉",
+  "item.touhoutinkermodifier.spellpaper": "博丽符纸",
+  "item.touhoutinkermodifier.persuasionneedle": "封魔针",
+  "item.touhoutinkermodifier.konpeito": "金平糖",
+  "item.touhoutinkermodifier.eighttrigramsfurnace": "迷你八卦炉",
+  "item.touhoutinkermodifier.gohei": "御币",
+  "item.touhoutinkermodifier.gohei.description": "御币是一种可以近战，可以基于自身p点值发射弹幕的武器",
+
+  "itemGroup.touhoutinkermodifier.general": "车万词条丨常规物品",
+  "itemGroup.touhoutinkermodifier.tool_parts": "车万词条丨部件",
+  "itemGroup.touhoutinkermodifier.tools": "车万词条丨工具",
+
+  "tool_stat.touhoutinkermodifier.bullet_type": "自机类型：",
+
+  "stat.touhoutinkermodifier.gohei": "弹幕核心",
+
+  "pattern.touhoutinkermodifier.gohei_core": "弹幕核心",
+
+  "bullet_type.touhoutinkermodifier.common_bullet": "通用型",
+  "bullet_type.touhoutinkermodifier.reimu_type_a_bullet": "诱导护符",
+  "bullet_type.touhoutinkermodifier.reimu_type_b_bullet": "信仰之针",
+  "bullet_type.touhoutinkermodifier.marisa_type_a_bullet": "魔法导弹",
+  "bullet_type.touhoutinkermodifier.marisa_type_b_bullet": "幻觉激光",
+
+  "material.touhoutinkermodifier.yinangorb": "阴阳玉",
+  "material.touhoutinkermodifier.spellpaper": "博丽符纸",
+  "material.touhoutinkermodifier.persuasionneedle": "封魔针",
+  "material.touhoutinkermodifier.konpeito": "金平糖",
+  "material.touhoutinkermodifier.eighttrigramsfurnace": "迷你八卦炉"
+
 }

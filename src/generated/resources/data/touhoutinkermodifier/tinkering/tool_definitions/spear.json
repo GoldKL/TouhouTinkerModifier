@@ -69,6 +69,15 @@
       ]
     },
     {
+      "type": "tconstruct:traits",
+      "traits": [
+        {
+          "level": 1,
+          "name": "touhoutinkermodifier:longspear"
+        }
+      ]
+    },
+    {
       "type": "tconstruct:tool_actions",
       "tool_actions": [
         "sword_dig"

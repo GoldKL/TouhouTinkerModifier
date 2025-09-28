@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin.youkaishomecoming;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import dev.xkmc.youkaishomecoming.events.EffectEventHandlers;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +25,7 @@ public class EffectEventHandlersMixin {
         {
             le.removeEffect(YHEffects.UNCONSCIOUS.get());
             le.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-                data.putInt(ModifierIds.koishiseye, 200);
+                data.putInt(TTMModifierIds.koishiseye, 200);
                 if(le instanceof Player player && !le.level().isClientSide)
                 {
                     TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player);
@@ -39,7 +39,7 @@ public class EffectEventHandlersMixin {
         if(flag)
         {
             player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
-                data.putInt(ModifierIds.koishiseye, 200);
+                data.putInt(TTMModifierIds.koishiseye, 200);
                 if(!player.level().isClientSide)
                 {
                     TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player);
@@ -63,14 +63,14 @@ public class EffectEventHandlersMixin {
                 entity.removeEffect(YHEffects.UNCONSCIOUS.get());
                 flag = true;
             }
-            int time = data.getInt(ModifierIds.koishiseye);
+            int time = data.getInt(TTMModifierIds.koishiseye);
             if(time > 0)
             {
                 flag = true;
             }
             if(flag)
             {
-                data.putInt(ModifierIds.koishiseye, 200);
+                data.putInt(TTMModifierIds.koishiseye, 200);
             }
         });
     }

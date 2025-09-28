@@ -1,7 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
-import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -40,7 +39,7 @@ public class MidnightbirdModifier extends Modifier implements AttributesModifier
         {
             if(!(player.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
             ToolStack tool = ToolStack.from(player.getItemBySlot(equipmentSlot));
-            if(tool.getModifier(ModifierIds.midnightbird)!=ModifierEntry.EMPTY)
+            if(tool.getModifier(TTMModifierIds.midnightbird)!=ModifierEntry.EMPTY)
             {
                 flag = true;
                 break;
@@ -51,7 +50,7 @@ public class MidnightbirdModifier extends Modifier implements AttributesModifier
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,60, 0, false, true));
         }
     }
-    final String unique = ModifierIds.midnightbird.getNamespace()+  ".modifier."+ModifierIds.midnightbird.getPath();
+    final String unique = TTMModifierIds.midnightbird.getNamespace()+  ".modifier."+ TTMModifierIds.midnightbird.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

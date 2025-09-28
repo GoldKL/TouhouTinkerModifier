@@ -1,6 +1,8 @@
 package com.goldkl.touhoutinkermodifier.registries;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.entity.danmaku.ModifiableDamakuEntity;
+import com.goldkl.touhoutinkermodifier.entity.danmaku.TrackDanmakuEntity;
 import com.goldkl.touhoutinkermodifier.entity.spell.lightning.SkysplitterEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +19,18 @@ public class EntitiesRegistry {
                     .sized(2.0F, 2.0F)
                     .clientTrackingRange(64)
                     .build((ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "sky_splitter")).toString()));
+    public static final RegistryObject<EntityType<TrackDanmakuEntity>>TrackDanmaku =
+            REGISTRY.register("track_danmaku", () -> EntityType.Builder.<TrackDanmakuEntity>of(TrackDanmakuEntity::new, MobCategory.MISC)
+                    .sized(0.4f, 0.4f)
+                    .clientTrackingRange(4)
+                    .updateInterval(1 << 16)
+                    .build((ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "track_danmaku")).toString()));
+    public static final RegistryObject<EntityType<ModifiableDamakuEntity>>ModifiableDanmaku =
+            REGISTRY.register("modifiable_danmaku", () -> EntityType.Builder.<ModifiableDamakuEntity>of(ModifiableDamakuEntity::new, MobCategory.MISC)
+                    .sized(0.4f, 0.4f)
+                    .clientTrackingRange(4)
+                    .updateInterval(1 << 16)
+                    .build((ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "modifiable_danmaku")).toString()));
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

@@ -1,0 +1,55 @@
+{
+  "icon": {
+    "item": "touhoutinkermodifier:brass_knuckles",
+    "nbt": "{Damage:0,etstlib_tool_uuid:\"8f75104b-5bf5-47ea-ba01-23af0a153744\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+  },
+  "input_slots": [
+    {
+      "filter": {
+        "item": "tconstruct:small_blade"
+      },
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 12,
+      "y": 26
+    },
+    {
+      "filter": {
+        "item": "tconstruct:small_blade"
+      },
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 30,
+      "y": 26
+    },
+    {
+      "filter": {
+        "item": "tconstruct:small_blade"
+      },
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 48,
+      "y": 44
+    },
+    {
+      "filter": {
+        "item": "tconstruct:small_blade"
+      },
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 48,
+      "y": 62
+    },
+    {
+      "filter": {
+        "item": "tconstruct:helmet_plating"
+      },
+      "icon": "tconstruct:helmet_plating",
+      "translation_key": "item.tconstruct.helmet_plating",
+      "x": 30,
+      "y": 44
+    }
+  ],
+  "sortIndex": 3,
+  "translation_key": "item.touhoutinkermodifier.brass_knuckles"
+}

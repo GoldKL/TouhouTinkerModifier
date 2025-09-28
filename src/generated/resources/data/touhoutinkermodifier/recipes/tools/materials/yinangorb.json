@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "touhoutinkermodifier:yinangorb"
+  },
+  "material": "touhoutinkermodifier:yinangorb",
+  "needed": 1,
+  "value": 2
+}

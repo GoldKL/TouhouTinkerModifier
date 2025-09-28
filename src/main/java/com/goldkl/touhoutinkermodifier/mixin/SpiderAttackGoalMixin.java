@@ -1,6 +1,6 @@
 package com.goldkl.touhoutinkermodifier.mixin;
 
-import com.goldkl.touhoutinkermodifier.data.ModifierIds;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -23,7 +23,7 @@ public abstract class SpiderAttackGoalMixin<T extends LivingEntity> extends Near
         {
             if(this.target != null)
             {
-                boolean flag = TTMEntityUtils.hasModifier(this.target, ModifierIds.tsuchigumo);
+                boolean flag = TTMEntityUtils.hasModifier(this.target, TTMModifierIds.tsuchigumo);
                 cir.setReturnValue(flag);
             }
         }
