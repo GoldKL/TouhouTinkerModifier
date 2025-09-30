@@ -31,7 +31,7 @@ public class RenderingHelper {
         entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
             if(data.getBoolean(MarisaBBulletType.Key_Marisa_Laser))
             {
-                if(!entity.isCrouching())
+                /*if(!entity.isCrouching())
                 {
                     Vec3 fix_position1 = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot() - 90, 1.5);
                     Vec3 fix_position2 = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot() + 90, 1.5);
@@ -42,7 +42,9 @@ public class RenderingHelper {
                 {
                     Vec3 fix_position1 = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 1.5);
                     renderMarisaLaser(entity, poseStack, bufferSource, partialTicks,fix_position1);
-                }
+                }*/
+                Vec3 fix_position1 = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 1.5);
+                renderMarisaLaser(entity, poseStack, bufferSource, partialTicks,fix_position1);
             }
         });
     }
@@ -73,12 +75,7 @@ public class RenderingHelper {
         poseStack.mulPose(Axis.YP.rotation(-yRot));
         poseStack.mulPose(Axis.XP.rotation(-xRot));
         for (float j = 1; j <= distance; j += .5f) {
-            Vec3 wiggle = new Vec3(
-                    Mth.sin(deltaTicks * .8f) * .02f,
-                    Mth.sin(deltaTicks * .8f + 100) * .02f,
-                    Mth.cos(deltaTicks * .8f) * .02f
-            );
-            end = new Vec3(0, 0, Math.min(j, distance)).add(wiggle);
+            end = new Vec3(0, 0, Math.min(j, distance));
             VertexConsumer inner = bufferSource.getBuffer(RenderType.entityTranslucent(SpellRenderingHelper.STRAIGHT_GLOW, true));
             drawHull(start, end, radius, radius, pose, inner, r, g, b, a, min, max);
             VertexConsumer outer = bufferSource.getBuffer(RenderType.entityTranslucent(SpellRenderingHelper.STRAIGHT_GLOW));

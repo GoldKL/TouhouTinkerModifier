@@ -26,12 +26,12 @@ public class ReimuABulletType extends AbstractReimuBulletType {
         {
             int power = TTMEntityUtils.getPowerValue(entity);
             this.ReimuCommonShootBulletTick(level, entity, itemStack, remainingTicks);
-            if(power > 0 && remainingTicks % (40 *(6 - power)) == 0)
+            if(power > 0 && remainingTicks % (20 *(6 - power)) == 0)
             {
                 var raycast = Utils.raycastForEntity(level, entity, 32, true);
                 for(int i = 0; i < 2; i++)
                 {
-                    float angle = entity.isCrouching()?90f:180f;
+                    float angle = 180f;
                     TrackDanmakuEntity danmaku = new TrackDanmakuEntity(EntitiesRegistry.TrackDanmaku.get(), entity, level);
                     danmaku.setTool(itemStack, entity.getUsedItemHand());
                     danmaku.setItem(YHDanmaku.Bullet.BALL.get(DyeColor.GRAY).asStack());

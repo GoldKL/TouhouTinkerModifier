@@ -35,7 +35,7 @@ public class ReimuBBulletType extends AbstractReimuBulletType {
                 {
                     for(int j = 0; j < k; j++)
                     {
-                        float angle = entity.isCrouching()?90f:180f;
+                        float angle = 180f;
                         ModifiableDamakuEntity danmaku = new ModifiableDamakuEntity(EntitiesRegistry.ModifiableDanmaku.get(), entity, level);
                         danmaku.setTool(itemStack, entity.getUsedItemHand());
                         danmaku.setItem(YHDanmaku.Bullet.BALL.get(DyeColor.GRAY).asStack());

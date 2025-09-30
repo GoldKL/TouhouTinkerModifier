@@ -82,57 +82,52 @@ public class MarisaBBulletType extends AbstractMarisaBulletType {
         if(!level.isClientSide)
         {
             int power = TTMEntityUtils.getPowerValue(entity);
-            if(remainingTicks % 40 == 0)
+            if(remainingTicks % 20 == 0)
                 this.MarisaCommonShootBulletTick(level, entity, itemStack, remainingTicks);
             if(power > 0)
             {
-                boolean flag = entity.isCrouching();
-                float tempdamage = power * (flag?2f:1f);
-                float angle = flag?0:180;
-                for(int i = 0; i < (flag?1:2); i++)
-                {
-                    Vec3 base_position = new Vec3(entity.getX(), entity.getEyeY() - 0.1, entity.getZ());
-                    Vec3 fix_position = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot() + (i - 0.5f) * angle, 1.5);
-                    base_position = base_position
-                            .add(fix_position);
-                    Vec3 start = base_position;
-                    Vec3 end = entity.getLookAngle().normalize().scale(40).add(start);
-                    end = level.clip(new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getLocation();
-                    AABB range = entity.getBoundingBox().move(fix_position).expandTowards(end.subtract(start));
-                    List<HitResult> hits = new ArrayList<>();
-                    for(Entity target : level.getEntities(entity, range, entity1 -> entity1.isPickable() && entity1.isAlive())) {
-                        HitResult hit = Utils.checkEntityIntersecting(target, start, end, 0.15f);
-                        if (hit.getType() == HitResult.Type.ENTITY) {
-                            hits.add(hit);
-                        }
+                float tempdamage = power * 2f;
+                Vec3 base_position = new Vec3(entity.getX(), entity.getEyeY() - 0.1, entity.getZ());
+                Vec3 fix_position = RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 1.5);
+                base_position = base_position
+                        .add(fix_position);
+                Vec3 start = base_position;
+                Vec3 end = entity.getLookAngle().normalize().scale(40).add(start);
+                end = level.clip(new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getLocation();
+                AABB range = entity.getBoundingBox().move(fix_position).expandTowards(end.subtract(start));
+                List<HitResult> hits = new ArrayList<>();
+                for(Entity target : level.getEntities(entity, range, entity1 -> entity1.isPickable() && entity1.isAlive())) {
+                    HitResult hit = Utils.checkEntityIntersecting(target, start, end, 0.15f);
+                    if (hit.getType() == HitResult.Type.ENTITY) {
+                        hits.add(hit);
                     }
-                    if (!hits.isEmpty()) {
-                        hits.sort(Comparator.comparingDouble((o) -> o.getLocation().distanceToSqr(start)));
-                        for(HitResult hit : hits) {
-                            DamageSource damageSource = new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(YHDamageTypes.DANMAKU), entity, entity);
-                            Entity target = ((EntityHitResult) hit).getEntity();
-                            float damage = tempdamage;
-                            if(itemStack.getItem() instanceof IModifiable)
-                            {
-                                Player attackerPlayer = entity instanceof Player ? (Player) entity : null;
-                                LivingEntity livingtarget = target instanceof LivingEntity ? (LivingEntity) target : null;
-                                ToolAttackContext context = new ToolAttackContext(entity, attackerPlayer, entity.getUsedItemHand(), entity.getUsedItemHand() == InteractionHand.MAIN_HAND? EquipmentSlot.MAINHAND: EquipmentSlot.OFFHAND, target, livingtarget, false, 1, false);
-                                float baseDamage = damage;
-                                ToolStack tool = ToolStack.from(itemStack);
-                                MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(baseDamage);
-                                List<ModifierEntry> modifiers = tool.getModifierList();
-                                for(ModifierEntry entry : modifiers) {
-                                    damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, baseDamage, damage);
-                                }
-                                float originDamagefix = damage - baseDamage;
-                                damageModifier.addAdd(originDamagefix);
-                                for(ModifierEntry entry : modifiers) {
-                                    entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, baseDamage, damage, damageModifier);
-                                }
-                                damage = damageModifier.getamount();
+                }
+                if (!hits.isEmpty()) {
+                    hits.sort(Comparator.comparingDouble((o) -> o.getLocation().distanceToSqr(start)));
+                    for(HitResult hit : hits) {
+                        DamageSource damageSource = new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(YHDamageTypes.DANMAKU), entity, entity);
+                        Entity target = ((EntityHitResult) hit).getEntity();
+                        float damage = tempdamage;
+                        if(itemStack.getItem() instanceof IModifiable)
+                        {
+                            Player attackerPlayer = entity instanceof Player ? (Player) entity : null;
+                            LivingEntity livingtarget = target instanceof LivingEntity ? (LivingEntity) target : null;
+                            ToolAttackContext context = new ToolAttackContext(entity, attackerPlayer, entity.getUsedItemHand(), entity.getUsedItemHand() == InteractionHand.MAIN_HAND? EquipmentSlot.MAINHAND: EquipmentSlot.OFFHAND, target, livingtarget, false, 1, false);
+                            float baseDamage = damage;
+                            ToolStack tool = ToolStack.from(itemStack);
+                            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(baseDamage);
+                            List<ModifierEntry> modifiers = tool.getModifierList();
+                            for(ModifierEntry entry : modifiers) {
+                                damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, baseDamage, damage);
                             }
-                            target.hurt(damageSource,damage);
+                            float originDamagefix = damage - baseDamage;
+                            damageModifier.addAdd(originDamagefix);
+                            for(ModifierEntry entry : modifiers) {
+                                entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, baseDamage, damage, damageModifier);
+                            }
+                            damage = damageModifier.getamount();
                         }
+                        target.hurt(damageSource,damage);
                     }
                 }
             }

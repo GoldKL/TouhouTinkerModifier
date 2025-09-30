@@ -23,26 +23,21 @@ public class MarisaABulletType extends AbstractMarisaBulletType {
         {
             int power = TTMEntityUtils.getPowerValue(entity);
             this.MarisaCommonShootBulletTick(level, entity, itemStack, remainingTicks);
-            if(power > 0 && remainingTicks % (40 *(6 - power)) == 0)
+            if(power > 0 && remainingTicks % (20 *(6 - power)) == 0)
             {
-                boolean flag = entity.isCrouching();
-                float angle = flag?0:180;
-                for(int i = 0; i < (flag?1:2); i++)
-                {
-                    ModifiableDamakuEntity danmaku = new ModifiableDamakuEntity(EntitiesRegistry.ModifiableDanmaku.get(), entity, level);
-                    danmaku.setTool(itemStack, entity.getUsedItemHand());
-                    danmaku.setItem(YHDanmaku.Bullet.STAR.get(flag?DyeColor.BLUE:DyeColor.GREEN).asStack());
-                    danmaku.setPos(danmaku.position()
-                            .add(RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot() + (i - 0.5f) * angle, 2)));
-                    danmaku.setup(
-                            YHDanmaku.Bullet.STAR.damage() + (flag?2:-2),
-                            40,
-                            false,
-                            YHDanmaku.Bullet.STAR.bypass(),
-                            RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 2)
-                    );
-                    level.addFreshEntity(danmaku);
-                }
+                ModifiableDamakuEntity danmaku = new ModifiableDamakuEntity(EntitiesRegistry.ModifiableDanmaku.get(), entity, level);
+                danmaku.setTool(itemStack, entity.getUsedItemHand());
+                danmaku.setItem(YHDanmaku.Bullet.STAR.get(DyeColor.BLUE).asStack());
+                danmaku.setPos(danmaku.position()
+                        .add(RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 2)));
+                danmaku.setup(
+                        YHDanmaku.Bullet.STAR.damage() + 4,
+                        40,
+                        false,
+                        YHDanmaku.Bullet.STAR.bypass(),
+                        RayTraceUtil.getRayTerm(Vec3.ZERO, entity.getXRot(), entity.getYRot(), 4)
+                );
+                level.addFreshEntity(danmaku);
             }
         }
     }

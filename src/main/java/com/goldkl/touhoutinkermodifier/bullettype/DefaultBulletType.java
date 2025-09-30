@@ -40,7 +40,7 @@ public class DefaultBulletType extends AbstractBulletType {
     }
     @Override
     public boolean isShootBulletTick(Level level, LivingEntity entity, ItemStack itemStack, int remainingTicks) {
-        return remainingTicks % 40 == 0;
+        return remainingTicks % 20 == 0;
     }
 
     @Override

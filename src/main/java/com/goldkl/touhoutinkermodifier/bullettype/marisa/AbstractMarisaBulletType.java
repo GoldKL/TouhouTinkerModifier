@@ -23,7 +23,7 @@ public abstract class AbstractMarisaBulletType extends AbstractBulletType {
 
     @Override
     public boolean isShootBulletTick(Level level, LivingEntity entity, ItemStack itemStack, int remainingTicks) {
-        return remainingTicks % 40 == 0;
+        return remainingTicks % 20 == 0;
     }
 
     public void MarisaCommonShootBulletTick(Level level, LivingEntity entity, ItemStack itemStack, int remainingTicks)
@@ -36,7 +36,7 @@ public abstract class AbstractMarisaBulletType extends AbstractBulletType {
             for(int i = 0; i < kpower; i++)
             {
                 float midpoint = kpower/2.0f;
-                float angle = 10f;
+                float angle = 20f;
                 ModifiableDamakuEntity danmaku = new ModifiableDamakuEntity(EntitiesRegistry.ModifiableDanmaku.get(), entity, level);
                 danmaku.setTool(itemStack, entity.getUsedItemHand());
                 danmaku.setItem(YHDanmaku.Bullet.SPARK.get(DyeColor.BLUE).asStack());
