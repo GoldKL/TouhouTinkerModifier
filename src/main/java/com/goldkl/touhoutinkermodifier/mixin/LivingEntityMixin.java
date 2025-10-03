@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.mixin;
 
 import com.goldkl.touhoutinkermodifier.api.LivingEntityCanStopTime;
+import com.goldkl.touhoutinkermodifier.api.LivingEntityInWorldEnder;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,15 +21,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements LivingEntityCanStopTime {
+public abstract class LivingEntityMixin extends Entity implements LivingEntityCanStopTime, LivingEntityInWorldEnder {
     public LivingEntityMixin(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
     }
     @Unique
     private static EntityDataAccessor<Integer> DATA_TIME_STOP;
+    @Unique
+    private static EntityDataAccessor<Boolean> DATA_HAS_WORLD_ENDER;
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void clinit(CallbackInfo ci) {
         DATA_TIME_STOP = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
+        DATA_HAS_WORLD_ENDER = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BOOLEAN);
     }
     @Shadow
     public abstract boolean hasEffect(MobEffect p_21024_) ;
@@ -38,6 +42,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     void definenewdata(CallbackInfo ci)
     {
         this.entityData.define(DATA_TIME_STOP, -1);
+        this.entityData.define(DATA_HAS_WORLD_ENDER, false);
     }
     @Inject(method = "addAdditionalSaveData",at = @At("HEAD"))
     void addnewdata(CompoundTag p_21145_, CallbackInfo ci)
@@ -53,16 +58,19 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     void tickeffectupdatanewdata(CallbackInfo ci)
     {
         this.touhouTinkerModifier$updatetimestop();
+        this.touhouTinkerModifier$updateWorldenderStatus();
     }
     @Inject(method = "sendEffectToPassengers",at = @At("HEAD"))
     void updatatimestopmixin(CallbackInfo ci)
     {
         this.touhouTinkerModifier$updatetimestop();
+        this.touhouTinkerModifier$updateWorldenderStatus();
     }
     @Inject(method = "onEffectRemoved",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;removeAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V"))
     void onEffectRemovedMixin(MobEffectInstance p_21126_, CallbackInfo ci)
     {
         this.touhouTinkerModifier$updatetimestop();
+        this.touhouTinkerModifier$updateWorldenderStatus();
     }
     @Unique
     void touhouTinkerModifier$updatetimestop()
@@ -77,6 +85,18 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
         else if(this.entityData.get(DATA_TIME_STOP) != -1) {
             this.entityData.set(DATA_TIME_STOP, -1);
         }
+    }
+    @Unique
+    void touhouTinkerModifier$updateWorldenderStatus() {
+        boolean flag = this.hasEffect(MobeffectRegistry.WORLDENDER.get());
+        if (this.entityData.get(DATA_HAS_WORLD_ENDER) != flag) {
+            this.entityData.set(DATA_HAS_WORLD_ENDER, flag);
+        }
+    }
+    @Unique
+    @Override
+    public boolean touhouTinkerModifier$isCurrentlyWorldender() {
+        return this.level().isClientSide()?this.entityData.get(DATA_HAS_WORLD_ENDER):this.hasEffect(MobeffectRegistry.WORLDENDER.get());
     }
     @Unique
     @Override

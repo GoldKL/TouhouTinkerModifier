@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.mobeffect;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.api.LivingEntityInWorldEnder;
 import com.goldkl.touhoutinkermodifier.registries.AttributesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,17 +36,6 @@ public class WorldenderEffect extends MobEffect {
         this.addAttributeModifier(ALObjects.Attributes.LIFE_STEAL.get(), "5787376E-2FE4-493D-8B41-F42E0AC9A542", 0.3, AttributeModifier.Operation.ADDITION);
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
-    }
-    @Override
-    public void applyEffectTick(@NotNull LivingEntity entity, int amplifier)
-    {
-        if(entity.level().isClientSide)return;
-        if(entity instanceof Player player)
-            FlyingToken.tickFlying(player);
-    }
-    @Override
     public List<ItemStack> getCurativeItems() {
         return new ArrayList<>();
     }
@@ -54,23 +45,35 @@ public class WorldenderEffect extends MobEffect {
         if(modifier.getAmount() == 0.15) return modifier.getAmount() + 0.15 * level;
         return modifier.getAmount() + 0.1 * level;
     }
+
+    @SubscribeEvent
+    static void OnPlayerTick(TickEvent.PlayerTickEvent event)
+    {
+        if(((LivingEntityInWorldEnder)event.player).touhouTinkerModifier$isCurrentlyWorldender() && event.phase == TickEvent.Phase.END)
+            FlyingToken.tickFlying(event.player);
+    }
+
     @SubscribeEvent
     static void OnLivingEntityHeal(LivingHealEvent event) {
         LivingEntity entity = event.getEntity();
-        if(entity.hasEffect(MobeffectRegistry.WORLDENDER.get()))
+        if(((LivingEntityInWorldEnder)entity).touhouTinkerModifier$isCurrentlyWorldender())
         {
             int level = entity.getEffect(MobeffectRegistry.WORLDENDER.get()).getAmplifier();
             float percent = 1.3f + 0.15f * level;
             event.setAmount(event.getAmount() * percent);
         }
     }
+
     @SubscribeEvent
     static void OnLivingEntityDeath(LivingDeathEvent event) {
         if(event.getSource().is(TagsRegistry.DamageTypeTag.PASS_WORLD_ENDER))return;
         LivingEntity entity = event.getEntity();
-        if(entity.hasEffect(MobeffectRegistry.WORLDENDER.get()))
+        if(((LivingEntityInWorldEnder)entity).touhouTinkerModifier$isCurrentlyWorldender())
         {
-            entity.removeEffect(MobeffectRegistry.WORLDENDER.get());
+            if(!entity.level().isClientSide())
+            {
+                entity.removeEffect(MobeffectRegistry.WORLDENDER.get());
+            }
             entity.setHealth(entity.getMaxHealth() * 0.3f);
             entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
             entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));

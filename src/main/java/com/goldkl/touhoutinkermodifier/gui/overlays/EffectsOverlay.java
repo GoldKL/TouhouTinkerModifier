@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.gui.overlays;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.api.LivingEntityInWorldEnder;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -26,7 +27,7 @@ public class EffectsOverlay implements IGuiOverlay {
         if (player == null) {
             return;
         }
-        if (player.hasEffect(MobeffectRegistry.WORLDENDER.get())) {
+        if (((LivingEntityInWorldEnder)player).touhouTinkerModifier$isCurrentlyWorldender()) {
 
             setupRenderer(1, 0, 0, .25f, WORLDENDER_TEXTURE);
             renderOverlay(WORLDENDER_TEXTURE, .5f, 1, 1, 0.5f, screenWidth, screenHeight);
