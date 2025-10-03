@@ -22,6 +22,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -50,12 +52,16 @@ public class DevourdarknessModifier extends Modifier implements InventoryTickMod
     }
     private void LivingEntityEatFlesh(LivingEntityUseItemEvent.Finish event) {
         LivingEntity entity = event.getEntity();
-        if(!entity.isAlive())return;
+        if(!entity.isAlive()||entity.level().isClientSide())return;
         ItemStack usedItem = event.getItem();
         if (!usedItem.isEdible()) return;
         if (!usedItem.is(YHTagGen.FLESH_FOOD))return;
         entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> {
             data.putInt(TTMModifierIds.devourdarkness, 12000);
+            if(entity instanceof Player player)
+            {
+                TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player);
+            }
         });
     }
     private void LivingEntityFleshTick(LivingEvent.LivingTickEvent event) {
