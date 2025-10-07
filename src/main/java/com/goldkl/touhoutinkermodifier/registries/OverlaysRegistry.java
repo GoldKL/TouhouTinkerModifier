@@ -11,6 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 public class OverlaysRegistry {
     @SubscribeEvent
     public static void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.PLAYER_LIST.id(), "ttm_screen_effects", EffectsOverlay.instance);
+        //event.registerAbove(VanillaGuiOverlay.PLAYER_LIST.id(), "ttm_screen_effects", EffectsOverlay.instance);
     }
 }
