@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class YoungscarletmoonModifier extends Modifier implements ModifyDamageModifierHook {
-    //鲜红幼月：蕾米莉亚
+    //鲜红幼月：蕾米莉亚(已废弃，改为使用datagen生成)
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.youngscarletmoon);
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {

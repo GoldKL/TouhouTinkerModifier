@@ -12,14 +12,22 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
+import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
+import slimeknights.tconstruct.library.json.variable.protection.EntityProtectionVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+
+import static slimeknights.tconstruct.library.json.math.ModifierFormula.*;
 
 public class ModifiersProvider extends AbstractModifierProvider implements IConditionBuilder {
     public ModifiersProvider(PackOutput packOutput) {
@@ -67,18 +75,6 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                 .addModule(AttributeModule.builder(AttributeRegistry.HOLY_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
                         .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
                         .eachLevel(0.05f));
-        /*//本我解放：古明地恋
-        buildModifier(ModifierIds.idliberation)
-                .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, AttributeModifier.Operation.MULTIPLY_BASE)
-                    .slots(EquipmentSlot.OFFHAND)
-                    .tool(ToolStackPredicate.tag(TinkerTags.Items.BOWS))
-                    .eachLevel(0.25f));
-        //自我认清：古明地恋
-        buildModifier(ModifierIds.egorecognization)
-                .addModule(AttributeModule.builder(ALObjects.Attributes.ARROW_DAMAGE.get(), AttributeModifier.Operation.MULTIPLY_BASE)
-                        .slots(EquipmentSlot.OFFHAND)
-                        .tool(ToolStackPredicate.tag(TinkerTags.Items.BOWS))
-                        .eachLevel(0.25f));*/
         //山之佐伯：黑谷山女
         buildModifier(TTMModifierIds.tsuchigumo)
                 .addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), AttributeModifier.Operation.ADDITION)
@@ -99,6 +95,23 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                 .addModule(ProtectionModule.builder()
                         .source(TTMPredicate.PHYSICAL_DAMAGE)
                         .eachLevel(2f));
+        //鲜红幼月：蕾米莉亚
+        buildModifier(TTMModifierIds.youngscarletmoon)
+                .addModule(ProtectionModule.builder()
+                        .source(TTMPredicate.NOT_IGNORE_DAMAGE)
+                        .customVariable("spell_power",new EntityProtectionVariable(new AttributeEntityVariable(AttributeRegistry.SPELL_POWER.get()), EntityProtectionVariable.WhichEntity.TARGET, 1))
+                        .customVariable("blood_spell_power",new EntityProtectionVariable(new AttributeEntityVariable(AttributeRegistry.BLOOD_SPELL_POWER.get()), EntityProtectionVariable.WhichEntity.TARGET, 1))
+                        .customVariable("crouching",new EntityProtectionVariable(new ConditionalEntityVariable(LivingEntityPredicate.CROUCHING,2,1), EntityProtectionVariable.WhichEntity.TARGET, 1))
+                        .formula()
+                        .variable(LEVEL)
+                        .customVariable("spell_power")
+                        .customVariable("blood_spell_power")
+                        .customVariable("crouching")
+                        .multiply()
+                        .multiply()
+                        .multiply()
+                        .variable(VALUE).add()
+                        .build());
     }
     @Override
     public String getName() {

@@ -88,11 +88,7 @@ public class TTMToolDefinitionDataProvider extends AbstractToolDefinitionDataPro
                         .set(ToolStats.ATTACK_DAMAGE, 0.5f)
                         .set(ToolStats.MINING_SPEED, 1.5f)
                         .set(ToolStats.DURABILITY, 0.75f).build()))
-                .smallToolStartingSlots()
-                // traits
-                .module(ToolTraitsModule.builder()
-                        .trait(TinkerModifiers.parrying)
-                        .build());
+                .smallToolStartingSlots();
         define(TTMToolDefinitions.GOHEI)
                 // parts
                 .module(PartStatsModule.parts()

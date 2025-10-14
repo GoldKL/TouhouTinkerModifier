@@ -49,7 +49,6 @@ public class TTMItemTagProvider extends ItemTagsProvider {
                 HARVEST,
                 MELEE_PRIMARY,
                 INTERACTABLE_RIGHT,
-                PARRY,
                 SMALL_TOOLS ,
                 BONUS_SLOTS,
                 ItemTags.SWORDS,
@@ -62,7 +61,6 @@ public class TTMItemTagProvider extends ItemTagsProvider {
                 MELEE_PRIMARY,
                 HELD_ARMOR,
                 INTERACTABLE_RIGHT,
-                PARRY,
                 SMALL_TOOLS ,
                 BONUS_SLOTS,
                 UNSALVAGABLE);

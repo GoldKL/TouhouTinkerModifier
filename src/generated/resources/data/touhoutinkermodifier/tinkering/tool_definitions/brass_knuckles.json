@@ -71,15 +71,6 @@
         "abilities": 1,
         "upgrades": 3
       }
-    },
-    {
-      "type": "tconstruct:traits",
-      "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:parrying"
-        }
-      ]
     }
   ]
 }

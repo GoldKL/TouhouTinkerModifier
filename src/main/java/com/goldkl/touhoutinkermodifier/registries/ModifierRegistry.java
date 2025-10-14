@@ -27,7 +27,7 @@ public class ModifierRegistry {
     public static final StaticModifier<ScarletdevilModifier> scarletdevil = MODIFIERS.register("scarletdevil", ScarletdevilModifier::new);
     public static final StaticModifier<GungnirModifier>gungnir = MODIFIERS.register("gungnir", GungnirModifier::new);
     public static final StaticModifier<LaevateinModifier>laevatein = MODIFIERS.register("laevatein", LaevateinModifier::new);
-    public static final StaticModifier<YoungscarletmoonModifier>youngscarletmoon = MODIFIERS.register("youngscarletmoon", YoungscarletmoonModifier::new);
+    //public static final StaticModifier<YoungscarletmoonModifier>youngscarletmoon = MODIFIERS.register("youngscarletmoon", YoungscarletmoonModifier::new);
     public static final StaticModifier<AndthentherewerenoneModifier>andthentherewerenone = MODIFIERS.register("andthentherewerenone", AndthentherewerenoneModifier::new);
     public static final StaticModifier<CrimsonfantasyModifier>crimsonfantasy = MODIFIERS.register("crimsonfantasy", CrimsonfantasyModifier::new);
     public static final StaticModifier<EverbrightscarlettowerModifier>everbrightscarlettower = MODIFIERS.register("everbrightscarlettower", EverbrightscarlettowerModifier::new);

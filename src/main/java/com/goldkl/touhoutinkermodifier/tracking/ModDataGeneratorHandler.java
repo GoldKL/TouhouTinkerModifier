@@ -76,6 +76,7 @@ public class ModDataGeneratorHandler {
     public static void registerSerializers(RegisterEvent event) {
         if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
             DamageSourcePredicate.LOADER.register(TouhouTinkerModifier.getResource("physical_damage"), TTMPredicate.PHYSICAL_DAMAGE.getLoader());
+            DamageSourcePredicate.LOADER.register(TouhouTinkerModifier.getResource("not_ignore_damage"), TTMPredicate.NOT_IGNORE_DAMAGE.getLoader());
             ModifierModule.LOADER.register(TouhouTinkerModifier.getResource("curio_attribute"), CurioAttributeModule.LOADER);
         }
     }

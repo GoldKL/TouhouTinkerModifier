@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-21T22:30:35.2889869	Touhou Tinkers Modifier's Item Tags
+// 1.20.1	2025-10-15T00:42:45.7911166	Touhou Tinkers Modifier's Item Tags
 7de43b544c09103845ef711d1cc8813b035a3ba4 data/minecraft/tags/items/swords.json
 915b9ae342d01acd6d84cf1767e2c9603b380949 data/tconstruct/tags/items/casts/gold.json
 20f3fc7c9c5fc6a6deea4c3dce2ba31068ec419e data/tconstruct/tags/items/casts/multi_use.json
@@ -10,7 +10,6 @@
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/durability.json
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/harvest.json
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/interactable/right.json
-ceabf7d5d62a8c254a72aeadd6098eb9f1344157 data/tconstruct/tags/items/modifiable/melee/parry.json
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/melee/primary.json
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/multipart.json
 680873d80401ae905737598a35afa5c2c5b8363b data/tconstruct/tags/items/modifiable/small.json

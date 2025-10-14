@@ -23,8 +23,8 @@ public class LaevateinSpell extends AbstractSpell {
             .build();
     public LaevateinSpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 40;
-        this.spellPowerPerLevel = 15;
+        this.baseSpellPower = 80;
+        this.spellPowerPerLevel = 40;
         this.castTime = 0;
         this.baseManaCost = 0;
     }
