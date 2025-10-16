@@ -231,7 +231,7 @@
   "spell.touhoutinkermodifier.skysplitter": "霹天雳地",
   "spell.touhoutinkermodifier.skysplitter.guide": "朝指定区域召唤雷电，一定延迟后落下，对范围内敌人造成伤害，若雷电命中了施法者，为自身提供护盾",
   "spell.touhoutinkermodifier.worldender": "大灭",
-  "spell.touhoutinkermodifier.worldender.guide": "显现真正的恶魔形态，获得生命偷取，移动速度和攻击力，可以进行飞行，效果持续时回复能力得到提升，在效果持续时间死亡时则复活",
+  "spell.touhoutinkermodifier.worldender.guide": "显现真正的恶魔形态，获得生命偷取，移动速度和攻击力，跳跃高度提升且获得缓降，可进行鞘翅飞行，效果持续时回复能力得到提升，在效果持续时间死亡时则复活",
 
   "death.attack.touhoutinkermodifier.gungnir": "%1$s被%2$s的冈格尼尔穿透了胸膛。",
   "death.attack.touhoutinkermodifier.laevatein": "%1$s被%2$s的莱瓦汀平均分成了四块。",

@@ -16,8 +16,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,7 +34,7 @@ public class WorldenderEffect extends MobEffect {
         super(MobEffectCategory.BENEFICIAL,0xFF0000);
         this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "5787376E-2FE4-493D-8B41-F42E0AC9A542", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
         this.addAttributeModifier(Attributes.ATTACK_DAMAGE, "5787376E-2FE4-493D-8B41-F42E0AC9A542", 0.2, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        this.addAttributeModifier(AttributesRegistry.PLAYER_FLY_MOVEMENT.get(), "5787376E-2FE4-493D-8B41-F42E0AC9A542", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "5787376E-2FE4-493D-8B41-F42E0AC9A542", -0.04, AttributeModifier.Operation.ADDITION);
         this.addAttributeModifier(ALObjects.Attributes.LIFE_STEAL.get(), "5787376E-2FE4-493D-8B41-F42E0AC9A542", 0.3, AttributeModifier.Operation.ADDITION);
     }
     @Override
@@ -42,15 +44,25 @@ public class WorldenderEffect extends MobEffect {
     @Override
     public double getAttributeModifierValue(int level, AttributeModifier modifier) {
         if(level < 0) level = level & 0xFF;
+        if(modifier.getAmount() < 0)return  modifier.getAmount();
         if(modifier.getAmount() == 0.15) return modifier.getAmount() + 0.15 * level;
         return modifier.getAmount() + 0.1 * level;
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     static void OnPlayerTick(TickEvent.PlayerTickEvent event)
     {
         if(((LivingEntityInWorldEnder)event.player).touhouTinkerModifier$isCurrentlyWorldender() && event.phase == TickEvent.Phase.END)
             FlyingToken.tickFlying(event.player);
+    }*/
+    @SubscribeEvent
+    static void onEntityTick(LivingEvent.LivingTickEvent event)
+    {
+        LivingEntity entity = event.getEntity();
+        if(((LivingEntityInWorldEnder)entity).touhouTinkerModifier$isCurrentlyWorldender())
+        {
+            entity.resetFallDistance();
+        }
     }
 
     @SubscribeEvent

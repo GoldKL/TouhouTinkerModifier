@@ -3,12 +3,15 @@ package com.goldkl.touhoutinkermodifier.mixin;
 import com.goldkl.touhoutinkermodifier.api.LivingEntityCanStopTime;
 import com.goldkl.touhoutinkermodifier.api.LivingEntityInWorldEnder;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +22,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityCanStopTime, LivingEntityInWorldEnder {
@@ -102,5 +106,24 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     @Override
     public int touhouTinkerModifier$isCanStopTime(){
         return this.entityData.get(DATA_TIME_STOP);
+    }
+    @Inject(method = "getJumpBoostPower",at = @At("RETURN"), cancellable = true)
+    protected void getJumpBoostPowermixin(CallbackInfoReturnable<Float> cir) {
+        if(this.touhouTinkerModifier$isCurrentlyWorldender())
+        {
+            cir.setReturnValue(cir.getReturnValue() + 0.1f);
+        }
+    }
+
+    @WrapOperation(method = "updateFallFlying",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setSharedFlag(IZ)V"))
+    void updateFallFlyingmixin(LivingEntity instance, int index, boolean bool, Operation<Void> original) {
+        boolean res = bool;
+        if (!res) {
+            boolean flag = this.getSharedFlag(7);
+            if (flag && !this.onGround() && !this.isPassenger() && !this.hasEffect(MobEffects.LEVITATION)) {
+                res = this.touhouTinkerModifier$isCurrentlyWorldender();
+            }
+        }
+        original.call(instance, index, res);
     }
 }
