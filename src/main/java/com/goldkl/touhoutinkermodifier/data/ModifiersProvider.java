@@ -130,7 +130,7 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
         IJsonPredicate<BlockState> crops = BlockPredicate.or(BlockPredicate.tag(BlockTags.CROPS), BlockPredicate.set(Blocks.MELON));
         buildModifier(TTMModifierIds.autumnsky)
                 .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).block(crops).level(3).constant())
+                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).block(crops).level(3).mainHandHarvest(TouhouTinkerModifier.getResource("autumnsky_mainhandharvest")))
                 .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).block(crops).level(3).armorHarvest(ARMOR_SLOTS));
     }
     @Override
