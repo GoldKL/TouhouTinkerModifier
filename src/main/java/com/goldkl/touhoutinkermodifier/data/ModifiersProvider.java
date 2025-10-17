@@ -7,13 +7,21 @@ import dev.shadowsoffire.attributeslib.api.ALObjects;
 import dev.xkmc.l2damagetracker.init.L2DamageTracker;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
@@ -24,10 +32,14 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
+import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.*;
+import static slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_SLOTS;
 
 public class ModifiersProvider extends AbstractModifierProvider implements IConditionBuilder {
     public ModifiersProvider(PackOutput packOutput) {
@@ -112,6 +124,14 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                         .multiply()
                         .variable(VALUE).add()
                         .build());
+        //秋日澄空：秋静叶&&秋穰子
+        IJsonPredicate<Item> harvest = ItemPredicate.tag(HARVEST);
+        IJsonPredicate<Item> armor = ItemPredicate.tag(WORN_ARMOR);
+        IJsonPredicate<BlockState> crops = BlockPredicate.or(BlockPredicate.tag(BlockTags.CROPS), BlockPredicate.set(Blocks.MELON));
+        buildModifier(TTMModifierIds.autumnsky)
+                .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).block(crops).level(3).constant())
+                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).block(crops).level(3).armorHarvest(ARMOR_SLOTS));
     }
     @Override
     public String getName() {

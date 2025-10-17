@@ -32,7 +32,8 @@ public class TTMModifierTagProvider extends AbstractModifierTagProvider {
         tag(TagsRegistry.ModifiersTag.SilverModifier)//银质
                     .add(TTMModifierIds.jacktheripper);
         tag(TinkerTags.Modifiers.PROTECTION_DEFENSE)//保护
-                    .add(TTMModifierIds.thebloodofoni);
+                    .add(TTMModifierIds.thebloodofoni)
+                    .add(TTMModifierIds.youngscarletmoon);
         tag(TagsRegistry.ModifiersTag.Chireiden)//地灵殿
                 .add(TTMModifierIds.overrose, TTMModifierIds.missmary, TTMModifierIds.koishiseye, TTMModifierIds.loveburiedembers, TTMModifierIds.idliberation, TTMModifierIds.superegoinhibition)//恋恋
                 .add(TTMModifierIds.tsuchigumo, TTMModifierIds.fieldmiasma)//山女

@@ -54,6 +54,8 @@ public class TTMModifierIds {
     public static final ModifierId harvestjoy = id("harvestjoy");
     //秋静叶
     public static final ModifierId thefadingautumn = id("thefadingautumn");
+    //秋静叶&&秋穰子
+    public static final ModifierId autumnsky = id("autumnsky");
     //地灵殿
     //古明地恋
     public static final ModifierId overrose = id("overrose");
