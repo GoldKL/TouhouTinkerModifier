@@ -52,19 +52,13 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
     private static final List<Attribute> attributes = List.of(
             Attributes.ATTACK_DAMAGE,
             ALObjects.Attributes.ARROW_DAMAGE.get(),
-            AttributesRegistry.PLAYER_FLY_MOVEMENT.get(),
-            Attributes.FLYING_SPEED,
             ForgeMod.SWIM_SPEED.get());
     private static final List<Float> attributes_amount = List.of(
             3f,
             0.05f,
-            0.5f,
-            0.5f,
             1.0f);
     private static final List<AttributeModifier.Operation> attributes_operation = List.of(
             AttributeModifier.Operation.ADDITION,
-            AttributeModifier.Operation.MULTIPLY_BASE,
-            AttributeModifier.Operation.MULTIPLY_BASE,
             AttributeModifier.Operation.MULTIPLY_BASE,
             AttributeModifier.Operation.MULTIPLY_BASE);
     public TearlamentsModifier()
@@ -139,7 +133,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
             if(slot != null)
             {
                 int level = modifier.getLevel();
-                for(int i = 0; i < 5; i++) {
+                for(int i = 0; i < 3; i++) {
                     AttributeInstance instance = livingEntity.getAttribute(attributes.get(i));
                     if(instance != null)
                     {
@@ -177,7 +171,7 @@ public class TearlamentsModifier extends Modifier implements InventoryTickModifi
         if(player == null)return;
         int level = modifier.getLevel();
         list.add(modifier.getModifier().applyStyle(Component.translatable("modifier.touhoutinkermodifier.tearlaments.inwater")));
-        for(int i = 0; i < 5 ;++i)
+        for(int i = 0; i < 3 ;++i)
         {
             if(attributes_operation.get(i) == AttributeModifier.Operation.ADDITION)
             {
