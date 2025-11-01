@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier;
 
+import com.goldkl.touhoutinkermodifier.capability.TheKindofKillDataCapability;
 import com.goldkl.touhoutinkermodifier.helper.BetterCombatHelper;
 import com.goldkl.touhoutinkermodifier.registries.*;
 import com.mojang.logging.LogUtils;
@@ -14,6 +15,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -85,14 +87,15 @@ public class TouhouTinkerModifier
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        //context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, TouhouTinkerModifierConfig.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         // Some common setup code
         event.enqueueWork(TTMMaterialStats::init);
-        LOGGER.info("HELLO FROM COMMON SETUP");
+        TheKindofKillDataCapability.register();
+        //LOGGER.info("HELLO FROM COMMON SETUP");
 
         //if (Config.logDirtBlock)
         //    LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));

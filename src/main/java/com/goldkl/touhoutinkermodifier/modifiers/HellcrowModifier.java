@@ -1,5 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifierConfig;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
@@ -35,8 +37,10 @@ public class HellcrowModifier extends NoLevelsModifier implements AttackerWithEq
         if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType))
         {
             LivingEntity entity = context.getEntity();
-            if(entity.level().dimension() != Level.NETHER)
+            //if(entity.level().dimension() != Level.NETHER)
+            if(!TouhouTinkerModifierConfig.hellcrow_dimension.contains(entity.level().dimension()))
             {
+                TouhouTinkerModifier.LOGGER.info("test");
                 int level = TTMEntityUtils.getModifiertotalLevel(entity, TTMModifierIds.hellcrow);
                 amount *= 0.3f * level + 1;
             }
