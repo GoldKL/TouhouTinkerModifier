@@ -205,6 +205,9 @@
   "modifier.touhoutinkermodifier.longspear": "长枪",
   "modifier.touhoutinkermodifier.longspear.flavor": "长枪依在",
   "modifier.touhoutinkermodifier.longspear.description": "攻击距离提升1.75倍",
+  "modifier.touhoutinkermodifier.riverofdeath": "死之河",
+  "modifier.touhoutinkermodifier.riverofdeath.flavor": "赫尔墨斯之鸟乃吾之名，噬己翼以驭吾心",
+  "modifier.touhoutinkermodifier.riverofdeath.description": "当你的攻击[原版暴击]时，会累计[死之河]。[死之河]会代替耐久消耗。当你即将死亡时，若累计的[死之河]不少于90%，你消耗所有[死之河]并阻止这次死亡。累计的[死之河]会强化你的武器。",
 
   "effect.touhoutinkermodifier.holymantle" : "神圣屏障",
   "effect.touhoutinkermodifier.fragile" : "脆弱",

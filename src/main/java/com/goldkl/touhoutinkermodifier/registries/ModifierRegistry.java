@@ -52,6 +52,7 @@ public class ModifierRegistry {
     public static final StaticModifier<JikicoercionModifier>jikicoercion = MODIFIERS.register("jikicoercion", JikicoercionModifier::new);
     public static final StaticModifier<FullfirepowerModifier>fullfirepower = MODIFIERS.register("fullfirepower",FullfirepowerModifier::new);
     public static final StaticModifier<ArcticstormModifier>arcticstorm = MODIFIERS.register("arcticstorm",ArcticstormModifier::new);
+    public static final StaticModifier<RiverofdeathModifier>riverofdeath = MODIFIERS.register("riverofdeath",RiverofdeathModifier::new);
     //地灵殿
     public static final StaticModifier<OverroseModifier>overrose = MODIFIERS.register("overrose",OverroseModifier::new);
     public static final StaticModifier<MissmaryModifier>missmary = MODIFIERS.register("missmary",MissmaryModifier::new);

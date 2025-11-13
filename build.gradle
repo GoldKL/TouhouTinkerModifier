@@ -198,7 +198,7 @@ dependencies {
     implementation fg.deobf("maven.modrinth:cloth-config:11.1.136+forge")
     implementation fg.deobf("maven.modrinth:playeranimator:1.0.2-rc1+1.20-forge")
     implementation fg.deobf("maven.modrinth:jade:11.13.1+forge")
-    implementation fg.deobf("maven.modrinth:touhou-little-maid:1.4.0-forge+mc1.20.1")
+    compileOnly fg.deobf("maven.modrinth:touhou-little-maid:1.4.0-forge+mc1.20.1")
 
     runtimeOnly fg.deobf("maven.modrinth:moonlight:1.20-2.14.13-forge")
     runtimeOnly fg.deobf("maven.modrinth:mmmmmmmmmmmm:bJE2Owsg")

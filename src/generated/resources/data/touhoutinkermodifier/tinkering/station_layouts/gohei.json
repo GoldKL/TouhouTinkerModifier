@@ -1,7 +1,7 @@
 {
   "icon": {
     "item": "touhoutinkermodifier:gohei",
-    "nbt": "{Damage:0,etstlib_tool_uuid:\"ea03056f-1229-4d8f-922a-878b2ffcbeec\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+    "nbt": "{Damage:0,etstlib_tool_uuid:\"d03ac4a9-236b-452c-9686-013029b41f2c\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
   "input_slots": [
     {

@@ -49,6 +49,7 @@ public class TTMModifierIds {
     public static final ModifierId jikicoercion = id("jikicoercion");
     public static final ModifierId fullfirepower = id("fullfirepower");
     public static final ModifierId arcticstorm = id("arcticstorm");
+    public static final ModifierId riverofdeath = id("riverofdeath");
     //风神录
     //秋穰子
     public static final ModifierId harvestjoy = id("harvestjoy");

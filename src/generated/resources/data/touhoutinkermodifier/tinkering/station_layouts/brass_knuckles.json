@@ -1,7 +1,7 @@
 {
   "icon": {
     "item": "touhoutinkermodifier:brass_knuckles",
-    "nbt": "{Damage:0,etstlib_tool_uuid:\"bb5d75b3-4cf1-4adf-aaf8-c96c4c680ca7\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+    "nbt": "{Damage:0,etstlib_tool_uuid:\"db7fd9c6-9d9c-46d9-a3a8-708d6e661f10\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
   "input_slots": [
     {

@@ -1,7 +1,7 @@
 {
   "icon": {
     "item": "touhoutinkermodifier:spear",
-    "nbt": "{Damage:0,etstlib_tool_uuid:\"e1fa3fab-3530-4301-a4aa-b552ba8aa397\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+    "nbt": "{Damage:0,etstlib_tool_uuid:\"cc4210a0-ddd9-4260-985d-7a90d68d1fbe\",tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
   "input_slots": [
     {

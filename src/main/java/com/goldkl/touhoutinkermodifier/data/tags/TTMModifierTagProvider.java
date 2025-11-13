@@ -18,7 +18,7 @@ public class TTMModifierTagProvider extends AbstractModifierTagProvider {
     protected void addTags() {
         tag(TagsRegistry.ModifiersTag.ScarletDevilMansion)//红魔馆
                     .add(TTMModifierIds.scarletdevil)//蕾米&芙兰
-                    .add(TTMModifierIds.gungnir, TTMModifierIds.youngscarletmoon, TTMModifierIds.crimsonfantasy)//蕾米
+                    .add(TTMModifierIds.gungnir, TTMModifierIds.youngscarletmoon, TTMModifierIds.crimsonfantasy,TTMModifierIds.riverofdeath)//蕾米
                     .add(TTMModifierIds.laevatein, TTMModifierIds.underredmoon, TTMModifierIds.andthentherewerenone)//芙兰
                     .add(TTMModifierIds.devillibrarian)//姆Q&小恶魔
                     .add(TTMModifierIds.everbrightscarlettower, TTMModifierIds.redblacktree)//小恶魔
