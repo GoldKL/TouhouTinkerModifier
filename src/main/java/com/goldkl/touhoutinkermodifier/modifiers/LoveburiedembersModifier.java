@@ -29,8 +29,8 @@ public class LoveburiedembersModifier extends Modifier implements OnAttackedModi
     @Override
     public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
         Entity attacker = source.getEntity();
-        if (isDirectDamage && attacker != null) {
-            LivingEntity defender = context.getEntity();
+        LivingEntity defender = context.getEntity();
+        if (isDirectDamage && attacker != null && attacker != defender) {
             float level = CounterModule.getLevel(tool, modifier, slotType, defender);
             float value = tool.getStats().get(ToolStats.ARMOR);
             attacker.hurt(defender.damageSources().thorns(defender), value * (1 + 0.1f*level));
