@@ -77,7 +77,8 @@ public class ModifierRegistry {
     //风神录
     public static final StaticModifier<HarvestjoyModifier>harvestjoy = MODIFIERS.register("harvestjoy",HarvestjoyModifier::new);
     public static final StaticModifier<ThefadingautumnModifier>thefadingautumn = MODIFIERS.register("thefadingautumn",ThefadingautumnModifier::new);
-
+    //花映冢
+    public static final StaticModifier<RequiemofsoulsModifier>requiemofsouls = MODIFIERS.register("requiemofsouls",RequiemofsoulsModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

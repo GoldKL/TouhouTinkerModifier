@@ -90,6 +90,9 @@ public class TTMModifierIds {
     //锦上京
     //渡里贝子
     public static final ModifierId deepbaloney = id("deepbaloney");
+    //花映冢
+    //小野冢小町
+    public static final ModifierId requiemofsouls = id("requiemofsouls");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

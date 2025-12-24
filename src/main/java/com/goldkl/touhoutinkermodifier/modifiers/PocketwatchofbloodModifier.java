@@ -58,11 +58,12 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
             }
             costlevel += 1;
             costmana *= (float) Math.pow(2,costlevel);
-            if(mana >= 1600 && mana >= costmana)
+            MobEffectInstance new_instance = new MobEffectInstance(MobeffectRegistry.BROKENPOCKETWATCH.get(),3000 , costlevel);
+            if(mana >= 1600 && mana >= costmana && player.canBeAffected(new_instance))
             {
                 entitymagicdata.setMana(mana - costmana);
                 player.removeEffect(MobeffectRegistry.BROKENPOCKETWATCH.get());
-                player.addEffect(new MobEffectInstance(MobeffectRegistry.BROKENPOCKETWATCH.get(),3000 , costlevel));
+                player.addEffect(new_instance);
                 Messages.sendToPlayer(new ClientboundSyncMana(entitymagicdata), player);
                 return true;
             }

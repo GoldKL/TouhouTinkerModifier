@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 public class AvatarofdarknessModifier extends Modifier implements ModifyDamageModifierHook, InventoryTickModifierHook {
     //黑暗化身：EX露米娅
     public static final TinkerDataCapability.TinkerDataKey<SlotInChargeModule.SlotInCharge> SLOT_IN_CHARGE = TinkerDataCapability.TinkerDataKey.of(TTMModifierIds.avatarofdarkness);
+    private static final MobEffectInstance BREAKDARKNESS_MARK = new MobEffectInstance(MobeffectRegistry.BREAKDARKNESS.get(),6000,0);
     public int getPriority() {
         return 15;
     }
@@ -37,6 +38,8 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
     @Override
     public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource damageSource, float amount, boolean isDirectDamage) {
         if(context.getEntity().hasEffect(MobeffectRegistry.BREAKDARKNESS.get()))return amount;
+        MobEffectInstance instance = new MobEffectInstance(BREAKDARKNESS_MARK);
+        if(!context.getEntity().canBeAffected(instance))return amount;
         if(damageSource.is(TagsRegistry.DamageTypeTag.PASS_PORTION_MODIFIER))return amount;
         int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
         if(level > 0)
@@ -45,7 +48,7 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
             float absorb = entity.getAbsorptionAmount();
             if(absorb > 0 && absorb < amount)
             {
-                entity.addEffect(new MobEffectInstance(MobeffectRegistry.BREAKDARKNESS.get(),6000,0));
+                entity.addEffect(instance);
                 return 0;
             }
         }
@@ -55,6 +58,7 @@ public class AvatarofdarknessModifier extends Modifier implements ModifyDamageMo
     @Override
     public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
         if(livingEntity.hasEffect(MobeffectRegistry.BREAKDARKNESS.get()))return;
+        if(!livingEntity.canBeAffected(new MobEffectInstance(BREAKDARKNESS_MARK)))return;
         if(!isCorrectSlot)return;
         EquipmentSlot slot = null;
         for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
