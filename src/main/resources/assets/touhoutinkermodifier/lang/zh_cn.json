@@ -209,7 +209,7 @@
   "modifier.touhoutinkermodifier.riverofdeath.flavor": "赫尔墨斯之鸟乃吾之名，噬己翼以驭吾心",
   "modifier.touhoutinkermodifier.riverofdeath.description": "当你的攻击[原版暴击]时，会累计[死之河]。[死之河]会代替耐久消耗。当你即将死亡时，若累计的[死之河]不少于90%，你消耗所有[死之河]并阻止这次死亡。累计的[死之河]会强化你的武器。",
   "modifier.touhoutinkermodifier.requiemofsouls": "魂之挽歌",
-  "modifier.touhoutinkermodifier.requiemofsouls.flavor": "天生万物以养人，人无一物以报天",
+  "modifier.touhoutinkermodifier.requiemofsouls.flavor": "死并不可怕，死是凉爽的夏夜，可供人无忧地安眠",
   "modifier.touhoutinkermodifier.requiemofsouls.description": "根据你杀死的敌人种类基础伤害增加",
 
   "effect.touhoutinkermodifier.holymantle" : "神圣屏障",
