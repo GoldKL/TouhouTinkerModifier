@@ -8,7 +8,9 @@ import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.helper.compat.TouhouLittleMaidHelper;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -32,7 +34,9 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifi
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarValidator;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
+import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -50,7 +54,7 @@ public class RiverofdeathModifier extends Modifier implements ToolStatsModifierH
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addModule(new CapacityBarModule(TTMModifierIds.riverofdeath,LevelingInt.flat(500), ToolStats.DURABILITY));
+        hookBuilder.addModule(new CapacityBarModule(TTMModifierIds.riverofdeath,LevelingInt.flat(500), null));
         hookBuilder.addModule(new DurabilityShieldModule(0x8b0000));
         hookBuilder.addHook(this, ModifierHooks.TOOL_STATS, ModifierHooks.MELEE_HIT,EtSTLibHooks.PREVENT_DEATH, ModifierHooks.PROJECTILE_HIT, ModifierHooks.PROJECTILE_LAUNCH);
     }
@@ -121,7 +125,7 @@ public class RiverofdeathModifier extends Modifier implements ToolStatsModifierH
                 }
             }
         }
-        return notBlocked;
+        return !notBlocked;
     }
 
     @Override
@@ -135,6 +139,10 @@ public class RiverofdeathModifier extends Modifier implements ToolStatsModifierH
             CapacityBarHook bar = modifier.getHook(ModifierHooks.CAPACITY_BAR);
             bar.addAmount(tool,modifier,Shield_coefficient * level);
         }
+    }
+    @Override
+    public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @javax.annotation.Nullable RegistryAccess access) {
+        return getHook(ModifierHooks.DISPLAY_NAME).getDisplayName(tool, entry, entry.getDisplayName(), access);
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {

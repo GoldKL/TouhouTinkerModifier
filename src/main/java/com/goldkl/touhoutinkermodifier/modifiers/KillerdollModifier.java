@@ -53,6 +53,6 @@ public class KillerdollModifier extends NoLevelsModifier implements ProjectileHi
                 }
             }
         }
-        return notBlocked;
+        return !notBlocked;
     }
 }
