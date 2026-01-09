@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.util.TooltipsUtils;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -18,7 +19,7 @@ public class TooltipsUtilsMixin {
         return ((IAbstractSpell)(Object)instance).touhouTinkerModifier$getEntityManaCost(level, player);
     }
     @WrapOperation(method = "formatScrollTooltip",at = @At(value = "INVOKE", target = "Lio/redspace/ironsspellbooks/api/spells/AbstractSpell;getManaCost(I)I"),remap = false)
-    private static int formatScrollTooltipmixin(AbstractSpell instance, int level, Operation<Integer> original, @Local(argsOnly = true) LocalPlayer player)
+    private static int formatScrollTooltipmixin(AbstractSpell instance, int level, Operation<Integer> original, @Local(argsOnly = true) Player player)
     {
         return ((IAbstractSpell)(Object)instance).touhouTinkerModifier$getEntityManaCost(level, player);
     }

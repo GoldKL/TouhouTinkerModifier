@@ -2,7 +2,6 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.EffectApplicableModifierHook;
-import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -38,7 +37,7 @@ public class LoveburiedembersModifier extends Modifier implements OnAttackedModi
     }
 
     @Override
-    public Boolean isApplicable(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot equipmentSlot, MobEffectInstance instance, Boolean notApplicable) {
+    public boolean isApplicable(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot equipmentSlot, MobEffectInstance instance, Boolean notApplicable) {
         return notApplicable||instance.getEffect() == MobEffects.MOVEMENT_SLOWDOWN;
     }
 }

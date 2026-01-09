@@ -1,19 +1,19 @@
 package com.goldkl.touhoutinkermodifier;
 
 import com.goldkl.touhoutinkermodifier.capability.TheKindofKillDataCapability;
-import com.goldkl.touhoutinkermodifier.helper.BetterCombatHelper;
+import com.goldkl.touhoutinkermodifier.helper.compat.BetterCombatHelper;
+import com.goldkl.touhoutinkermodifier.helper.compat.SakuraThinkerHelper;
 import com.goldkl.touhoutinkermodifier.registries.*;
+import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -21,8 +21,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 import java.util.Locale;
@@ -35,6 +33,7 @@ public class TouhouTinkerModifier
 {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "touhoutinkermodifier";
+    private static boolean IsAfterLoad;
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
@@ -64,18 +63,10 @@ public class TouhouTinkerModifier
 
     public TouhouTinkerModifier(FMLJavaModLoadingContext context)
     {
+        IsAfterLoad = false;
         IEventBus modEventBus = context.getModEventBus();
-
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
-
-        // Register the Deferred Register to the mod event bus so blocks get registered
-        //BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
-        //ITEMS.register(modEventBus);
         ItemsRegistry.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so tabs get registered
-        //CREATIVE_MODE_TABS.register(modEventBus);
         ModifierRegistry.register(modEventBus);
         MobeffectRegistry.register(modEventBus);
         SpellsRegistry.register(modEventBus);
@@ -83,11 +74,17 @@ public class TouhouTinkerModifier
         EntitiesRegistry.register(modEventBus);
         TTMBulletTypeRegistry.register(modEventBus);
         TTMCreativeModeTab.register(modEventBus);
-        BetterCombatHelper.load();
-        // Register ourselves for server and other game events we are interested in
+        if (TTMModListUtil.BetterComBatLoaded)
+        {
+            BetterCombatHelper.load(modEventBus);
+        }
+        if (TTMModListUtil.SakuraTinkerLoaded)
+        {
+            SakuraThinkerHelper.load(modEventBus);
+        }
         MinecraftForge.EVENT_BUS.register(this);
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         context.registerConfig(ModConfig.Type.COMMON, TouhouTinkerModifierConfig.SPEC);
+        IsAfterLoad = true;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

@@ -1,21 +1,18 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
-import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
-import java.util.Iterator;
 
 
 public class OverpowermqModifier extends Modifier implements ToolStatsModifierHook {
@@ -24,7 +21,7 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
         hookBuilder.addHook(this, ModifierHooks.TOOL_STATS);
-        hookBuilder.addModule(StatBoostModule.add(OverslimeModifier.OVERSLIME_STAT).eachLevel(100));
+        hookBuilder.addModule(StatBoostModule.add(OverslimeModule.OVERSLIME_STAT).eachLevel(100));
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {

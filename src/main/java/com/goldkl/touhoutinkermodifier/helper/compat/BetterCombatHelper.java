@@ -1,10 +1,12 @@
-package com.goldkl.touhoutinkermodifier.helper;
+package com.goldkl.touhoutinkermodifier.helper.compat;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.hook.BetterCombatAtackRangeHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 
@@ -25,9 +27,9 @@ public class BetterCombatHelper {
     private static Method getCurrentAttack;
     private static Method attackhand_isoffhand;
     private static Constructor<?> Modifier_constructor;
-    public static void load(){};
+    public static void load(IEventBus modEventBus){};
     static{
-        if (ModList.get().isLoaded("bettercombat")) {
+        if (TTMModListUtil.BetterComBatLoaded) {
             // Mod 已加载
             try {
                 Class<?> attackrangeextensions = Class.forName("net.bettercombat.api.client.AttackRangeExtensions");

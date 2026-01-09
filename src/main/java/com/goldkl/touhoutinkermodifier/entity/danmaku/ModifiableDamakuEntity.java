@@ -57,8 +57,18 @@ public class ModifiableDamakuEntity extends ItemDanmakuEntity {
             if(target instanceof LivingEntity) {
                 targetLiving = (LivingEntity) target;
             }
-            ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand?InteractionHand.MAIN_HAND:InteractionHand.OFF_HAND, hand? EquipmentSlot.MAINHAND: EquipmentSlot.OFFHAND, target, targetLiving, false, 1, false);
             ToolStack tool = ToolStack.from(stack);
+            ToolAttackContext.Builder builder = ToolAttackContext
+                    .attacker(attackerLiving)
+                    .target(target)
+                    .hand(hand?InteractionHand.MAIN_HAND:InteractionHand.OFF_HAND)
+                    .cooldown(1);
+            if (hand) {
+                builder.applyAttributes();
+            } else {
+                builder.toolAttributes(tool);
+            }
+            ToolAttackContext context = builder.build();
             float baseDamage = damage;
             MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(baseDamage);
             List<ModifierEntry> modifiers = tool.getModifierList();

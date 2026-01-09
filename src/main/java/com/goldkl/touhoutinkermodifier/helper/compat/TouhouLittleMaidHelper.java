@@ -1,4 +1,4 @@
-package com.goldkl.touhoutinkermodifier.helper;
+package com.goldkl.touhoutinkermodifier.helper.compat;
 
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import net.minecraft.world.entity.LivingEntity;

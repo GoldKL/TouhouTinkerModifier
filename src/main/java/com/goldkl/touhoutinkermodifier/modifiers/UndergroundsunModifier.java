@@ -73,7 +73,7 @@ public class UndergroundsunModifier extends Modifier implements OnAttackedModifi
         }
     }
     @Override
-    public Boolean isApplicable(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot equipmentSlot, MobEffectInstance instance, Boolean notApplicable) {
+    public boolean isApplicable(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot equipmentSlot, MobEffectInstance instance, Boolean notApplicable) {
         return notApplicable||instance.getEffect() == MobeffectRegistry.RADIATION.get();
     }
     @Override

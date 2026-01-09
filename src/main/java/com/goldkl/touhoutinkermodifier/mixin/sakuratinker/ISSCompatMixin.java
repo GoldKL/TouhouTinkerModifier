@@ -4,7 +4,6 @@ import com.goldkl.touhoutinkermodifier.modifiers.sakuratinker.TTMFountainMagicMo
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.ssakura49.sakuratinker.compat.IronSpellBooks.ISSCompat;
-import com.ssakura49.sakuratinker.compat.IronSpellBooks.modifiers.FountainMagicModifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;

@@ -1,7 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
-import com.ssakura49.sakuratinker.library.tinkering.tools.STToolStats;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -17,14 +16,15 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.*;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 ;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DeepbaloneyModifier extends Modifier implements InventoryTickModifierHook, ToolStatsModifierHook, ModifierRemovalHook {
@@ -138,10 +138,17 @@ public class DeepbaloneyModifier extends Modifier implements InventoryTickModifi
                 .filter(stst -> WHITE_MOD_LIST.contains(stst.getName().getNamespace()))
                 .toArray();
     }
-    final static private Set<INumericToolStat<?>>BLACK_STAT_LIST = Set.of(
+    final static private Set<INumericToolStat<?>>BLACK_STAT_LIST = new HashSet<>(Set.of(
             ToolTankHelper.CAPACITY_STAT,
-            OverslimeModifier.OVERSLIME_STAT,
-            STToolStats.COOLDOWN);
-    final static private Set<String>WHITE_MOD_LIST = Set.of(
-            TConstruct.MOD_ID);
+            OverslimeModule.OVERSLIME_STAT));
+    final static private Set<String>WHITE_MOD_LIST = new HashSet<>(Set.of(
+            TConstruct.MOD_ID));
+    static public void addBlackStatList(INumericToolStat<?> newStat)
+    {
+        BLACK_STAT_LIST.add(newStat);
+    }
+    static public void addWhiteModList(String newModid)
+    {
+        WHITE_MOD_LIST.add(newModid);
+    }
 }

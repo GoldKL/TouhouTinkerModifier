@@ -110,11 +110,19 @@ public class MarisaBBulletType extends AbstractMarisaBulletType {
                         float damage = tempdamage;
                         if(itemStack.getItem() instanceof IModifiable)
                         {
-                            Player attackerPlayer = entity instanceof Player ? (Player) entity : null;
-                            LivingEntity livingtarget = target instanceof LivingEntity ? (LivingEntity) target : null;
-                            ToolAttackContext context = new ToolAttackContext(entity, attackerPlayer, entity.getUsedItemHand(), entity.getUsedItemHand() == InteractionHand.MAIN_HAND? EquipmentSlot.MAINHAND: EquipmentSlot.OFFHAND, target, livingtarget, false, 1, false);
-                            float baseDamage = damage;
                             ToolStack tool = ToolStack.from(itemStack);
+                            ToolAttackContext.Builder builder = ToolAttackContext
+                                    .attacker(entity)
+                                    .target(target)
+                                    .hand(entity.getUsedItemHand())
+                                    .cooldown(1);
+                            ToolAttackContext context = builder.build();
+                            if (entity.getUsedItemHand() == InteractionHand.MAIN_HAND) {
+                                builder.applyAttributes();
+                            } else {
+                                builder.toolAttributes(tool);
+                            }
+                            float baseDamage = damage;
                             MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(baseDamage);
                             List<ModifierEntry> modifiers = tool.getModifierList();
                             for(ModifierEntry entry : modifiers) {

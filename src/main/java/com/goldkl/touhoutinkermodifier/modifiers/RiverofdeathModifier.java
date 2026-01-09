@@ -3,8 +3,9 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.OnHoldingPreventDeathHook;
 import com.c2h6s.etstlib.util.IToolUuidGetter;
+import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
-import com.goldkl.touhoutinkermodifier.helper.TouhouLittleMaidHelper;
+import com.goldkl.touhoutinkermodifier.helper.compat.TouhouLittleMaidHelper;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
 import net.minecraft.nbt.CompoundTag;
@@ -21,13 +22,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.LevelingInt;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
+import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -40,10 +45,13 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class RiverofdeathModifier extends DurabilityShieldModifier implements ToolStatsModifierHook, MeleeHitModifierHook, OnHoldingPreventDeathHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook {
+public class RiverofdeathModifier extends Modifier implements ToolStatsModifierHook, MeleeHitModifierHook, OnHoldingPreventDeathHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook {
+
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
+        hookBuilder.addModule(new CapacityBarModule(TTMModifierIds.riverofdeath,LevelingInt.flat(500), ToolStats.DURABILITY));
+        hookBuilder.addModule(new DurabilityShieldModule(0x8b0000));
         hookBuilder.addHook(this, ModifierHooks.TOOL_STATS, ModifierHooks.MELEE_HIT,EtSTLibHooks.PREVENT_DEATH, ModifierHooks.PROJECTILE_HIT, ModifierHooks.PROJECTILE_LAUNCH);
     }
     @Override
@@ -52,7 +60,7 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
     @Override
     public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
         if(arrow != null && arrow.isCritArrow() && primary) {
-            IToolUuidGetter.getUuid(tool).ifPresent(uuid->{
+            IToolUuidGetter.getUuidForTool(tool).ifPresent(uuid->{
                 CompoundTag tag = new CompoundTag();
                 tag.putUUID(TTMModifierIds.riverofdeath.toString(),uuid);
                 persistentData.put(TTMModifierIds.riverofdeath,tag);
@@ -61,8 +69,8 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-        if(target != null && attacker != null && !attacker.level().isClientSide())
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target,boolean notBlocked) {
+        if(notBlocked && target != null && attacker != null && !attacker.level().isClientSide())
         {
             if(persistentData.getCompound(TTMModifierIds.riverofdeath).hasUUID(TTMModifierIds.riverofdeath.toString()))
             {
@@ -71,9 +79,9 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
                     if(itemStack.getItem() instanceof IModifiable)
                     {
                         ToolStack tool = ToolStack.from(itemStack);
-                        if(IToolUuidGetter.getUuid(tool).isPresent())
+                        if(IToolUuidGetter.getUuidForTool(tool).isPresent())
                         {
-                            return uuid.equals(IToolUuidGetter.getUuid(tool).get());
+                            return uuid.equals(IToolUuidGetter.getUuidForTool(tool).get());
                         }
                     }
                     return false;
@@ -81,7 +89,8 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
                 Consumer<ItemStack> consumer = itemStack -> {
                     ToolStack tool = ToolStack.from(itemStack);
                     int level = modifier.getLevel();
-                    addShield(tool,modifier,Shield_coefficient * level);
+                    CapacityBarHook bar = modifier.getHook(ModifierHooks.CAPACITY_BAR);
+                    bar.addAmount(tool,modifier,Shield_coefficient * level);
                 };
                 boolean has_done = false;
                 for(EquipmentSlot slot:EquipmentSlot.values())
@@ -112,7 +121,7 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
                 }
             }
         }
-        return false;
+        return notBlocked;
     }
 
     @Override
@@ -123,12 +132,13 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
         if (context.isFullyCharged() && context.isCritical() && damageDealt > 0) {
             int level = modifier.getLevel();
-            addShield(tool,modifier,Shield_coefficient * level);
+            CapacityBarHook bar = modifier.getHook(ModifierHooks.CAPACITY_BAR);
+            bar.addAmount(tool,modifier,Shield_coefficient * level);
         }
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-        int blood = context.getPersistentData().getInt(getShieldKey());
+        int blood = context.getPersistentData().getInt(TTMModifierIds.riverofdeath);
         float level = modifier.getEffectiveLevel();
         float num = level * blood / 200;
         if(blood > 0)
@@ -149,12 +159,13 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
     }
 
     public float onHoldingPreventDeath(LivingEntity livingEntity, IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source) {
-        if(!source.is(TagsRegistry.DamageTypeTag.PASS_WORLD_ENDER) && getShield(tool) >= 0.9 * getShieldCapacity(tool, modifier))
+        CapacityBarHook bar = modifier.getHook(ModifierHooks.CAPACITY_BAR);
+        if(!source.is(TagsRegistry.DamageTypeTag.PASS_WORLD_ENDER) && bar.getAmount(tool) >= 0.9 * bar.getCapacity(tool, modifier))
         {
             float recover = livingEntity.getMaxHealth() * 0.5f;
             if(recover > 0)
             {
-                setShield(tool,modifier,0);
+                bar.setAmount(tool,modifier,0);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
@@ -162,24 +173,5 @@ public class RiverofdeathModifier extends DurabilityShieldModifier implements To
             }
         }
         return 0;
-    }
-
-    @Override
-    public int getShieldCapacity(IToolStackView tool, ModifierEntry modifier) {
-        return 500;
-    }
-
-    @Override
-    public @Nullable Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
-        return getShield(tool) > 0 ? true : null;
-    }
-
-    @Override
-    public int getDurabilityRGB(IToolStackView tool, ModifierEntry modifier) {
-        if (getShield(tool) > 0) {
-            // just always display light blue, not much point in color changing really
-            return 0x8b0000;
-        }
-        return -1;
     }
 }

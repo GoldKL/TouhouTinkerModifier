@@ -44,7 +44,7 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
         if (tool.getModifier(TTMModifierIds.bibliophilia) != ModifierEntry.EMPTY) {
             int level = tool.getModifierLevel(TTMModifierIds.bibliophilia);
             for (SchoolType schoolType : SchoolRegistry.REGISTRY.get()){
-                Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().orElse(null);
+                Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().get();
                 if(attribute != null)
                 {
                     AttributeInstance instance = context.getEntity().getAttribute(attribute);
@@ -75,7 +75,7 @@ public class RlyehtextModifier extends NoLevelsModifier implements EquipmentChan
             UUID uuid = this.getUUID(context.getChangedSlot());
             if (uuid != null) {
                 for (SchoolType schoolType : SchoolRegistry.REGISTRY.get()) {
-                    Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().orElse(null);
+                    Attribute attribute = ((SchoolTypeAccessor)schoolType).getpowerAttribute().get();
                     if (attribute != null) {
                         AttributeInstance instance = context.getEntity().getAttribute(attribute);
                         if (instance != null) {

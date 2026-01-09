@@ -2,19 +2,18 @@ package com.goldkl.touhoutinkermodifier.mixin.ironspell;
 
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.capabilities.magic.SpellContainer;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SpellContainer.class)
+@Mixin(value = SpellContainer.Mutable.class)
 public class SpellContainerMixin {
-    @Inject(method = "addSpellAtIndex(Lio/redspace/ironsspellbooks/api/spells/AbstractSpell;IIZLnet/minecraft/world/item/ItemStack;)Z"
+    @Inject(method = "addSpellAtIndex(Lio/redspace/ironsspellbooks/api/spells/AbstractSpell;IIZ)Z"
             ,at = @At("HEAD")
             ,cancellable = true
             ,remap = false)
-    void addSpellAtIndexmixin(AbstractSpell spell, int level, int index, boolean locked, ItemStack itemStack, CallbackInfoReturnable<Boolean> cir)
+    void addSpellAtIndexmixin(AbstractSpell spell, int level, int index, boolean locked, CallbackInfoReturnable<Boolean> cir)
     {
         try{
             if(spell == null || !spell.isEnabled())

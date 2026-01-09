@@ -8,8 +8,8 @@ import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import com.hollingsworth.arsnouveau.api.perk.PerkAttributes;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
-import io.redspace.ironsspellbooks.network.ClientboundSyncMana;
-import io.redspace.ironsspellbooks.setup.Messages;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -64,7 +64,7 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
                 entitymagicdata.setMana(mana - costmana);
                 player.removeEffect(MobeffectRegistry.BROKENPOCKETWATCH.get());
                 player.addEffect(new_instance);
-                Messages.sendToPlayer(new ClientboundSyncMana(entitymagicdata), player);
+                PacketDistributor.sendToPlayer(player, new SyncManaPacket(entitymagicdata));
                 return true;
             }
             return false;
