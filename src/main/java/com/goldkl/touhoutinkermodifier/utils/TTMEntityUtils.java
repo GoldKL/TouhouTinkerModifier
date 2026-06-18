@@ -26,17 +26,19 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class TTMEntityUtils {
-    public static void clearLivingEntityInvulnerableTime(LivingEntity entity)
+    public static void clearLivingEntityInvulnerableTime(@Nullable LivingEntity entity)
     {
+        if(entity == null) return;
         entity.invulnerableTime = 0;
         if(entity instanceof LLibrary_Boss_Monster lLibraryBossMonster)
         {
-            ((LLibrary_Boss_MonsterAccessor)lLibraryBossMonster).setreducedDamageTicks(0);
+            ((LLibrary_Boss_MonsterAccessor)lLibraryBossMonster).setdamageBucket(0);
         }
         if(entity instanceof BossYoukaiEntity bossYoukaiEntity)
         {
@@ -64,9 +66,8 @@ public class TTMEntityUtils {
     public static boolean HasMatchModifierTool(LivingEntity entity, Predicate<IToolStackView> predicate, EquipmentSlot... slots) {
         for(EquipmentSlot equipmentSlot : slots)
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            if(ModifierUtil.validArmorSlot(tool,equipmentSlot) && predicate.test(tool))
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool != null && ModifierUtil.validArmorSlot(tool,equipmentSlot) && predicate.test(tool))
             {
                 return true;
             }
@@ -80,9 +81,8 @@ public class TTMEntityUtils {
         int level = 0;
         for(EquipmentSlot equipmentSlot : slots)
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            if(ModifierUtil.validArmorSlot(tool,equipmentSlot) && tool.getModifier(modifier)!= ModifierEntry.EMPTY)
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool != null && ModifierUtil.validArmorSlot(tool,equipmentSlot) && tool.getModifier(modifier)!= ModifierEntry.EMPTY)
             {
                 level += getModifierLevel(tool.getModifier(modifier));
             }
@@ -96,9 +96,8 @@ public class TTMEntityUtils {
         int level = 0;
         for(EquipmentSlot equipmentSlot : slots)
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            if(ModifierUtil.validArmorSlot(tool,equipmentSlot) &&tool.getModifier(modifier)!= ModifierEntry.EMPTY)
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool != null && ModifierUtil.validArmorSlot(tool,equipmentSlot) &&tool.getModifier(modifier)!= ModifierEntry.EMPTY)
             {
                 level = Math.max(level, getModifierLevel(tool.getModifier(modifier)));
             }
@@ -111,9 +110,8 @@ public class TTMEntityUtils {
     public static boolean hasModifier(LivingEntity entity, ModifierId modifier, EquipmentSlot... slots) {
         for(EquipmentSlot equipmentSlot : slots)
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            if(ModifierUtil.validArmorSlot(tool,equipmentSlot) && tool.getModifier(modifier)!= ModifierEntry.EMPTY)
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool != null && ModifierUtil.validArmorSlot(tool,equipmentSlot) && tool.getModifier(modifier)!= ModifierEntry.EMPTY)
             {
                 return true;
             }
@@ -126,9 +124,8 @@ public class TTMEntityUtils {
     public static boolean hasModifiers(LivingEntity entity, List<ModifierId> modifiers, EquipmentSlot... slots) {
         for(EquipmentSlot equipmentSlot : slots)
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            if(ModifierUtil.validArmorSlot(tool,equipmentSlot))
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool!= null && ModifierUtil.validArmorSlot(tool,equipmentSlot))
             {
                 for(ModifierId modifier :modifiers)
                 {

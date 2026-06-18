@@ -29,18 +29,16 @@ public class OverpowermqModifier extends Modifier implements ToolStatsModifierHo
         float amount = 1.0f + modifier.getLevel()*level*0.1f;
         if (amount > 0) {
             if (context.hasTag(TinkerTags.Items.MELEE)) {
-                ToolStats.ATTACK_DAMAGE.multiply(builder, amount);
-                ToolStats.ATTACK_SPEED.multiply(builder, amount);
+                ToolStats.ATTACK_DAMAGE.percent(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.HARVEST)) {
-                ToolStats.MINING_SPEED.multiply(builder, amount);
+                ToolStats.MINING_SPEED.percent(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.ARMOR)) {
-                ToolStats.ARMOR.multiply(builder, amount);
-                ToolStats.ARMOR_TOUGHNESS.multiply(builder, amount);
+                ToolStats.ARMOR.percent(builder, amount);
             }
             if (context.hasTag(TinkerTags.Items.RANGED)) {
-                ToolStats.VELOCITY.multiply(builder, amount);
+                ToolStats.VELOCITY.percent(builder, amount);
             }
         }
     }

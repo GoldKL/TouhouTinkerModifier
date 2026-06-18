@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "touhoutinkermodifier:spellpaper"
-  },
-  "material": "touhoutinkermodifier:spellpaper",
-  "needed": 1,
-  "value": 2
-}

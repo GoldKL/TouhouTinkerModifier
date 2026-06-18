@@ -6,6 +6,7 @@ import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvide
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_HARVEST;
 
 public class TTMMaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
@@ -20,6 +21,8 @@ public class TTMMaterialTraitsDataProvider extends AbstractMaterialTraitDataProv
 
     @Override
     protected void addMaterialTraits() {
+        //tier 0
+        addTraits(TTMMaterialIds.kedama, ARMOR, TTMModifierIds.naturalgrace);
         //tier 1
         addDefaultTraits(TTMMaterialIds.yinangorb, new ModifierId[]{});
         //tier 2

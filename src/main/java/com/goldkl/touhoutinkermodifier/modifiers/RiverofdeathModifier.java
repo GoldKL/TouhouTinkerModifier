@@ -7,6 +7,7 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.helper.compat.TouhouLittleMaidHelper;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -80,9 +81,9 @@ public class RiverofdeathModifier extends Modifier implements ToolStatsModifierH
             {
                 UUID uuid = persistentData.getCompound(TTMModifierIds.riverofdeath).getUUID(TTMModifierIds.riverofdeath.toString());
                 Predicate<ItemStack> condition = itemStack -> {
-                    if(itemStack.getItem() instanceof IModifiable)
+                    IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(itemStack);
+                    if(tool != null)
                     {
-                        ToolStack tool = ToolStack.from(itemStack);
                         if(IToolUuidGetter.getUuidForTool(tool).isPresent())
                         {
                             return uuid.equals(IToolUuidGetter.getUuidForTool(tool).get());
@@ -165,7 +166,7 @@ public class RiverofdeathModifier extends Modifier implements ToolStatsModifierH
             }
         }
     }
-
+    @Override
     public float onHoldingPreventDeath(LivingEntity livingEntity, IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source) {
         CapacityBarHook bar = modifier.getHook(ModifierHooks.CAPACITY_BAR);
         if(!source.is(TagsRegistry.DamageTypeTag.PASS_WORLD_ENDER) && bar.getAmount(tool) >= 0.9 * bar.getCapacity(tool, modifier))

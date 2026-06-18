@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.registries;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.entity.danmaku.ModifiableDamakuEntity;
 import com.goldkl.touhoutinkermodifier.entity.danmaku.TrackDanmakuEntity;
+import com.goldkl.touhoutinkermodifier.entity.spell.fire.masterspark.MasterSparkVisualEntity;
 import com.goldkl.touhoutinkermodifier.entity.spell.lightning.SkysplitterEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +32,12 @@ public class EntitiesRegistry {
                     .clientTrackingRange(4)
                     .updateInterval(1 << 16)
                     .build((ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "modifiable_danmaku")).toString()));
+    public static final RegistryObject<EntityType<MasterSparkVisualEntity>> MasterSparkVisualEntity =
+            REGISTRY.register("master_spark", () -> EntityType.Builder.<MasterSparkVisualEntity>of(MasterSparkVisualEntity::new, MobCategory.MISC)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "master_spark").toString()));
+
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

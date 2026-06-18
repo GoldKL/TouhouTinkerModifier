@@ -21,7 +21,7 @@ public interface AfterAttackerWithEquipmentModifyDamageModifierHook {
     }
     static void afterattackermodifyDamageTaken(ModuleHook<AfterAttackerWithEquipmentModifyDamageModifierHook> hook, EquipmentContext context, DamageSource source, float amount,  boolean isDirectDamage) {
         for (EquipmentSlot slotType : EquipmentSlot.values()) {
-            IToolStackView toolStack = context.getToolInSlot(slotType);
+            IToolStackView toolStack = context.getValidTool(slotType);
             if (toolStack != null && !toolStack.isBroken()) {
                 for (ModifierEntry entry : toolStack.getModifierList()) {
                     entry.getHook(hook).afterattackermodifyDamageTaken(toolStack, entry, context, slotType, source, amount, isDirectDamage);

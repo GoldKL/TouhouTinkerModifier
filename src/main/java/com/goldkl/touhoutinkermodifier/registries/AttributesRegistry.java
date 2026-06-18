@@ -51,7 +51,6 @@ public class AttributesRegistry {
         addToAll(event, MANA_COST_REDUCTION);
         //境界之力
         event.add(EntityType.PLAYER, BOUNDARY_POWER.get(),10);
-        addToExceptPlayer(event,BOUNDARY_POWER);
     }
     public static void register(IEventBus eventBus) {
         ATTRIBUTES.register(eventBus);

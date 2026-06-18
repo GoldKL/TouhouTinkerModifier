@@ -47,6 +47,6 @@ public class TTMModifierTagProvider extends AbstractModifierTagProvider {
 
     @Override
     public String getName() {
-        return "Touhou Tinker Modifier Tag Provider";
+        return "Touhou Tinker Modifier's Modifier Tag Provider";
     }
 }

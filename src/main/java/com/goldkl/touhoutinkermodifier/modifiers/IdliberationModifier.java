@@ -35,7 +35,7 @@ public class IdliberationModifier extends Modifier implements AttributesModifier
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.INVENTORY_TICK, ModifierHooks.ATTRIBUTES);
+        hookBuilder.addHook(this, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.INVENTORY_TICK, ModifierHooks.ATTRIBUTES,ModifierHooks.REMOVE);
     }
 
     @Override
@@ -44,11 +44,8 @@ public class IdliberationModifier extends Modifier implements AttributesModifier
             UUID uuid = this.getUUID(equipmentSlot);
             int level = modifierEntry.getLevel();
             boolean flag = iToolStackView.getPersistentData().getBoolean(TTMModifierIds.idliberation);
-            if(flag) {
-                level *= 2;
-            }
-            biConsumer.accept(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), level * 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
-            biConsumer.accept(ALObjects.Attributes.ARROW_DAMAGE.get(), new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), level * 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
+            biConsumer.accept(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), level * 0.15 * (flag?1.5:1), AttributeModifier.Operation.MULTIPLY_BASE));
+            biConsumer.accept(ALObjects.Attributes.ARROW_DAMAGE.get(), new AttributeModifier(uuid, this.getAttributeModifiername(equipmentSlot), level * 0.15 * (flag?1.5:1), AttributeModifier.Operation.MULTIPLY_BASE));
         }
     }
 

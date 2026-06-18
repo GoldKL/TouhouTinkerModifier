@@ -16,6 +16,7 @@ public class TTMMaterialDataProvider extends AbstractMaterialDataProvider {
 
     @Override
     protected void addMaterials() {
+        addMaterial(TTMMaterialIds.kedama,  0, ORDER_GENERAL,  true);
         addMaterial(TTMMaterialIds.yinangorb,  1, ORDER_WEAPON,  true);
         addMaterial(TTMMaterialIds.spellpaper,  2, ORDER_WEAPON,  true);
         addMaterial(TTMMaterialIds.persuasionneedle,  2, ORDER_WEAPON,  true);

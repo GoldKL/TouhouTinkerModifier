@@ -29,6 +29,7 @@ public class WorldenderSpell extends AbstractSpell {
             .setSchoolResource(SchoolRegistry.BLOOD_RESOURCE)
             .setCooldownSeconds(180)
             .setMaxLevel(3)
+            .setAllowCrafting(false)
             .build();
     public WorldenderSpell() {
         this.baseSpellPower = 200;
@@ -40,7 +41,6 @@ public class WorldenderSpell extends AbstractSpell {
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getSpellPower(spellLevel, caster), 1)));
-
     }
     @Override
     public ResourceLocation getSpellResource() {
@@ -62,5 +62,9 @@ public class WorldenderSpell extends AbstractSpell {
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, new ShockwaveParticlesPacket(new Vec3(entity.getX(), entity.getY() + .165f, entity.getZ()), 5, ParticleRegistry.BLOOD_GROUND_PARTICLE.get()));
         }
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
+    }
+    @Override
+    public boolean allowLooting(){
+        return false;
     }
 }

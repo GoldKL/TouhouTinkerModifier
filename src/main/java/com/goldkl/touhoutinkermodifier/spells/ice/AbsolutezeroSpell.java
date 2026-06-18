@@ -12,7 +12,6 @@ import io.redspace.ironsspellbooks.api.magic.MagicHelper;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
-import io.redspace.ironsspellbooks.api.spells.AutoSpellConfig;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -36,6 +35,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AbsolutezeroSpell extends AbstractSpell {
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "absolutezero");
+    private final ResourceLocation spellId = TouhouTinkerModifier.getResource("absolutezero");
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.EPIC)
             .setSchoolResource(SchoolRegistry.ICE_RESOURCE)
@@ -139,5 +139,9 @@ public class AbsolutezeroSpell extends AbstractSpell {
     }
     public float getRadius(int spellLevel, LivingEntity caster) {
         return 8 + spellLevel;
+    }
+    @Override
+    public boolean canBeInterrupted(@Nullable Player player) {
+        return player == null || player.getAbsorptionAmount() == 0;
     }
 }

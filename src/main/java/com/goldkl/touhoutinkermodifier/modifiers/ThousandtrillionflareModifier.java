@@ -1,16 +1,21 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.c2h6s.etstlib.register.EtSTLibHooks;
+import com.c2h6s.etstlib.tool.hooks.ArrowHitModifierHook;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
+import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.tracking.ChannelEventTracker;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -21,17 +26,16 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 import javax.annotation.Nullable;
 
-public class ThousandtrillionflareModifier extends Modifier implements ProjectileHitModifierHook {
+public class ThousandtrillionflareModifier extends Modifier implements ProjectileHitModifierHook, ArrowHitModifierHook {
     //千兆耀斑：灵乌路空
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT);
+        hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, EtSTLibHooks.ARROW_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-        explode(projectile,modifier.getLevel());
-        return false;
+    public void afterArrowHit(ModDataNBT persistentData, ModifierEntry modifier, ModifierNBT modifiers, AbstractArrow arrow, @Nullable LivingEntity attacker, @NotNull LivingEntity target, float damageDealt) {
+        explode(arrow,modifier.getLevel());
     }
     @Override
     public void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {

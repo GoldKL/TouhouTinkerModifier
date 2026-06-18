@@ -1,5 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.c2h6s.etstlib.register.EtSTLibHooks;
+import com.c2h6s.etstlib.tool.hooks.ArrowHitModifierHook;
 import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.tracking.ChannelEventTracker;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -26,12 +29,12 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 import javax.annotation.Nullable;
 
-public class AndthentherewerenoneModifier extends Modifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook {
+public class AndthentherewerenoneModifier extends Modifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook, ArrowHitModifierHook {
     //无人生还：芙兰朵路
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.PROJECTILE_LAUNCH);
+        hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.PROJECTILE_LAUNCH, EtSTLibHooks.ARROW_HIT);
     }
     @Override
     public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
@@ -40,10 +43,9 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
         }
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public void afterArrowHit(ModDataNBT persistentData, ModifierEntry modifier, ModifierNBT modifiers, AbstractArrow arrow, @Nullable LivingEntity attacker, @NotNull LivingEntity target, float damageDealt) {
         if(persistentData.getBoolean(TTMModifierIds.andthentherewerenone))
-            explode(projectile,modifier.getLevel());
-        return false;
+            explode(arrow,modifier.getLevel());
     }
     @Override
     public void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
@@ -73,8 +75,8 @@ public class AndthentherewerenoneModifier extends Modifier implements Projectile
             for(LivingEntity livingentity : projectile.level().getEntitiesOfClass(LivingEntity.class, projectile.getBoundingBox().inflate(d0))) {
                 if (livingentity != projectile.getOwner() && !(projectile.distanceToSqr(livingentity) > d0*d0)) {
                     float f1 = f * (float)Math.sqrt((d0 - (double)projectile.distanceTo(livingentity)) / d0);
-                    livingentity.hurt(new DamageSource(projectile.level().damageSources().outOfBorder().typeHolder(), projectile.getOwner()), f1);
                     TTMEntityUtils.clearLivingEntityInvulnerableTime(livingentity);
+                    livingentity.hurt(new DamageSource(projectile.level().damageSources().outOfBorder().typeHolder(), projectile.getOwner()), f1);
                 }
             }
         }

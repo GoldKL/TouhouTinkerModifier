@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -41,7 +42,7 @@ public class LaevateinModifier extends Modifier implements MeleeHitModifierHook,
             LivingEntity target = context.getLivingTarget();
             if(target != null)
             {
-                int level = modifier.getLevel();
+                int level = SpellsRegistry.laevatein.get().getLevelFor(modifier.getLevel(),attacker);
                 TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
                 DamageSources.applyDamage(target, SpellsRegistry.laevatein.get().getSpellPower(level,attacker), SpellsRegistry.laevatein.get().getDamageSource(attacker));
                 target.setRemainingFireTicks(100 + level*80);

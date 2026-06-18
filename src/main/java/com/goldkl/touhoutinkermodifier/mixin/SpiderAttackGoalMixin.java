@@ -23,7 +23,7 @@ public abstract class SpiderAttackGoalMixin<T extends LivingEntity> extends Near
         {
             if(this.target != null)
             {
-                boolean flag = TTMEntityUtils.hasModifier(this.target, TTMModifierIds.tsuchigumo);
+                boolean flag = !TTMEntityUtils.hasModifier(this.target, TTMModifierIds.tsuchigumo);
                 cir.setReturnValue(flag);
             }
         }

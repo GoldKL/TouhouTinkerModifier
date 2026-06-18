@@ -3,10 +3,12 @@ package com.goldkl.touhoutinkermodifier.tracking;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.*;
 import com.goldkl.touhoutinkermodifier.data.material.*;
-import com.goldkl.touhoutinkermodifier.data.tags.TTMDamageTypesTagProvider;
-import com.goldkl.touhoutinkermodifier.data.tags.TTMItemTagProvider;
-import com.goldkl.touhoutinkermodifier.data.tags.TTMModifierTagProvider;
-import com.goldkl.touhoutinkermodifier.module.CurioAttributeModule;
+import com.goldkl.touhoutinkermodifier.data.tags.*;
+import com.goldkl.touhoutinkermodifier.module.SpellAffinityModule;
+import com.goldkl.touhoutinkermodifier.module.SpellModule;
+import com.goldkl.touhoutinkermodifier.predicate.AbstractSpellPredicate;
+import com.goldkl.touhoutinkermodifier.predicate.IsSchoolTypeSpellPredicate;
+import com.goldkl.touhoutinkermodifier.predicate.IsSpellPredicate;
 import com.goldkl.touhoutinkermodifier.utils.TTMPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -57,6 +59,7 @@ public class ModDataGeneratorHandler {
         generator.addProvider(server, materials);
         generator.addProvider(server, new TTMMaterialStatsDataProvider(packOutput, materials));
         generator.addProvider(server, new TTMMaterialTraitsDataProvider(packOutput, materials));
+        generator.addProvider(server, new TTMMaterialTagProvider(packOutput, event.getExistingFileHelper()));
 
         TTMTinkerMaterialSpriteProvider materialSprites = new TTMTinkerMaterialSpriteProvider();
         TTMTinkerPartSpriteProvider partSprites = new TTMTinkerPartSpriteProvider();
@@ -64,7 +67,7 @@ public class ModDataGeneratorHandler {
         generator.addProvider(client, new GeneratorPartTextureJsonGenerator(packOutput, TouhouTinkerModifier.MODID, partSprites));
         generator.addProvider(client, new MaterialPartTextureGenerator(packOutput, existingFileHelper, partSprites, materialSprites));
 
-        TTMBlockTagProvider blockTags = new TTMBlockTagProvider (packOutput, lookupProvider, existingFileHelper);
+        TTMBlockTagProvider blockTags = new TTMBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new TTMItemTagProvider(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
         generator.addProvider(server, new TTMModifierTagProvider(packOutput, event.getExistingFileHelper()));
@@ -77,6 +80,10 @@ public class ModDataGeneratorHandler {
         if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
             DamageSourcePredicate.LOADER.register(TouhouTinkerModifier.getResource("physical_damage"), TTMPredicate.PHYSICAL_DAMAGE.getLoader());
             DamageSourcePredicate.LOADER.register(TouhouTinkerModifier.getResource("not_ignore_damage"), TTMPredicate.NOT_IGNORE_DAMAGE.getLoader());
+            AbstractSpellPredicate.LOADER.register(TouhouTinkerModifier.getResource("is_spell"), IsSpellPredicate.LOADER);
+            AbstractSpellPredicate.LOADER.register(TouhouTinkerModifier.getResource("is_schooltype_spell"), IsSchoolTypeSpellPredicate.LOADER);
+            ModifierModule.LOADER.register(TouhouTinkerModifier.getResource("spell"), SpellModule.LOADER);
+            ModifierModule.LOADER.register(TouhouTinkerModifier.getResource("spell_affinity"), SpellAffinityModule.LOADER);
         }
     }
 }

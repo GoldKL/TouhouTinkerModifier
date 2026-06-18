@@ -3,14 +3,17 @@ package com.goldkl.touhoutinkermodifier.registries;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 
 import com.goldkl.touhoutinkermodifier.hook.*;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
 
 public class ModifierHooksRegistry {
+    public static void init() {}
     public static final ModuleHook<AttackerWithEquipmentModifyDamageModifierHook> ATTACKER_MODIFY_HURT;
     public static final ModuleHook<AttackerWithEquipmentModifyDamageModifierHook> ATTACKER_MODIFY_DAMAGE;
     static {
@@ -41,7 +44,9 @@ public class ModifierHooksRegistry {
     public static final ModuleHook<EntityEffectAddModifierHook>ENTITY_EFFECT_APPLICABLE_HURT = register("entity_effect_applicable_modifier_hook", EntityEffectAddModifierHook.class, EntityEffectAddModifierHook.AllMerger::new, (tool, entry, slot, instance, entity)->{});
     public static final ModuleHook<MeleeDamagePercentModifierHook>MELEE_DAMAGE_PERCENT = register("melee_damage_percent_hook", MeleeDamagePercentModifierHook.class,MeleeDamagePercentModifierHook.AllMerger::new,new MeleeDamagePercentModifierHook(){});
     public static final ModuleHook<AfterMeleeHitModifierHook>AFTER_MELEE_HIT = register("after_melee_hit_hook", AfterMeleeHitModifierHook.class,AfterMeleeHitModifierHook.AllMerger::new,new AfterMeleeHitModifierHook(){});
-
+    public static final ModuleHook<AddPlayerMagicHook>ADD_PLAYER_MAGIC = register("add_player_magic",AddPlayerMagicHook.class,AddPlayerMagicHook.AllMerger::new,(tool, modifier, context, slotType,manager) -> null);
+    public static final ModuleHook<MagicAffinityHook>MAGIC_AFFINITY = register("magic_affinity", MagicAffinityHook.class, MagicAffinityHook.AllMerger::new,new MagicAffinityHook(){});
+    public static final ModuleHook<ProcessArmorLootModifierHook>PROCESS_ARMOR_LOOT_MODIFIER = register("process_armor_loot_modifier", ProcessArmorLootModifierHook.class, ProcessArmorLootModifierHook.AllMerger::new,(tool, modifier,origin, generatedLoot, context ,slot)->{});
 
     private static <T> ModuleHook<T> register(String name, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
         return ModifierHooks.register(TouhouTinkerModifier.getResource(name), filter, merger, defaultInstance);

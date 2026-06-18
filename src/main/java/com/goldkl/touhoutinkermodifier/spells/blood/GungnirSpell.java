@@ -18,7 +18,7 @@ public class GungnirSpell extends AbstractSpell {
             .setSchoolResource(SchoolRegistry.BLOOD_RESOURCE)
             .setCooldownSeconds(0)
             .setMaxLevel(0)
-            .setDeprecated(true)
+            .setAllowCrafting(false)
             .build();
     public GungnirSpell() {
         this.manaCostPerLevel = 0;
@@ -44,5 +44,9 @@ public class GungnirSpell extends AbstractSpell {
     @Override
     public SpellDamageSource getDamageSource(@Nullable Entity projectile, Entity attacker) {
         return super.getDamageSource(projectile, attacker).setLifestealPercent(0.5f);
+    }
+    @Override
+    public boolean allowLooting(){
+        return false;
     }
 }

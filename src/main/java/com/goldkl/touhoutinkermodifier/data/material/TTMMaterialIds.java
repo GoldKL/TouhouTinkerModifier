@@ -4,6 +4,8 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class TTMMaterialIds {
+    //tier 0
+    public static final MaterialId kedama = id("kedama");
     //tier 1
     public static final MaterialId yinangorb = id("yinangorb");
     //tier 2

@@ -32,11 +32,11 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     @Unique
     private static EntityDataAccessor<Integer> DATA_TIME_STOP;
     @Unique
-    private static EntityDataAccessor<Boolean> DATA_HAS_WORLD_ENDER;
+    private static EntityDataAccessor<Integer> DATA_HAS_WORLD_ENDER;
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void clinit(CallbackInfo ci) {
         DATA_TIME_STOP = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
-        DATA_HAS_WORLD_ENDER = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_HAS_WORLD_ENDER = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
     }
     @Shadow
     public abstract boolean hasEffect(MobEffect p_21024_) ;
@@ -46,7 +46,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     void definenewdata(CallbackInfo ci)
     {
         this.entityData.define(DATA_TIME_STOP, -1);
-        this.entityData.define(DATA_HAS_WORLD_ENDER, false);
+        this.entityData.define(DATA_HAS_WORLD_ENDER, -1);
     }
     @Inject(method = "addAdditionalSaveData",at = @At("HEAD"))
     void addnewdata(CompoundTag p_21145_, CallbackInfo ci)
@@ -93,14 +93,27 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityCa
     @Unique
     void touhouTinkerModifier$updateWorldenderStatus() {
         boolean flag = this.hasEffect(MobeffectRegistry.WORLDENDER.get());
-        if (this.entityData.get(DATA_HAS_WORLD_ENDER) != flag) {
-            this.entityData.set(DATA_HAS_WORLD_ENDER, flag);
+        if(flag)
+        {
+            int num = this.getEffect(MobeffectRegistry.WORLDENDER.get()).getAmplifier();
+            if (this.entityData.get(DATA_HAS_WORLD_ENDER) != num) {
+                this.entityData.set(DATA_HAS_WORLD_ENDER, num);
+            }
         }
+        else if(this.entityData.get(DATA_HAS_WORLD_ENDER) != -1){
+            this.entityData.set(DATA_HAS_WORLD_ENDER, -1);
+        }
+
     }
     @Unique
     @Override
     public boolean touhouTinkerModifier$isCurrentlyWorldender() {
-        return this.level().isClientSide()?this.entityData.get(DATA_HAS_WORLD_ENDER):this.hasEffect(MobeffectRegistry.WORLDENDER.get());
+        return this.level().isClientSide()?this.entityData.get(DATA_HAS_WORLD_ENDER) >= 0:this.hasEffect(MobeffectRegistry.WORLDENDER.get());
+    }
+    @Unique
+    @Override
+    public int touhouTinkerModifier$getCurrentlyWorldender() {
+        return this.level().isClientSide()?this.entityData.get(DATA_HAS_WORLD_ENDER):(this.hasEffect(MobeffectRegistry.WORLDENDER.get())?this.getEffect(MobeffectRegistry.WORLDENDER.get()).getAmplifier():-1);
     }
     @Unique
     @Override

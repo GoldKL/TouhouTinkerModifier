@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import dev.xkmc.youkaishomecoming.init.data.YHTagGen;
 import dev.xkmc.youkaishomecoming.init.food.YHFood;
 import net.minecraft.network.chat.Component;
@@ -137,9 +138,10 @@ public class DevourdarknessModifier extends Modifier implements InventoryTickMod
             if (attacker instanceof LivingEntity lvingentitiy) {
                 for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
                 {
-                    if(!(lvingentitiy.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-                    ToolStack nwtool = ToolStack.from(lvingentitiy.getItemBySlot(equipmentSlot));
-                    level += nwtool.getModifier(TTMModifierIds.devourdarkness).intEffectiveLevel();
+                    IToolStackView nwtool = TTMItemUtils.getToolStackIfModifiable(lvingentitiy.getItemBySlot(equipmentSlot));
+                    if (nwtool != null) {
+                        level += nwtool.getModifier(TTMModifierIds.devourdarkness).intEffectiveLevel();
+                    }
                 }
             }
             else

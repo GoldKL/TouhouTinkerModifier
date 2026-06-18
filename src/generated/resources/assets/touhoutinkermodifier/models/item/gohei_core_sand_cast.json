@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "touhoutinkermodifier:item/sand_cast/gohei_core"
-  }
-}

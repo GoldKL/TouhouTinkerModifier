@@ -29,7 +29,7 @@ public class LightTextureMixin {
         {
             EquipmentContext context = new EquipmentContext(instance);
             for (EquipmentSlot slotType : EquipmentSlot.values()) {
-                IToolStackView toolStack = context.getToolInSlot(slotType);
+                IToolStackView toolStack = context.getValidTool(slotType);
                 if (toolStack != null && !toolStack.isBroken()) {
                     for (ModifierEntry entry : toolStack.getModifierList()) {
                         flag = entry.getHook(ModifierHooksRegistry.NIGHT_VISION_HOOK).cannightvision(toolStack, entry, context, slotType, flag);
@@ -50,7 +50,7 @@ public class LightTextureMixin {
         float scale = base;
         EquipmentContext context = new EquipmentContext(entity);
         for (EquipmentSlot slotType : EquipmentSlot.values()) {
-            IToolStackView toolStack = context.getToolInSlot(slotType);
+            IToolStackView toolStack = context.getValidTool(slotType);
             if (toolStack != null && !toolStack.isBroken()) {
                 for (ModifierEntry entry : toolStack.getModifierList()) {
                     scale = entry.getHook(ModifierHooksRegistry.NIGHT_VISION_HOOK).getnightvisionscale(toolStack, entry, context, slotType,base, scale);

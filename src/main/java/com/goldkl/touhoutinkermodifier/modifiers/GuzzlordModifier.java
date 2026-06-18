@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import net.minecraft.world.damagesource.DamageSource;
@@ -26,7 +27,7 @@ public class GuzzlordModifier extends Modifier implements AttackerWithEquipmentM
         hookBuilder.addModule(new SlotInChargeModule(SLOT_IN_CHARGE));
     }
     @Override
-    public void attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier,LivingEntity target, EquipmentContext context, EquipmentSlot slotType, DamageSource source,float baseamount,  DamageModifier damageModifier, boolean isDirectDamage) {
+    public void attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier, LivingEntity target, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float baseamount, DamageModifier damageModifier, boolean isDirectDamage) {
         LivingEntity entity = context.getEntity();
         if(entity instanceof Player player) {
             if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)){

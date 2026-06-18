@@ -5,6 +5,9 @@ import com.goldkl.touhoutinkermodifier.stat.tools.GoheiMaterialStats;
 import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialStatsDataProvider;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 public class TTMMaterialStatsDataProvider extends AbstractMaterialStatsDataProvider {
     public TTMMaterialStatsDataProvider(PackOutput packOutput, AbstractMaterialDataProvider materials) {
@@ -13,6 +16,11 @@ public class TTMMaterialStatsDataProvider extends AbstractMaterialStatsDataProvi
 
     @Override
     protected void addMaterialStats() {
+        //tier 0
+        addArmorStats(TTMMaterialIds.kedama,
+                PlatingMaterialStats.builder().durabilityFactor(5).armor(0.5f, 1f, 1.5f, 0.5f),
+                StatlessMaterialStats.REPAIR_KIT,
+                StatlessMaterialStats.MAILLE);
         //tier 1
         addMaterialStats(TTMMaterialIds.yinangorb,
                 new GoheiMaterialStats(200, TTMBulletTypeRegistry.DefaultBullet));

@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.hook.AttackerWithEquipmentModifyDamageModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import dev.xkmc.youkaishomecoming.init.data.YHDamageTypes;
@@ -20,7 +21,7 @@ public class FullfirepowerModifier extends Modifier implements AttackerWithEquip
         hookBuilder.addHook(this, ModifierHooksRegistry.ATTACKER_MODIFY_HURT);
     }
     @Override
-    public void attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier,LivingEntity target, EquipmentContext context, EquipmentSlot slotType, DamageSource source,float baseamount,  DamageModifier damageModifier, boolean isDirectDamage) {
+    public void attackermodifyDamageTaken(IToolStackView tool, ModifierEntry modifier, LivingEntity target, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float baseamount, DamageModifier damageModifier, boolean isDirectDamage) {
         if(source.is(YHDamageTypes.DANMAKU_TYPE))
         {
             int level = modifier.getLevel();

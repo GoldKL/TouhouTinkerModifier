@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(CastingItem.class)
 public class CastingItemMixin {
+
     @WrapOperation(method = "use",at = @At(value = "INVOKE", target = "Lio/redspace/ironsspellbooks/api/spells/AbstractSpell;getManaCost(I)I"))
     private int rendermixin(AbstractSpell instance, int level, Operation<Integer> original,@Local(argsOnly = true) Player player)
     {

@@ -26,8 +26,8 @@ public class ArcticstormModifier extends Modifier implements MeleeHitModifierHoo
     @Override
     public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
     {
-        int level = modifier.getLevel() - 1;
         LivingEntity attacker = context.getAttacker();
+        int level = SpellsRegistry.arcticstorm.get().getLevelFor(modifier.getLevel(),attacker) - 1;
         MobEffectInstance instance = attacker.getEffect(MobeffectRegistry.ARCTICSTROM.get());
         final boolean[] flag = {false};
         if(instance == null || instance.getAmplifier() < level)

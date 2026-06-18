@@ -17,14 +17,21 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.technical.SlotInChargeModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -32,7 +39,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-public class PocketwatchofbloodModifier extends Modifier implements AttributesModifierHook, EntityDodgeHook {
+public class PocketwatchofbloodModifier extends Modifier implements AttributesModifierHook, EntityDodgeHook, InventoryTickModifierHook {
     final String unique = TTMModifierIds.pocketwatchofblood.getNamespace()+  ".modifier."+ TTMModifierIds.pocketwatchofblood.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     private static final List<Attribute> attributes = List.of(PerkAttributes.MAX_MANA.get());
@@ -40,7 +47,15 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.ATTRIBUTES, ModifierHooksRegistry.ENTITY_DODGE_HOOK);
+        hookBuilder.addHook(this, ModifierHooks.ATTRIBUTES, ModifierHooksRegistry.ENTITY_DODGE_HOOK,ModifierHooks.INVENTORY_TICK);
+    }
+    //之前没有
+    @Override
+    public void onInventoryTick(IToolStackView iToolStackView, ModifierEntry modifierEntry, Level world, LivingEntity livingEntity, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack itemStack) {
+        if(isCorrectSlot && livingEntity instanceof Player player && player.tickCount % 2000 == 0){
+            MobEffectInstance new_instance = new MobEffectInstance(MobeffectRegistry.BROKENPOCKETWATCH.get(),3000 , 0);
+            player.addEffect(new_instance);
+        }
     }
     @Override
     public boolean CanDodge(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, @Nullable Entity attacker, @Nullable Entity directattacker){
@@ -50,14 +65,13 @@ public class PocketwatchofbloodModifier extends Modifier implements AttributesMo
             MagicData entitymagicdata = MagicData.getPlayerMagicData(player);
             float mana = entitymagicdata.getMana();
             float costmana = 200;
-            int costlevel = -1;
+            int costlevel;
+            //之前从-1计数，现在从0开始
             MobEffectInstance instance = player.getEffect(MobeffectRegistry.BROKENPOCKETWATCH.get());
-            if(instance != null)
-            {
-                costlevel = instance.getAmplifier();
-            }
-            costlevel += 1;
+            if(instance == null) return false;
+            costlevel = instance.getAmplifier();
             costmana *= (float) Math.pow(2,costlevel);
+            costlevel += 1;
             MobEffectInstance new_instance = new MobEffectInstance(MobeffectRegistry.BROKENPOCKETWATCH.get(),3000 , costlevel);
             if(mana >= 1600 && mana >= costmana && player.canBeAffected(new_instance))
             {

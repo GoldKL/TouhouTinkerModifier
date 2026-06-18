@@ -1,12 +1,15 @@
 package com.goldkl.touhoutinkermodifier.bullettype.marisa;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.api.DamageModifierDamageSource;
 import com.goldkl.touhoutinkermodifier.entity.danmaku.ModifiableDamakuEntity;
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.helper.RenderingHelper;
 import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.EntitiesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import dev.xkmc.l2library.util.raytrace.RayTraceUtil;
 import dev.xkmc.youkaishomecoming.init.data.YHDamageTypes;
 import dev.xkmc.youkaishomecoming.init.registrate.YHDanmaku;
@@ -32,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.ArrayList;
@@ -108,9 +112,9 @@ public class MarisaBBulletType extends AbstractMarisaBulletType {
                         DamageSource damageSource = new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(YHDamageTypes.DANMAKU), entity, entity);
                         Entity target = ((EntityHitResult) hit).getEntity();
                         float damage = tempdamage;
-                        if(itemStack.getItem() instanceof IModifiable)
+                        IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(itemStack);
+                        if(tool != null)
                         {
-                            ToolStack tool = ToolStack.from(itemStack);
                             ToolAttackContext.Builder builder = ToolAttackContext
                                     .attacker(entity)
                                     .target(target)
@@ -123,7 +127,7 @@ public class MarisaBBulletType extends AbstractMarisaBulletType {
                                 builder.toolAttributes(tool);
                             }
                             float baseDamage = damage;
-                            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(baseDamage);
+                            DamageModifier damageModifier = new DamageModifier(baseDamage);
                             List<ModifierEntry> modifiers = tool.getModifierList();
                             for(ModifierEntry entry : modifiers) {
                                 damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, baseDamage, damage);
@@ -134,6 +138,7 @@ public class MarisaBBulletType extends AbstractMarisaBulletType {
                                 entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, baseDamage, damage, damageModifier);
                             }
                             damage = damageModifier.getamount();
+                            ((DamageModifierDamageSource)damageSource).touhouTinkerModifier$setDamageModifier(damageModifier);
                         }
                         target.hurt(damageSource,damage);
                     }

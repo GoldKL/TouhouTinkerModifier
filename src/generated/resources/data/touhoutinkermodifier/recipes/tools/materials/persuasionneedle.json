@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "touhoutinkermodifier:persuasionneedle"
-  },
-  "material": "touhoutinkermodifier:persuasionneedle",
-  "needed": 1,
-  "value": 2
-}

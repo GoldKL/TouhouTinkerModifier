@@ -12,6 +12,9 @@ public class TTMMaterialRenderInfoProvider  extends AbstractMaterialRenderInfoPr
 
     @Override
     protected void addMaterialRenderInfo() {
+        //tier 0
+        buildRenderInfo(TTMMaterialIds.kedama)
+                .color(0xffffff);
         //tier 1
         buildRenderInfo(TTMMaterialIds.yinangorb)
                 .color(0xff0000)

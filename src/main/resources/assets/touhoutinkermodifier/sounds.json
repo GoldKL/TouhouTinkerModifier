@@ -1,0 +1,17 @@
+{
+  "spell.theworld.cast": {
+    "sounds": [
+      "touhoutinkermodifier:spell/theworld_cast"
+    ]
+  },
+  "spell.theworld.finish": {
+    "sounds": [
+      "touhoutinkermodifier:spell/theworld_finish"
+    ]
+  },
+  "spell.master_spark.true_cast": {
+    "sounds": [
+      "touhoutinkermodifier:spell/master_spark_true_cast"
+    ]
+  }
+}

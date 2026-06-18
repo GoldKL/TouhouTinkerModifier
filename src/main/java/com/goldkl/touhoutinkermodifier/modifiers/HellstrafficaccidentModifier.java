@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.capability.TheKindofKillDataCapability;
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import net.minecraft.network.chat.Component;

@@ -17,6 +17,17 @@ public class TTMTinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvi
 
     @Override
     protected void addAllMaterials() {
+        //tier 0
+        buildMaterial(TTMMaterialIds.kedama)
+                .armor()
+                .colorMapper(GreyToColorMapping.builderFromBlack()
+                        .addARGB(63, 0xFFffffff)
+                        .addARGB(102, 0xFFffffff)
+                        .addARGB(140, 0xFFffffff)
+                        .addARGB(178, 0xFFffffff)
+                        .addARGB(216, 0xFFffffff)
+                        .addARGB(255, 0xFFffffff)
+                        .build());
         //tier 1
         ResourceLocation yinanggorbbaseTexture = TouhouTinkerModifier.getResource("generator/yinangorb");
         ResourceLocation yinanggorbhighlightTexture = TouhouTinkerModifier.getResource("generator/yinangorb_highlight");

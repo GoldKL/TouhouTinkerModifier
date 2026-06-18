@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,6 +16,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -35,9 +37,8 @@ public class KillerdollModifier extends NoLevelsModifier implements ProjectileHi
     @Override
     public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target, boolean notBlocked) {
         if(attacker != null && target != null) {
-            ItemStack itemStack = attacker.getOffhandItem();
-            if(itemStack.getItem() instanceof IModifiable) {
-                ToolStack tool = ToolStack.from(attacker.getOffhandItem());
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(attacker.getOffhandItem());
+            if(tool != null) {
                 if(!tool.isBroken() && tool.hasTag(TinkerTags.Items.MELEE))
                 {
                     ToolAttackContext.Builder builder = ToolAttackContext

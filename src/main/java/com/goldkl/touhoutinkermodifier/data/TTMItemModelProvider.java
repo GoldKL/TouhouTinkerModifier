@@ -26,6 +26,7 @@ public class TTMItemModelProvider extends ItemModelProvider {
   protected void registerModels() {
     part(ItemsRegistry.GoheiCore);
     cast(ItemsRegistry.GoheiCoreCast);
+    basicItem(ItemsRegistry.kedama.getId());
     basicItem(ItemsRegistry.yinangorb.getId());
     basicItem(ItemsRegistry.spellpaper.getId());
     basicItem(ItemsRegistry.persuasionneedle.getId());

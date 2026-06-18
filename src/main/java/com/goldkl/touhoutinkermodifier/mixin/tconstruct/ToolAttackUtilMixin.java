@@ -1,15 +1,18 @@
 package com.goldkl.touhoutinkermodifier.mixin.tconstruct;
 
-import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
+import com.goldkl.touhoutinkermodifier.api.DamageModifierToolAttackContext;
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.bettercombat.api.AttackHand;
 import net.bettercombat.api.EntityPlayer_BetterCombat;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,14 +41,6 @@ public abstract class ToolAttackUtilMixin {
     public static boolean attackEntity(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand, Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
         return false;
     }
-    /*@Unique
-    private static boolean touhouTinkerModifier$Havedelatdamage = false;
-    @Unique
-    private static float touhouTinkerModifier$delatdamage = 0;*/
-    @Unique
-    private static ThreadLocal<Stack<Boolean>> touhouTinkerModifier$Havedelatdamage = new ThreadLocal<>();
-    @Unique
-    private static ThreadLocal<Stack<Float>> touhouTinkerModifier$delatdamage = new ThreadLocal<>();
     @WrapOperation(method = "attackEntity(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;)Z"
             ,at = @At(value = "INVOKE",
             target = "Lslimeknights/tconstruct/library/tools/helper/ToolAttackUtil;performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"),remap = false)
@@ -69,43 +64,15 @@ public abstract class ToolAttackUtilMixin {
         }
         return original.call(tool,context);
     }
-    @Inject(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
-    ,at = @At("HEAD"),remap = false)
-    private static void attackEntitymixinhead(IToolStackView tool, ToolAttackContext context, CallbackInfoReturnable<Boolean> cir)
-    {
-        /*touhouTinkerModifier$Havedelatdamage = false;
-        touhouTinkerModifier$delatdamage = 0;*/
-        if(touhouTinkerModifier$Havedelatdamage.get() == null)
-        {
-            touhouTinkerModifier$Havedelatdamage.set(new Stack<>());
-            touhouTinkerModifier$delatdamage.set(new Stack<>());
-        }
-        touhouTinkerModifier$Havedelatdamage.get().push(false);
-        touhouTinkerModifier$delatdamage.get().push(0f);
-    }
-    @Inject(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
-            ,at = @At("RETURN"),remap = false)
-    private static void attackEntitymixinreturn(IToolStackView tool, ToolAttackContext context, CallbackInfoReturnable<Boolean> cir)
-    {
-        /*touhouTinkerModifier$Havedelatdamage = false;
-        touhouTinkerModifier$delatdamage = 0;*/
-        touhouTinkerModifier$Havedelatdamage.get().pop();
-        touhouTinkerModifier$delatdamage.get().pop();
-        if(touhouTinkerModifier$Havedelatdamage.get().isEmpty())
-        {
-            touhouTinkerModifier$Havedelatdamage.remove();
-            touhouTinkerModifier$delatdamage.remove();
-        }
-    }
     @WrapOperation(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
     ,at = @At(value = "INVOKE",
             target = "Lslimeknights/tconstruct/library/modifiers/hook/combat/MeleeDamageModifierHook;getMeleeDamage(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/modifiers/ModifierEntry;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;FF)F"),
     remap = false)
     private static float attackEntitymixindamagedelta(MeleeDamageModifierHook instance, IToolStackView tool, ModifierEntry ingore, ToolAttackContext context, float basedamage, float damage, Operation<Float> original)
     {
-        /*if(!ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage)
+        if(((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier() == null)
         {
-            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(basedamage);
+            DamageModifier damageModifier = new DamageModifier(basedamage);
             List<ModifierEntry> modifiers = tool.getModifierList();
             for(ModifierEntry entry : modifiers) {
                 damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, basedamage, damage);
@@ -115,28 +82,35 @@ public abstract class ToolAttackUtilMixin {
             for(ModifierEntry entry : modifiers) {
                 entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, basedamage, damage, damageModifier);
             }
-            ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage = true;
-            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage = damageModifier.getamount();
+            ((DamageModifierToolAttackContext)context).touhouTinkerModifier$setDamageModifier(damageModifier);
         }
-        return ToolAttackUtilMixin.touhouTinkerModifier$delatdamage;*/
-        if(!ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().peek())
-        {
-            MeleeDamagePercentModifierHook.DamageModifier damageModifier = new MeleeDamagePercentModifierHook.DamageModifier(basedamage);
-            List<ModifierEntry> modifiers = tool.getModifierList();
-            for(ModifierEntry entry : modifiers) {
-                damage = entry.getHook(ModifierHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, basedamage, damage);
-            }
-            float originDamagefix = damage - basedamage;
-            damageModifier.addAdd(originDamagefix);
-            for(ModifierEntry entry : modifiers) {
-                entry.getHook(ModifierHooksRegistry.MELEE_DAMAGE_PERCENT).getMeleeDamageModifier(tool, entry, context, basedamage, damage, damageModifier);
-            }
-            ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().pop();
-            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().pop();
-            ToolAttackUtilMixin.touhouTinkerModifier$Havedelatdamage.get().push(true);
-            ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().push(damageModifier.getamount());
+        return ((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier().getamount();
+    }
+    @Inject(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
+            ,at = @At(value = "INVOKE",
+                target = "Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;getCriticalModifier()F"),remap = false)
+    private static void CriticalModifier(IToolStackView tool, ToolAttackContext context, CallbackInfoReturnable<Boolean> cir)
+    {
+        ((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier().addMultiply(context.getCriticalModifier());
+    }
+    @Inject(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
+            ,at = @At(value = "INVOKE",
+            target = "Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;getCooldown()F"),remap = false)
+    private static void cooldownModifier(IToolStackView tool, ToolAttackContext context, CallbackInfoReturnable<Boolean> cir)
+    {
+        float cooldown = context.getCooldown();
+        float cooldownfix = 1;
+        if (cooldown < 1) {
+            cooldownfix *= (0.2f + cooldown * cooldown * 0.8f);
         }
-        return ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().peek();
+        ((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier().addMultiply(cooldownfix);
+    }
+    @Inject(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
+            ,at = @At(value = "INVOKE",
+            target = "Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;getLivingTarget()Lnet/minecraft/world/entity/LivingEntity;"),remap = false)
+    private static void fixdamage(IToolStackView tool, ToolAttackContext context, CallbackInfoReturnable<Boolean> cir, @Local(name = "damage") LocalFloatRef dmg)
+    {
+        dmg.set(((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier().getamount());
     }
     @WrapOperation(method = "performAttack(Lslimeknights/tconstruct/library/tools/nbt/IToolStackView;Lslimeknights/tconstruct/library/tools/context/ToolAttackContext;)Z"
             ,at = @At(value = "INVOKE",
@@ -144,7 +118,6 @@ public abstract class ToolAttackUtilMixin {
     private static void aftermeleehitmixin(MeleeHitModifierHook instance, IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt, Operation<Void> original)
     {
         original.call(instance, tool, modifier, context, damageDealt);
-        //modifier.getHook(ModifierHooksRegistry.AFTER_MELEE_HIT).afterMeleeHitWithTheoryDamage(tool,modifier,context,ToolAttackUtilMixin.touhouTinkerModifier$delatdamage);
-        modifier.getHook(ModifierHooksRegistry.AFTER_MELEE_HIT).afterMeleeHitWithTheoryDamage(tool,modifier,context,ToolAttackUtilMixin.touhouTinkerModifier$delatdamage.get().peek());
+        modifier.getHook(ModifierHooksRegistry.AFTER_MELEE_HIT).afterMeleeHitWithTheoryDamage(tool,modifier,context,((DamageModifierToolAttackContext)context).touhouTinkerModifier$getDamageModifier().getamount());
     }
 }

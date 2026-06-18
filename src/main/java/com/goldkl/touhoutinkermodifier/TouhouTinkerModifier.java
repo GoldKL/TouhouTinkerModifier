@@ -1,8 +1,10 @@
 package com.goldkl.touhoutinkermodifier;
 
 import com.goldkl.touhoutinkermodifier.capability.TheKindofKillDataCapability;
+import com.goldkl.touhoutinkermodifier.compat.ingameinfoxml.tags.BoundaryPowerTag;
 import com.goldkl.touhoutinkermodifier.helper.compat.BetterCombatHelper;
 import com.goldkl.touhoutinkermodifier.helper.compat.SakuraThinkerHelper;
+import com.goldkl.touhoutinkermodifier.helper.compat.TinkerCurioLibHelper;
 import com.goldkl.touhoutinkermodifier.registries.*;
 import com.goldkl.touhoutinkermodifier.utils.TTMModListUtil;
 import com.mojang.logging.LogUtils;
@@ -74,6 +76,7 @@ public class TouhouTinkerModifier
         EntitiesRegistry.register(modEventBus);
         TTMBulletTypeRegistry.register(modEventBus);
         TTMCreativeModeTab.register(modEventBus);
+        TTMSoundRegistry.register(modEventBus);
         if (TTMModListUtil.BetterComBatLoaded)
         {
             BetterCombatHelper.load(modEventBus);
@@ -82,8 +85,12 @@ public class TouhouTinkerModifier
         {
             SakuraThinkerHelper.load(modEventBus);
         }
+        if (TTMModListUtil.TinkercuriolibLoaded)
+        {
+            TinkerCurioLibHelper.load(modEventBus);
+        }
         MinecraftForge.EVENT_BUS.register(this);
-        context.registerConfig(ModConfig.Type.COMMON, TouhouTinkerModifierConfig.SPEC);
+        context.registerConfig(ModConfig.Type.SERVER, TouhouTinkerModifierConfig.SPEC);
         IsAfterLoad = true;
     }
 
@@ -92,6 +99,7 @@ public class TouhouTinkerModifier
         // Some common setup code
         event.enqueueWork(TTMMaterialStats::init);
         TheKindofKillDataCapability.register();
+        ModifierHooksRegistry.init();
         //LOGGER.info("HELLO FROM COMMON SETUP");
 
         //if (Config.logDirtBlock)
@@ -109,7 +117,7 @@ public class TouhouTinkerModifier
     public void onServerStarting(ServerStartingEvent event)
     {
         // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        //LOGGER.info("HELLO from server starting");
     }
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -119,10 +127,17 @@ public class TouhouTinkerModifier
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            /*LOGGER.info("HELLO FROM CLIENT SETUP");
+            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());*/
+            if(TTMModListUtil.IngameinfoxmlLoaded)
+            {
+                BoundaryPowerTag.register();
+            }
         }
     }
+
+
+
     public static ResourceLocation getResource(String name) {
         return ResourceLocation.fromNamespaceAndPath(MODID, name);
     }

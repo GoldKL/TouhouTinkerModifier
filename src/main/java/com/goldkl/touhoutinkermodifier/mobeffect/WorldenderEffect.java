@@ -70,7 +70,7 @@ public class WorldenderEffect extends MobEffect {
         LivingEntity entity = event.getEntity();
         if(((LivingEntityInWorldEnder)entity).touhouTinkerModifier$isCurrentlyWorldender())
         {
-            int level = entity.getEffect(MobeffectRegistry.WORLDENDER.get()).getAmplifier();
+            int level = ((LivingEntityInWorldEnder)entity).touhouTinkerModifier$getCurrentlyWorldender();
             float percent = 1.3f + 0.15f * level;
             event.setAmount(event.getAmount() * percent);
         }

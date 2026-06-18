@@ -1,21 +1,18 @@
 package com.goldkl.touhoutinkermodifier.tracking;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.entity.spell.fire.masterspark.MasterSparkRenderer;
 import com.goldkl.touhoutinkermodifier.registries.EntitiesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ItemsRegistry;
-import dev.kosmx.playerAnim.api.TransformType;
-import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
-import dev.kosmx.playerAnim.api.layered.modifier.AbstractModifier;
-import dev.kosmx.playerAnim.core.util.Vec3f;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import dev.xkmc.youkaishomecoming.content.entity.danmaku.ItemDanmakuRenderer;
 import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,15 +21,19 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 
-import java.util.Set;
-
 @Mod.EventBusSubscriber(modid = TouhouTinkerModifier.MODID,bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
 public class ClientSetup extends ClientEventBase {
+    @SubscribeEvent
+    public void onMouseMovement(InputEvent.MouseScrollingEvent event) {
+        TouhouTinkerModifier.LOGGER.info("mouseX:{},mouseY:{}",event.getMouseX(),event.getMouseY());
+    }
     @SubscribeEvent
     public static void rendererRegister(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(EntitiesRegistry.SkySplitter.get(), NoopRenderer::new);
         event.registerEntityRenderer(EntitiesRegistry.TrackDanmaku.get(), ItemDanmakuRenderer::new);
         event.registerEntityRenderer(EntitiesRegistry.ModifiableDanmaku.get(), ItemDanmakuRenderer::new);
+        event.registerEntityRenderer(EntitiesRegistry.MasterSparkVisualEntity.get(), MasterSparkRenderer::new);
+
     }
     static public final ResourceLocation ANIMA = TouhouTinkerModifier.getResource("animation");
 
@@ -54,5 +55,9 @@ public class ClientSetup extends ClientEventBase {
         ToolModel.registerItemColors(colors, ItemsRegistry.Spear);
         ToolModel.registerItemColors(colors, ItemsRegistry.BrassKnuckles);
         ToolModel.registerItemColors(colors, ItemsRegistry.Gohei);
+    }
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(MasterSparkRenderer.MODEL_LAYER_LOCATION, MasterSparkRenderer::createBodyLayer);
     }
 }

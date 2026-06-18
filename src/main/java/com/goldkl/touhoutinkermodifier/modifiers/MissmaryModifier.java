@@ -1,5 +1,6 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
@@ -28,7 +29,7 @@ public class MissmaryModifier extends Modifier implements MeleeDamagePercentModi
             int level = modifier.getLevel();
             boolean flag = attacker.hasEffect(YHEffects.UNCONSCIOUS.get());
             damagemodifier.addPercent(level * 0.2f);
-            damagemodifier.addFixed(target.getMaxHealth() * 0.05f);
+            if(context.isFullyCharged()) damagemodifier.addFixed(target.getMaxHealth() * 0.05f);
             if(flag)
             {
                 damagemodifier.addMultiply(2f);

@@ -1,7 +1,0 @@
-{
-  "parent": "forge:item/default",
-  "loader": "tconstruct:material",
-  "textures": {
-    "texture": "touhoutinkermodifier:item/tool/parts/gohei_core"
-  }
-}

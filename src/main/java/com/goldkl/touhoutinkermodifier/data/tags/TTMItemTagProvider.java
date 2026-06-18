@@ -78,11 +78,14 @@ public class TTMItemTagProvider extends ItemTagsProvider {
 
         tag(TagsRegistry.ItemsTag.DAGGER)
                 .add(TinkerTools.dagger.get());
-
+        tag(TagsRegistry.ItemsTag.TECHNOLOGY);
         tag(BARTERED_PARTS)
                 .add(ItemsRegistry.GoheiCore.get());
         addCast.accept(ItemsRegistry.GoheiCoreCast);
-
+        tag(TinkerTags.Items.MODIFIABLE)
+                .addTags(TagsRegistry.ItemsTag.GOHEI, TagsRegistry.ItemsTag.TECHNOLOGY);
+        tag(TinkerTags.Items.MELEE)
+                .addTags(TagsRegistry.ItemsTag.SPEAR, TagsRegistry.ItemsTag.CLAYMORE, TagsRegistry.ItemsTag.DAGGER);
     }
     @Override
     public String getName() {

@@ -26,7 +26,10 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> FINEDRUNK = REGISTRY.register("finedrunk", FinedrunkEffect::new);
     public static final RegistryObject<MobEffect> DEATHFIRE = REGISTRY.register("deathfire", DeathfireEffect::new);
     public static final RegistryObject<MobEffect> RADIATION = REGISTRY.register("radiation", RadiationEffect::new);
-
+    public static final RegistryObject<MobEffect> SUKIMA = REGISTRY.register("sukima", SukimaEffect::new);
+    public static final RegistryObject<MobEffect> MAXIMUMDOSAGE = REGISTRY.register("maximumdosage", MaximumdosageEffect::new);
+    public static final RegistryObject<MobEffect> OORT_CLOUD = REGISTRY.register("oort_cloud",OortCloudEffect::new);
+    public static final RegistryObject<MobEffect> ORRERYS_SOLAR_SYSTEM = REGISTRY.register("orrerys_solar_system", OrrerysSolarSystemEffect::new);
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

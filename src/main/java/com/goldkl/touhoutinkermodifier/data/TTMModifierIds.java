@@ -4,9 +4,19 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 public class TTMModifierIds {
-    //通用
+    ///通用
     public static final ModifierId longspear = id("longspear");
-
+    /// 杂鱼角色
+    //毛玉
+    public static final ModifierId naturalgrace = id("naturalgrace");//自然恩惠
+    public static final ModifierId naturalwarmog = id("naturalwarmog");//天生狂徒
+    //线
+    public static final ModifierId gallowsstring = id("gallowsstring");
+    //皮革
+    public static final ModifierId retanned = id("retanned");//复鞣制
+    public static final ModifierId pickledgrit = id("pickledgrit");//浸酸之韧
+    public static final ModifierId passivatingforcetrauma = id("passivatingforcetrauma");//钝化创伤
+    ///
     public static final ModifierId bibliophilia = id("bibliophilia");
     public static final ModifierId rlyehtext = id("rlyehtext");
     public static final ModifierId holymantle = id("holymantle");
@@ -48,16 +58,20 @@ public class TTMModifierIds {
     public static final ModifierId avatarofdarkness = id("avatarofdarkness");
     public static final ModifierId jikicoercion = id("jikicoercion");
     public static final ModifierId fullfirepower = id("fullfirepower");
-    public static final ModifierId arcticstorm = id("arcticstorm");
     public static final ModifierId riverofdeath = id("riverofdeath");
-    //风神录
+    ///妖妖梦
+    //蕾蒂
+    public static final ModifierId arcticstorm = id("arcticstorm");
+    public static final ModifierId armyofthewinter = id("armyofthewinter");
+
+    ///风神录
     //秋穰子
     public static final ModifierId harvestjoy = id("harvestjoy");
     //秋静叶
     public static final ModifierId thefadingautumn = id("thefadingautumn");
     //秋静叶&&秋穰子
     public static final ModifierId autumnsky = id("autumnsky");
-    //地灵殿
+    ///地灵殿
     //古明地恋
     public static final ModifierId overrose = id("overrose");
     public static final ModifierId missmary = id("missmary");
@@ -87,12 +101,37 @@ public class TTMModifierIds {
     //火焰猫燐
     public static final ModifierId hellstrafficaccident = id("hellstrafficaccident");
     public static final ModifierId rekindlingofdeadashes = id("rekindlingofdeadashes");
-    //锦上京
+    ///锦上京
     //渡里贝子
     public static final ModifierId deepbaloney = id("deepbaloney");
-    //花映冢
+    ///花映冢
     //小野冢小町
     public static final ModifierId requiemofsouls = id("requiemofsouls");
+    ///秘封
+    public static final ModifierId secretsealingclub = id("secretsealingclub");
+    //宇佐见莲子
+    public static final ModifierId kagakuseiki = id("kagakuseiki");
+    public static final ModifierId batteryload = id("batteryload");
+    public static final ModifierId oozoramajutsu = id("oozoramajutsu");
+    //梅莉
+    public static final ModifierId rendainoyakou = id("rendainoyakou");
+    public static final ModifierId tanabatazakamugennou = id("tanabatazakamugennou");
+    public static final ModifierId yakumohypothesis = id("yakumohypothesis");
+    ///怪绮谈
+    //神绮
+    public static final ModifierId protectionofshinki = id("protectionofshinki");
+    ///辉针城
+    //鬼人正邪
+    //public static final ModifierId overturningallunderheaven = id("overturningallunderheaven");
+    public static final ModifierId reversehierarchy = id("reversehierarchy");
+    ///主角组
+    //雾雨魔理沙
+    public static final ModifierId masterspark = id("masterspark");
+    public static final ModifierId buttstrike = id("buttstrike");
+    public static final ModifierId commonmagician = id("commonmagician");
+    public static final ModifierId stardustfantasy = id("stardustfantasy");
+    public static final ModifierId oortcloud = id("oortcloud");
+    public static final ModifierId nondirectionallaser = id("nondirectionallaser");
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

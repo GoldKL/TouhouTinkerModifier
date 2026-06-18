@@ -3,9 +3,6 @@ package com.goldkl.touhoutinkermodifier.registries;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.modifiers.*;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
 
@@ -39,7 +36,7 @@ public class ModifierRegistry {
     public static final StaticModifier<JacktheripperModifier>jacktheripper = MODIFIERS.register("jacktheripper",JacktheripperModifier::new);
     public static final StaticModifier<PerfectandelegantModifier>perfectandelegant = MODIFIERS.register("perfectandelegant",PerfectandelegantModifier::new);
     public static final StaticModifier<PocketwatchofbloodModifier>pocketwatchofblood = MODIFIERS.register("pocketwatchofblood",PocketwatchofbloodModifier::new);
-    public static final StaticModifier<TheworldModifier>theworld = MODIFIERS.register("theworld",TheworldModifier::new);
+    //public static final StaticModifier<TheworldModifier>theworld = MODIFIERS.register("theworld",TheworldModifier::new);
     public static final StaticModifier<RainbowtaichiModifier>rainbowtaichi = MODIFIERS.register("rainbowtaichi",RainbowtaichiModifier::new);
     public static final StaticModifier<FanghuaxuanlanModifier>fanghuaxuanlan = MODIFIERS.register("fanghuaxuanlan",FanghuaxuanlanModifier::new);
     public static final StaticModifier<BengshancaijiModifier>bengshancaiji = MODIFIERS.register("bengshancaiji",BengshancaijiModifier::new);
@@ -79,6 +76,30 @@ public class ModifierRegistry {
     public static final StaticModifier<ThefadingautumnModifier>thefadingautumn = MODIFIERS.register("thefadingautumn",ThefadingautumnModifier::new);
     //花映冢
     public static final StaticModifier<RequiemofsoulsModifier>requiemofsouls = MODIFIERS.register("requiemofsouls",RequiemofsoulsModifier::new);
+    //秘封
+    public static final StaticModifier<SecretsealingclubModifier>secretsealingclub = MODIFIERS.register("secretsealingclub",SecretsealingclubModifier::new);
+    public static final StaticModifier<KagakuSeikiModifier>kagakuseiki = MODIFIERS.register("kagakuseiki",KagakuSeikiModifier::new);
+    public static final StaticModifier<BatteryloadModifier>batteryload = MODIFIERS.register("batteryload",BatteryloadModifier::new);
+    public static final StaticModifier<OozoramajutsuModifier>oozoramajutsu = MODIFIERS.register("oozoramajutsu",OozoramajutsuModifier::new);
+    public static final StaticModifier<RendainoyakouModifier>rendainoyakou = MODIFIERS.register("rendainoyakou",RendainoyakouModifier::new);
+    public static final StaticModifier<TanabatazakamugennouModifier>tanabatazakamugennou = MODIFIERS.register("tanabatazakamugennou",TanabatazakamugennouModifier::new);
+    public static final StaticModifier<ProtectionofshinkiModifier>protectionofshinki = MODIFIERS.register("protectionofshinki",ProtectionofshinkiModifier::new);
+    public static final StaticModifier<YakumohypothesisModifier>yakumohypothesis = MODIFIERS.register("yakumohypothesis",YakumohypothesisModifier::new);
+    //辉针城
+    //public static final StaticModifier<OverturningallunderheavenModifier>overturningallunderheaven = MODIFIERS.register("overturningallunderheaven",OverturningallunderheavenModifier::new);
+    public static final StaticModifier<ReversehierarchyModifier>reversehierarchy = MODIFIERS.register("reversehierarchy",ReversehierarchyModifier::new);
+    //杂鱼
+    public static final StaticModifier<NaturalgraceModifier>naturalgrace = MODIFIERS.register("naturalgrace",NaturalgraceModifier::new);
+    public static final StaticModifier<NaturalwarmogModifier>naturalwarmog = MODIFIERS.register("naturalwarmog",NaturalwarmogModifier::new);
+    public static final StaticModifier<GallowsstringModifier>gallowsstring = MODIFIERS.register("gallowsstring",GallowsstringModifier::new);
+    public static final StaticModifier<RetannedModifier>retanned = MODIFIERS.register("retanned",RetannedModifier::new);
+    public static final StaticModifier<PickledgritModifier>pickledgrit = MODIFIERS.register("pickledgrit",PickledgritModifier::new);
+    public static final StaticModifier<PassivatingforcetraumaModifier>passivatingforcetrauma = MODIFIERS.register("passivatingforcetrauma",PassivatingforcetraumaModifier::new);
+    //魔理沙
+    public static final StaticModifier<ButtstrikeModifier>buttstrike = MODIFIERS.register("buttstrike",ButtstrikeModifier::new);
+    public static final StaticModifier<StardustfantasyModifier> stardustfantasy = MODIFIERS.register("stardustfantasy", StardustfantasyModifier::new);
+    public static final StaticModifier<OortCloudModifier>oortcloud = MODIFIERS.register("oortcloud",OortCloudModifier::new);
+    public static final StaticModifier<NonDirectionalLaserModifier>non_directional_laser = MODIFIERS.register("nondirectionallaser",NonDirectionalLaserModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

@@ -29,7 +29,7 @@ public interface EntityHealHook {
     }
     static float modifyhealTaken(EquipmentContext context, float baseheal, float heal) {
         for (EquipmentSlot slotType : EquipmentSlot.values()) {
-            IToolStackView toolStack = context.getToolInSlot(slotType);
+            IToolStackView toolStack = context.getValidTool(slotType);
             if (toolStack != null && !toolStack.isBroken()) {
                 for (ModifierEntry entry : toolStack.getModifierList()) {
                     heal = entry.getHook(ModifierHooksRegistry.ENTITY_HEAL_HOOK).modifyhealTaken(toolStack, entry, context, slotType, baseheal,heal);

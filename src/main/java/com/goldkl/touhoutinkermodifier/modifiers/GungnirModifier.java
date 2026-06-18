@@ -42,7 +42,7 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
             LivingEntity target = context.getLivingTarget();
             if(target != null)
             {
-                int level = modifier.getLevel();
+                int level = SpellsRegistry.gungnir.get().getLevelFor(modifier.getLevel(),attacker) ;
                 TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
                 DamageSources.applyDamage(target, SpellsRegistry.gungnir.get().getSpellPower(level,attacker), SpellsRegistry.gungnir.get().getDamageSource(attacker));
             }

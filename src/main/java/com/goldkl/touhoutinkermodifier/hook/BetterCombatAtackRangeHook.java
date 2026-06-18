@@ -26,7 +26,7 @@ public interface BetterCombatAtackRangeHook {
     }
     static double attackermodifyBetterCombatAtackRange(ModuleHook<BetterCombatAtackRangeHook> hook, EquipmentContext context, boolean IsAdd, double amount,double tool_attack_range,InteractionHand hand) {
         for (EquipmentSlot slotType : EquipmentSlot.values()) {
-            IToolStackView toolStack = context.getToolInSlot(slotType);
+            IToolStackView toolStack = context.getValidTool(slotType);
             if (toolStack != null && !toolStack.isBroken()) {
                 for (ModifierEntry entry : toolStack.getModifierList()) {
                     amount = entry.getHook(hook).attackermodifyBetterCombatAtackRange(toolStack, entry, context, slotType, IsAdd, amount,tool_attack_range, hand);

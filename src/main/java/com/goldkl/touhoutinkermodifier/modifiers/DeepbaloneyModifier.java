@@ -18,12 +18,13 @@ import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
+import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.*;
-;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -140,7 +141,8 @@ public class DeepbaloneyModifier extends Modifier implements InventoryTickModifi
     }
     final static private Set<INumericToolStat<?>>BLACK_STAT_LIST = new HashSet<>(Set.of(
             ToolTankHelper.CAPACITY_STAT,
-            OverslimeModule.OVERSLIME_STAT));
+            OverslimeModule.OVERSLIME_STAT,
+            ToolEnergyCapability.MAX_STAT));
     final static private Set<String>WHITE_MOD_LIST = new HashSet<>(Set.of(
             TConstruct.MOD_ID));
     static public void addBlackStatList(INumericToolStat<?> newStat)

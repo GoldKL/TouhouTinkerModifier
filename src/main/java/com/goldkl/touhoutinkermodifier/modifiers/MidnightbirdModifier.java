@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,9 +38,8 @@ public class MidnightbirdModifier extends Modifier implements AttributesModifier
         boolean flag = false;
         for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
         {
-            if(!(player.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(player.getItemBySlot(equipmentSlot));
-            if(tool.getModifier(TTMModifierIds.midnightbird)!=ModifierEntry.EMPTY)
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(player.getItemBySlot(equipmentSlot));
+            if(tool != null && tool.getModifier(TTMModifierIds.midnightbird)!=ModifierEntry.EMPTY)
             {
                 flag = true;
                 break;

@@ -33,6 +33,7 @@ public class ItemsRegistry {
     public static final ItemObject<ModifiableItem> BrassKnuckles = REGISTRY.register("brass_knuckles", () -> new ModifiableSwordItem(new Item.Properties().durability(-1).stacksTo(2), TTMToolDefinitions.BRASS_KNUCKLES, 2));
     public static final ItemObject<ModifiableItem> Gohei = REGISTRY.register("gohei", () -> new ModifiableGoheiItem(TTMItemUtils.UNSTACKABLE_PROPS, TTMToolDefinitions.GOHEI));
     //material
+    public static final ItemObject<Item> kedama = REGISTRY.register("kedama", () -> new Item(new Item.Properties()));
     public static final ItemObject<Item> yinangorb = REGISTRY.register("yinangorb", () -> new Item(new Item.Properties()));
     public static final ItemObject<Item> spellpaper = REGISTRY.register("spellpaper", () -> new Item(new Item.Properties()));
     public static final ItemObject<Item> persuasionneedle = REGISTRY.register("persuasionneedle", () -> new Item(new Item.Properties()));
@@ -48,6 +49,7 @@ public class ItemsRegistry {
     }
 
     public static void addCommonTabItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
+        tab.accept(kedama);
         tab.accept(yinangorb);
         tab.accept(spellpaper);
         tab.accept(persuasionneedle);

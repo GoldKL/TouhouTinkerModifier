@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.module;
 
 import com.ssakura49.sakuratinker.library.tinkering.tools.STHooks;
+import com.ssakura49.tinkercuriolib.hook.TCLibHooks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -39,8 +40,8 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import com.ssakura49.sakuratinker.library.hooks.curio.armor.CurioEquipmentChangeModifierHook;
-import com.ssakura49.sakuratinker.library.hooks.curio.behavior.CurioAttributeModifierHook;
+import com.ssakura49.tinkercuriolib.hook.armor.CurioEquipmentChangeModifierHook ;
+import com.ssakura49.tinkercuriolib.hook.behavior.CurioAttributeModifierHook;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.*;
@@ -54,9 +55,9 @@ public record CurioAttributeModule(String unique, Attribute attribute, Attribute
         TooltipModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
     private static final String[] VARIABLES = { "level" };
     private static final RecordLoadable<ToolFormula> VARIABLE_LOADER = new VariableFormulaLoadable<>(ToolVariable.LOADER, VARIABLES, ModifierFormula.FallbackFormula.IDENTITY, (formula, variables, percent) -> new ToolFormula(formula, variables, VariableFormula.EMPTY_STRINGS));
-    private static final List<ModuleHook<?>> ATTRIBUTE_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_ATTRIBUTE,ModifierHooks.ATTRIBUTES);
-    private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_EQUIPMENT_CHANGE,ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
-    private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(STHooks.CURIO_EQUIPMENT_CHANGE,ModifierHooks.EQUIPMENT_CHANGE);
+    private static final List<ModuleHook<?>> ATTRIBUTE_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(TCLibHooks.CURIO_ATTRIBUTE,ModifierHooks.ATTRIBUTES);
+    private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(TCLibHooks.CURIO_EQUIPMENT_CHANGE,ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
+    private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<CurioAttributeModule>defaultHooks(TCLibHooks.CURIO_EQUIPMENT_CHANGE,ModifierHooks.EQUIPMENT_CHANGE);
 
     public static final RecordLoadable<CurioAttributeModule> LOADER = RecordLoadable.create(
             new AttributeUniqueField<>(CurioAttributeModule::unique),

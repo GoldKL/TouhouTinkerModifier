@@ -1,9 +1,11 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
+import com.goldkl.touhoutinkermodifier.helper.DamageModifier;
 import com.goldkl.touhoutinkermodifier.hook.MeleeDamagePercentModifierHook;
 import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
+import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -50,9 +52,10 @@ public class RainbowtaichiModifier extends Modifier implements ModifyDamageModif
         int level = 0;
         for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
         {
-            if(!(entity.getItemBySlot(equipmentSlot).getItem() instanceof IModifiable))continue;
-            ToolStack tool = ToolStack.from(entity.getItemBySlot(equipmentSlot));
-            level = function.apply(level,tool.getModifierLevel(TTMModifierIds.rainbowtaichi));
+            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(entity.getItemBySlot(equipmentSlot));
+            if(tool != null){
+                level = function.apply(level,tool.getModifierLevel(TTMModifierIds.rainbowtaichi));
+            }
         }
         return level;
     }
