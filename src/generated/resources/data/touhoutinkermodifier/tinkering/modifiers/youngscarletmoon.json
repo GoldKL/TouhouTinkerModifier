@@ -1,0 +1,46 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "touhoutinkermodifier:not_ignore_damage",
+      "formula": [
+        "$level",
+        "$spell_power",
+        "$blood_spell_power",
+        "$crouching",
+        "*",
+        "*",
+        "*",
+        "$protection",
+        "+"
+      ],
+      "variables": {
+        "blood_spell_power": {
+          "type": "tconstruct:entity",
+          "attribute": "irons_spellbooks:blood_spell_power",
+          "entity_type": "tconstruct:attribute",
+          "fallback": 1.0,
+          "which": "target"
+        },
+        "crouching": {
+          "type": "tconstruct:entity",
+          "condition_type": "mantle:crouching",
+          "entity_type": "tconstruct:conditional",
+          "fallback": 1.0,
+          "if_false": 1.0,
+          "if_true": 2.0,
+          "which": "target"
+        },
+        "spell_power": {
+          "type": "tconstruct:entity",
+          "attribute": "irons_spellbooks:spell_power",
+          "entity_type": "tconstruct:attribute",
+          "fallback": 1.0,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

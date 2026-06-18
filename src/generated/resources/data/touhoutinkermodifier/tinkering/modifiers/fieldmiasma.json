@@ -1,0 +1,37 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "touhoutinkermodifier:spell_affinity",
+      "fixed_level": false,
+      "level": 2,
+      "pass_config": true,
+      "spell": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "touhoutinkermodifier:is_spell",
+            "spell": "irons_spellbooks:spider_aspect"
+          },
+          {
+            "type": "touhoutinkermodifier:is_spell",
+            "spell": "irons_spellbooks:acid_orb"
+          },
+          {
+            "type": "touhoutinkermodifier:is_spell",
+            "spell": "irons_spellbooks:poison_arrow"
+          },
+          {
+            "type": "touhoutinkermodifier:is_spell",
+            "spell": "irons_spellbooks:poison_breath"
+          },
+          {
+            "type": "touhoutinkermodifier:is_spell",
+            "spell": "irons_spellbooks:poison_splash"
+          }
+        ]
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

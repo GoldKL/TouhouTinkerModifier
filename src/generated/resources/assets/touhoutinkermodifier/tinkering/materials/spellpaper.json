@@ -1,0 +1,45 @@
+{
+  "color": "FFF85A47",
+  "generator": {
+    "supported_stats": [
+      "touhoutinkermodifier:gohei",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FFD32929",
+            "grey": 63
+          },
+          {
+            "color": "FFFF3131",
+            "grey": 102
+          },
+          {
+            "color": "FFFFBBBB",
+            "grey": 140
+          },
+          {
+            "color": "FFC8C8C8",
+            "grey": 178
+          },
+          {
+            "color": "FFE5E5E5",
+            "grey": 216
+          },
+          {
+            "color": "FFFFFFFF",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "touhoutinkermodifier:spell",
+      "each_level": 2.0,
+      "flat": -1.0,
+      "pass_config": true,
+      "pass_maxlevel": true,
+      "spell": "touhoutinkermodifier:master_spark"
+    }
+  ],
+  "tooltip_display": "always"
+}

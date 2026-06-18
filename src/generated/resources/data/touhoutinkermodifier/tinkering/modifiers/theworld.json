@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:requirements",
+      "requirement": {
+        "type": "tconstruct:has_material",
+        "material": {
+          "type": "mantle:tag",
+          "tag": "touhoutinkermodifier:izayoisakuya"
+        }
+      },
+      "translation_key": "modifier.touhoutinkermodifier.theworld.requirements"
+    },
+    {
+      "type": "touhoutinkermodifier:spell",
+      "each_level": 1.0,
+      "pass_config": true,
+      "pass_maxlevel": true,
+      "spell": "touhoutinkermodifier:theworld"
+    }
+  ],
+  "tooltip_display": "always"
+}

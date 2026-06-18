@@ -140,4 +140,8 @@ public class MasterSparkSpell extends AbstractSpell {
         }
         super.onServerCastComplete(level, spellLevel, entity, playerMagicData, cancelled);
     }
+    @Override
+    public boolean allowLooting(){
+        return false;
+    }
 }

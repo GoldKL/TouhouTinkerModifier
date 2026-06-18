@@ -1,0 +1,123 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        15,
+        90,
+        -55
+      ],
+      "translation": [
+        0,
+        0,
+        0.5
+      ],
+      "scale": [
+        0.284,
+        0.284,
+        0.284
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        15,
+        -90,
+        55
+      ],
+      "translation": [
+        0,
+        0,
+        0.5
+      ],
+      "scale": [
+        0.284,
+        0.284,
+        0.284
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -25,
+        90,
+        -25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.227,
+        0.227,
+        0.227
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -25,
+        -90,
+        25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.227,
+        0.227,
+        0.227
+      ]
+    }
+  },
+  "textures": {
+    "head1": "touhoutinkermodifier:item/tool/brass_knuckles/head1_broken",
+    "head2": "touhoutinkermodifier:item/tool/brass_knuckles/head2_broken",
+    "head3": "touhoutinkermodifier:item/tool/brass_knuckles/head3_broken",
+    "head4": "touhoutinkermodifier:item/tool/brass_knuckles/head4_broken",
+    "protector": "touhoutinkermodifier:item/tool/brass_knuckles/protector",
+    "large_head1": "touhoutinkermodifier:item/tool/brass_knuckles/large/head1_broken",
+    "large_head2": "touhoutinkermodifier:item/tool/brass_knuckles/large/head2_broken",
+    "large_head3": "touhoutinkermodifier:item/tool/brass_knuckles/large/head3_broken",
+    "large_head4": "touhoutinkermodifier:item/tool/brass_knuckles/large/head4_broken",
+    "large_protector": "touhoutinkermodifier:item/tool/brass_knuckles/large/protector"
+  },
+  "modifier_roots": {
+    "small": [
+      "touhoutinkermodifier:item/tool/brass_knuckles/modifiers/broken/",
+      "touhoutinkermodifier:item/tool/brass_knuckles/modifiers/"
+    ],
+    "large": [
+      "touhoutinkermodifier:item/tool/brass_knuckles/large/modifiers/broken/",
+      "touhoutinkermodifier:item/tool/brass_knuckles/large/modifiers/"
+    ]
+  },
+  "large": true,
+  "large_offset": [
+    -2,
+    2
+  ],
+  "parts": [
+    {
+      "name": "head1",
+      "index": 0
+    },
+    {
+      "name": "head2",
+      "index": 1
+    },
+    {
+      "name": "head3",
+      "index": 2
+    },
+    {
+      "name": "head4",
+      "index": 3
+    },
+    {
+      "name": "protector",
+      "index": 4
+    }
+  ]
+}

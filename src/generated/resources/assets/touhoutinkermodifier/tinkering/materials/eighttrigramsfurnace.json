@@ -1,0 +1,50 @@
+{
+  "color": "FF212121",
+  "fallbacks": [
+    "metal"
+  ],
+  "generator": {
+    "supported_stats": [
+      "touhoutinkermodifier:gohei",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:grey_to_sprite",
+      "palette": [
+        {
+          "color": "FF000000",
+          "grey": 0
+        },
+        {
+          "color": "FF2B2B2B",
+          "grey": 63,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        },
+        {
+          "color": "FF575757",
+          "grey": 102,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        },
+        {
+          "color": "FF828282",
+          "grey": 140,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        },
+        {
+          "color": "FFADADAD",
+          "grey": 178,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        },
+        {
+          "color": "FFD9D9D9",
+          "grey": 216,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        },
+        {
+          "grey": 255,
+          "path": "touhoutinkermodifier:generator/eighttrigramsfurnace"
+        }
+      ]
+    }
+  }
+}

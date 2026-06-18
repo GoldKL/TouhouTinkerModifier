@@ -65,4 +65,8 @@ public class MaximumdosageSpell extends AbstractSpell {
         }
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
+    @Override
+    public boolean allowLooting(){
+        return false;
+    }
 }

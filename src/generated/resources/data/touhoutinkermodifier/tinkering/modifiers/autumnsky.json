@@ -1,0 +1,61 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:main_hand_harvest_enchantment",
+      "block": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:crops"
+          },
+          {
+            "type": "mantle:set",
+            "blocks": [
+              "minecraft:melon"
+            ]
+          }
+        ]
+      },
+      "condition_flag": "touhoutinkermodifier:autumnsky_mainhandharvest",
+      "level": 3,
+      "name": "minecraft:fortune",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/harvest"
+      }
+    },
+    {
+      "type": "tconstruct:armor_harvest_enchantment",
+      "block": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:crops"
+          },
+          {
+            "type": "mantle:set",
+            "blocks": [
+              "minecraft:melon"
+            ]
+          }
+        ]
+      },
+      "level": 3,
+      "name": "minecraft:fortune",
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/worn"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

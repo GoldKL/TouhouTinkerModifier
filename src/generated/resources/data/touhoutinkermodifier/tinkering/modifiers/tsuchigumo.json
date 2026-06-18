@@ -1,0 +1,13 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "touhoutinkermodifier:spell",
+      "each_level": 1.0,
+      "pass_config": true,
+      "pass_maxlevel": true,
+      "spell": "irons_spellbooks:spider_aspect"
+    }
+  ],
+  "tooltip_display": "always"
+}

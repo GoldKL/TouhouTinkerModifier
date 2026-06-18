@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "touhoutinkermodifier:eighttrigramsfurnace"
+  },
+  "material": "touhoutinkermodifier:eighttrigramsfurnace",
+  "needed": 1,
+  "value": 2
+}

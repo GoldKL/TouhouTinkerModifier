@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "touhoutinkermodifier:spell_affinity",
+      "fixed_level": false,
+      "level": 1,
+      "pass_config": false,
+      "spell": {
+        "type": "touhoutinkermodifier:is_schooltype_spell",
+        "school_type": "irons_spellbooks:ice"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}
