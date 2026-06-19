@@ -59,8 +59,8 @@ public class MasterSparkSpell extends AbstractSpell {
         this.baseSpellPower = 2;
         this.spellPowerPerLevel = 6;
         this.castTime = 200;
-        this.baseManaCost = 600;
-        this.manaCostPerLevel = 300;
+        this.baseManaCost = 50;
+        this.manaCostPerLevel = 50;
     }
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
@@ -82,7 +82,7 @@ public class MasterSparkSpell extends AbstractSpell {
     }
     @Override
     public CastType getCastType() {
-        return CastType.LONG;
+        return CastType.CONTINUOUS;
     }
     @Override
     public Optional<SoundEvent> getCastFinishSound() {
@@ -103,6 +103,8 @@ public class MasterSparkSpell extends AbstractSpell {
             if (playerMagicData.getCastDurationRemaining() % 5 == 0 ) {
                 Vec3 start = entity.getEyePosition();
                 Vec3 end = entity.getLookAngle().normalize().scale(getRange(spellLevel, entity)).add(start);
+                Vec3 direction = end.subtract(start).normalize().scale(2);
+                start = start.subtract(direction);
                 AABB range = entity.getBoundingBox().expandTowards(end.subtract(start));
                 List<HitResult> hits = new ArrayList<>();
                 List<? extends Entity> entities = level.getEntities(entity, range, Utils::canHitWithRaycast);
@@ -131,15 +133,6 @@ public class MasterSparkSpell extends AbstractSpell {
     private SpellDamageSource getDamageSource(int spellLevel, LivingEntity caster) {
         if(spellLevel >= 6) return ((SpellDamageSourceInterface)getDamageSource(caster)).touhouTinkerModifier$setPassbyResist(1f).setIFrames(0);
         return getDamageSource(caster).setIFrames(0);
-    }
-    @Override
-    public void onServerCastComplete(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData, boolean cancelled) {
-        if(entity instanceof ServerPlayer serverPlayer && cancelled)
-        {
-            //MagicHelper.MAGIC_MANAGER.addCooldown(serverPlayer, playerMagicData.getCastingSpell().getSpell(), playerMagicData.getCastSource());
-            castSpell(level,spellLevel, serverPlayer,playerMagicData.getCastSource(),true);
-        }
-        super.onServerCastComplete(level, spellLevel, entity, playerMagicData, cancelled);
     }
     @Override
     public boolean allowLooting(){
