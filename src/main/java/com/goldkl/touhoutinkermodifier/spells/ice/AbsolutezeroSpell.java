@@ -128,9 +128,9 @@ public class AbsolutezeroSpell extends AbstractSpell {
                 DamageSources.applyDamage(target, this.getDamage(spellLevel,entity) * percent, this.getDamageSource(entity));
             }
         });
-        if(entity instanceof ServerPlayer serverPlayer)
+        if(entity instanceof ServerPlayer serverPlayer && cancelled)
         {
-            MagicHelper.MAGIC_MANAGER.addCooldown(serverPlayer, playerMagicData.getCastingSpell().getSpell(), playerMagicData.getCastSource());
+            castSpell(level,spellLevel, serverPlayer,playerMagicData.getCastSource(),true);
         }
         super.onServerCastComplete(level, spellLevel, entity, playerMagicData, cancelled);
     }

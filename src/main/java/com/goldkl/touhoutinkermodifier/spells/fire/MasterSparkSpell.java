@@ -134,9 +134,10 @@ public class MasterSparkSpell extends AbstractSpell {
     }
     @Override
     public void onServerCastComplete(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData, boolean cancelled) {
-        if(entity instanceof ServerPlayer serverPlayer)
+        if(entity instanceof ServerPlayer serverPlayer && cancelled)
         {
-            MagicHelper.MAGIC_MANAGER.addCooldown(serverPlayer, playerMagicData.getCastingSpell().getSpell(), playerMagicData.getCastSource());
+            //MagicHelper.MAGIC_MANAGER.addCooldown(serverPlayer, playerMagicData.getCastingSpell().getSpell(), playerMagicData.getCastSource());
+            castSpell(level,spellLevel, serverPlayer,playerMagicData.getCastSource(),true);
         }
         super.onServerCastComplete(level, spellLevel, entity, playerMagicData, cancelled);
     }
