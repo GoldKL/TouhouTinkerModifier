@@ -41,12 +41,14 @@ public class ModifierHooksRegistry {
     }
     public static final ModuleHook<EntityDodgeHook> ENTITY_DODGE_HOOK = register("entity_dodge_hook", EntityDodgeHook.class, EntityDodgeHook.AllMerger::new,new EntityDodgeHook() {});
     public static final ModuleHook<EntityHealHook> ENTITY_HEAL_HOOK = register("entity_heal_hook", EntityHealHook.class, EntityHealHook.AllMerger::new,new EntityHealHook() {});
-    public static final ModuleHook<EntityEffectAddModifierHook>ENTITY_EFFECT_APPLICABLE_HURT = register("entity_effect_applicable_modifier_hook", EntityEffectAddModifierHook.class, EntityEffectAddModifierHook.AllMerger::new, (tool, entry, slot, instance, entity)->{});
     public static final ModuleHook<MeleeDamagePercentModifierHook>MELEE_DAMAGE_PERCENT = register("melee_damage_percent_hook", MeleeDamagePercentModifierHook.class,MeleeDamagePercentModifierHook.AllMerger::new,new MeleeDamagePercentModifierHook(){});
     public static final ModuleHook<AfterMeleeHitModifierHook>AFTER_MELEE_HIT = register("after_melee_hit_hook", AfterMeleeHitModifierHook.class,AfterMeleeHitModifierHook.AllMerger::new,new AfterMeleeHitModifierHook(){});
     public static final ModuleHook<AddPlayerMagicHook>ADD_PLAYER_MAGIC = register("add_player_magic",AddPlayerMagicHook.class,AddPlayerMagicHook.AllMerger::new,(tool, modifier, context, slotType,manager) -> null);
     public static final ModuleHook<MagicAffinityHook>MAGIC_AFFINITY = register("magic_affinity", MagicAffinityHook.class, MagicAffinityHook.AllMerger::new,new MagicAffinityHook(){});
     public static final ModuleHook<ProcessArmorLootModifierHook>PROCESS_ARMOR_LOOT_MODIFIER = register("process_armor_loot_modifier", ProcessArmorLootModifierHook.class, ProcessArmorLootModifierHook.AllMerger::new,(tool, modifier,origin, generatedLoot, context ,slot)->{});
+
+    public static final ModuleHook<AfterPlayerAddedSpellHook>AFTER_PLAYER_ADDED_SPELL = register("after_player_added_spell",AfterPlayerAddedSpellHook.class,AfterPlayerAddedSpellHook.AllMerger::new,(tool, modifier, context, slotType,manager) -> {});
+
 
     private static <T> ModuleHook<T> register(String name, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
         return ModifierHooks.register(TouhouTinkerModifier.getResource(name), filter, merger, defaultInstance);

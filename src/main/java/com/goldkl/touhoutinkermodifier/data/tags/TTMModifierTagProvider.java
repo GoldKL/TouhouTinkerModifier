@@ -22,13 +22,14 @@ public class TTMModifierTagProvider extends AbstractModifierTagProvider {
                     .add(TTMModifierIds.laevatein, TTMModifierIds.underredmoon, TTMModifierIds.andthentherewerenone)//芙兰
                     .add(TTMModifierIds.devillibrarian)//姆Q&小恶魔
                     .add(TTMModifierIds.everbrightscarlettower, TTMModifierIds.redblacktree)//小恶魔
-                    .add(TTMModifierIds.overpowermq, TTMModifierIds.sevenluminarieswizard)//姆Q
+                    .add(TTMModifierIds.overpowermq, TTMModifierIds.sevenluminarieswizard, TTMModifierIds.overclothes_sevenfold)//姆Q
                     .add(TTMModifierIds.killerdoll, TTMModifierIds.vanhelsingprogeny, TTMModifierIds.jacktheripper, TTMModifierIds.perfectandelegant, TTMModifierIds.pocketwatchofblood, TTMModifierIds.theworld)//十六夜咲夜
                     .add(TTMModifierIds.rainbowtaichi, TTMModifierIds.fanghuaxuanlan, TTMModifierIds.bengshancaiji);//红美铃
         tag(TinkerTags.Modifiers.OVERSLIME_FRIEND)//黏液之友
                     .add(TTMModifierIds.overpowermq)
                     .add(TTMModifierIds.overrose)
-                    .add(TTMModifierIds.overthinking);
+                    .add(TTMModifierIds.overthinking)
+                    .add(TTMModifierIds.overclothes_sevenfold);
         tag(TagsRegistry.ModifiersTag.SilverModifier)//银质
                     .add(TTMModifierIds.jacktheripper);
         tag(TinkerTags.Modifiers.PROTECTION_DEFENSE)//保护
@@ -43,6 +44,7 @@ public class TTMModifierTagProvider extends AbstractModifierTagProvider {
                 .add(TTMModifierIds.tokamak, TTMModifierIds.undergroundsun, TTMModifierIds.thousandtrillionflare, TTMModifierIds.hellcrow)//阿空
                 .add(TTMModifierIds.terriblesouvenir, TTMModifierIds.overthinking)//觉
                 .add(TTMModifierIds.hellstrafficaccident, TTMModifierIds.rekindlingofdeadashes);//猫燐
+        tag(TagsRegistry.ModifiersTag.JunkoAllies);
     }
 
     @Override

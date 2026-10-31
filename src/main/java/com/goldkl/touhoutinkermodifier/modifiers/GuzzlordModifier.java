@@ -33,7 +33,7 @@ public class GuzzlordModifier extends Modifier implements AttackerWithEquipmentM
             if(SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)){
                 int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_IN_CHARGE, slotType);
                 FoodData foodData = player.getFoodData();
-                double hungry = 20 - Math.max(foodData.getFoodLevel() , 8);//0 ~ 12
+                double hungry = Math.max(0, 20 - Math.max(foodData.getFoodLevel() , 8));//0 ~ 12
                 double parameter = 0.2 * level * hungry / 12.0;
                 damageModifier.addPercent((float) parameter);
             }

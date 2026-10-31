@@ -335,6 +335,8 @@
   "modifier.touhoutinkermodifier.hellstrafficaccident.damage": "你对你杀死过的敌人伤害",
   "modifier.touhoutinkermodifier.oozoramajutsu.true": "(已过载)",
   "modifier.touhoutinkermodifier.oozoramajutsu.false": "(未过载)",
+  "modifier.touhoutinkermodifier.mid_night_bird.true": "(已启用[子夜之鸟])",
+  "modifier.touhoutinkermodifier.mid_night_bird.false": "(未启用[子夜之鸟])",
   "modifier.touhoutinkermodifier.rendainoyakou.cannot": "距离下次生效还有%1$s秒",
 
   "entity.touhoutinkermodifier.sky_splitter": "霹天雳地",
@@ -349,6 +351,8 @@
   "ui.touhoutinkermodifier.cast_error_hungry": "饱食度不足以释放该法术",
   "ui.touhoutinkermodifier.thinkercharge.cast_error_cannot_thinkercharge": "这件武器无法过载",
   "ui.touhoutinkermodifier.thinkercharge.cast_error_fe_not_enough": "这件武器没有足够的FE，无法过载",
+  "ui.touhoutinkermodifier.mid_night_bird.no_tool": "没有工具可以启用[子夜之鸟]",
+  "ui.touhoutinkermodifier.innocent_treasures": "Switch between Creative and Survival",
 
   "item.touhoutinkermodifier.spear": "长枪",
   "item.touhoutinkermodifier.spear.description": "长枪是一种泛用性武器，长处是较为容易打击远处的敌人",

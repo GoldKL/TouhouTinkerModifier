@@ -26,12 +26,21 @@ public class PassivatingforcetraumaModifier extends Modifier implements MeleeDam
     {
         LivingEntity entity = context.getAttacker();
         damagemodifier.addAdd(0.2f * modifier.getLevel() * entity.getMaxHealth());
+        float percent = entity.getHealth() / entity.getMaxHealth();
+        percent = Math.max(0.3f, percent);
+        damagemodifier.addPercent(0.6f * (modifier.getLevel() + 1) * (1 - percent)/7);
     }
 
     @Override
     public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
         if (stat == ToolStats.PROJECTILE_DAMAGE) {
-            baseValue += 0.06f * living.getMaxHealth() * modifier.getLevel();
+            baseValue += 0.06f * living.getMaxHealth() * modifier.getLevel() * multiplier;
+        }
+        else if(stat == ToolStats.VELOCITY)
+        {
+            float percent = living.getHealth() / living.getMaxHealth();
+            percent = Math.max(0.3f, percent);
+            baseValue += 0.18f * (modifier.getLevel() + 1) * (1 - percent)/7 * multiplier;
         }
         return baseValue;
     }

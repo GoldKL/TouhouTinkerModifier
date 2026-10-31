@@ -2,6 +2,7 @@
   "values": [
     "touhoutinkermodifier:kedama",
     "tconstruct:string",
-    "tconstruct:leather"
+    "tconstruct:leather",
+    "tconstruct:wood"
   ]
 }

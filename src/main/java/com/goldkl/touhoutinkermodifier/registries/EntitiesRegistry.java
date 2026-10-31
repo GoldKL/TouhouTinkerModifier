@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.registries;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.entity.danmaku.ModifiableDamakuEntity;
 import com.goldkl.touhoutinkermodifier.entity.danmaku.TrackDanmakuEntity;
+import com.goldkl.touhoutinkermodifier.entity.magcislate.*;
 import com.goldkl.touhoutinkermodifier.entity.spell.fire.masterspark.MasterSparkVisualEntity;
 import com.goldkl.touhoutinkermodifier.entity.spell.lightning.SkysplitterEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,33 @@ public class EntitiesRegistry {
                     .sized(1f, 1f)
                     .clientTrackingRange(64)
                     .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "master_spark").toString()));
+    public static final RegistryObject<EntityType<FireMagicSlateEntity>> FireMagicSlate =
+            REGISTRY.register("fire_magic_slate", () -> EntityType.Builder.<FireMagicSlateEntity>of(FireMagicSlateEntity::new, MobCategory.MONSTER)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "fire_magic_slate").toString()));
+    public static final RegistryObject<EntityType<LightningMagicSlateEntity>> LightningMagicSlate =
+            REGISTRY.register("lightning_magic_slate", () -> EntityType.Builder.<LightningMagicSlateEntity>of(LightningMagicSlateEntity::new, MobCategory.MONSTER)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "lightning_magic_slate").toString()));
+    public static final RegistryObject<EntityType<NatureMagicSlateEntity>> NatureMagicSlate =
+            REGISTRY.register("nature_magic_slate", () -> EntityType.Builder.<NatureMagicSlateEntity>of(NatureMagicSlateEntity::new, MobCategory.MONSTER)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "nature_magic_slate").toString()));
+
+    public static final RegistryObject<EntityType<IceMagicSlateEntity>> IceMagicSlate =
+            REGISTRY.register("ice_magic_slate", () -> EntityType.Builder.<IceMagicSlateEntity>of(IceMagicSlateEntity::new, MobCategory.MONSTER)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "ice_magic_slate").toString()));
+
+    public static final RegistryObject<EntityType<GeoMagicSlateEntity>> GeoMagicSlate =
+            REGISTRY.register("geo_magic_slate", () -> EntityType.Builder.<GeoMagicSlateEntity>of(GeoMagicSlateEntity::new, MobCategory.MONSTER)
+                    .sized(1f, 1f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, "geo_magic_slate").toString()));
 
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);

@@ -3,6 +3,7 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -37,7 +38,9 @@ public class RekindlingofdeadashesModifier extends Modifier implements Inventory
     //死灰复燃：火焰猫燐
     final String unique = TTMModifierIds.rekindlingofdeadashes.getNamespace()+  ".modifier."+ TTMModifierIds.rekindlingofdeadashes.getPath();
     final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
-    private static final List<Attribute> attributes = List.of(Attributes.ATTACK_DAMAGE,Attributes.ARMOR);
+    private static final List<Attribute> attributes = List.of(Attributes.ATTACK_DAMAGE,Attributes.ARMOR, AttributeRegistry.FIRE_SPELL_POWER.get());
+    private static final List<Double> attributes_fix = List.of(2.0, 2.0, 4.0);
+
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
@@ -75,7 +78,7 @@ public class RekindlingofdeadashesModifier extends Modifier implements Inventory
             if(slot != null)
             {
                 int level = modifier.getLevel();
-                for(int i = 0; i < 2; i++) {
+                for(int i = 0; i < 3; i++) {
                     AttributeInstance instance = entity.getAttribute(attributes.get(i));
                     if(instance != null)
                     {
@@ -103,14 +106,14 @@ public class RekindlingofdeadashesModifier extends Modifier implements Inventory
     }
     private @Nullable AttributeModifier createModifier(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, int level, double percent, int index) {
         UUID uuid = this.getUUID(slot);
-        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * percent / 10.0, AttributeModifier.Operation.MULTIPLY_BASE) : null;
+        return uuid != null ? new AttributeModifier(uuid, this.unique + "." + slot.getName(), level * percent * attributes_fix.get(index)/ 10.0, AttributeModifier.Operation.MULTIPLY_BASE) : null;
     }
     @Override
     public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> list, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
         if(player == null)return;
         int level = modifier.getLevel();
-        for(int i = 0; i < 2; i++) {
-            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), level * getPercent(player) / 10.0, list);
+        for(int i = 0; i < 3; i++) {
+            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable(attributes.get(i).getDescriptionId()), level * getPercent(player) * attributes_fix.get(i) / 10.0, list);
         }
     }
     @Override
@@ -118,7 +121,7 @@ public class RekindlingofdeadashesModifier extends Modifier implements Inventory
         UUID uuid = this.getUUID(context.getChangedSlot());
         if(uuid != null)
         {
-            for(int i = 0; i < 2; i++) {
+            for(int i = 0; i < 3; i++) {
                 AttributeInstance instance = context.getEntity().getAttribute(attributes.get(i));
                 if(instance != null)
                 {

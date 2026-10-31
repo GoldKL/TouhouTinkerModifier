@@ -19,6 +19,7 @@
     "holymantle": "#9fb9e6",
     "guzzlord": "#f152ca",
     "sevenluminarieswizard": "#a759b0",
+    "overclothes_sevenfold": "#A020F0",
     "redblacktree": "#990000",
     "killerdoll": "#C0C0C0",
     "vanhelsingprogeny": "#c4c4c4",
@@ -87,8 +88,20 @@
     "commonmagician": "#ffffff",
     "stardustfantasy": "#f5ff00",
     "oortcloud": "#87ceeb",
-    "nondirectionallaser": "#00ffff"
-
+    "nondirectionallaser": "#00ffff",
+    "pasterdream_armor": "#ff9ff5",
+    "pasterdream_arrow": "#ff9ff5",
+    "pasterdream_melee": "#ff9ff5",
+    "aurora_of_meltdream_armor": "#ce9fff",
+    "aurora_of_meltdream_arrow": "#ce9fff",
+    "aurora_of_meltdream_melee": "#ce9fff",
+    "innocent_treasures": "#FFC20E",
+    "unending_despair": "#006400",
+    "wild_growth": "#50563B",
+    "pristine_lunacy": "#d90000",
+    "pure_light_of_the_palm": "#d781aa",
+    "lilies_of_murderous_intent": "#ffaa00",
+    "whereabouts_of_the_heart": "#ffe200"
   },
   "bullet_type.touhoutinkermodifier": {
     "common_bullet": "#8F999F",

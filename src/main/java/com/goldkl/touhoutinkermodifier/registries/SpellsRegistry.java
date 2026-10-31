@@ -2,11 +2,14 @@ package com.goldkl.touhoutinkermodifier.registries;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.spells.blood.*;
+import com.goldkl.touhoutinkermodifier.spells.ender.MidNightBirdSpell;
 import com.goldkl.touhoutinkermodifier.spells.fire.MasterSparkSpell;
+import com.goldkl.touhoutinkermodifier.spells.fire.ThousandtrillionflareSpell;
 import com.goldkl.touhoutinkermodifier.spells.ice.AbsolutezeroSpell;
 import com.goldkl.touhoutinkermodifier.spells.ice.ArcticstormSpell;
 import com.goldkl.touhoutinkermodifier.spells.lightning.SkysplitterSpell;
 import com.goldkl.touhoutinkermodifier.spells.lightning.TinkerchargeSpell;
+import com.goldkl.touhoutinkermodifier.spells.nature.InnocentTreasuresSpell;
 import com.goldkl.touhoutinkermodifier.spells.nature.MaximumdosageSpell;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
@@ -30,8 +33,13 @@ public class SpellsRegistry {
     public static final RegistryObject<AbstractSpell> tinkercharge = registerSpell(new TinkerchargeSpell());
     //Nature
     public static final RegistryObject<AbstractSpell> maximumdosage = registerSpell(new MaximumdosageSpell());
+    public static final RegistryObject<AbstractSpell> innocent_treasures = registerSpell(new InnocentTreasuresSpell());
     //Fire
     public static final RegistryObject<AbstractSpell> masterspark = registerSpell(new MasterSparkSpell());
+    public static final RegistryObject<AbstractSpell> thousandtrillionflare = registerSpell(new ThousandtrillionflareSpell());
+
+    //Ender
+    public static final RegistryObject<AbstractSpell> mid_night_bird = registerSpell(new MidNightBirdSpell());
     public static RegistryObject<AbstractSpell> registerSpell(AbstractSpell spell)
     {
         return SPELLS.register(spell.getSpellName(), () -> spell);

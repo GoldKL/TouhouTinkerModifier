@@ -2,6 +2,8 @@ package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.c2h6s.etstlib.register.EtSTLibHooks;
 import com.c2h6s.etstlib.tool.hooks.CriticalAttackModifierHook;
+import com.goldkl.touhoutinkermodifier.hook.AfterMeleeHitModifierHook;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
@@ -18,13 +20,13 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class GungnirModifier extends Modifier implements CriticalAttackModifierHook, MeleeHitModifierHook {
+public class GungnirModifier extends Modifier implements CriticalAttackModifierHook, AfterMeleeHitModifierHook {
     //冈格尼尔：蕾米莉亚·斯卡雷特
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         //hookBuilder.addHook(this);
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this,ModifierHooks.MELEE_HIT, EtSTLibHooks.CRITICAL_ATTACK);
+        hookBuilder.addHook(this, ModifierHooksRegistry.AFTER_MELEE_HIT, EtSTLibHooks.CRITICAL_ATTACK);
     }
     @Override
     public boolean setCritical(IToolStackView tool, ModifierEntry entry, LivingEntity attacker, InteractionHand hand, Entity target, EquipmentSlot sourceSlot, boolean isFullyCharged, boolean isExtraAttack, boolean isCritical) {
@@ -35,7 +37,7 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
         return isCritical;
     }
     @Override
-    public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
+    public void afterMeleeHitWithTheoryDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage)
     {
         if(tool.hasTag(TagsRegistry.ItemsTag.SPEAR)&&!context.isExtraAttack()) {
             LivingEntity attacker = context.getAttacker();
@@ -44,7 +46,7 @@ public class GungnirModifier extends Modifier implements CriticalAttackModifierH
             {
                 int level = SpellsRegistry.gungnir.get().getLevelFor(modifier.getLevel(),attacker) ;
                 TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
-                DamageSources.applyDamage(target, SpellsRegistry.gungnir.get().getSpellPower(level,attacker), SpellsRegistry.gungnir.get().getDamageSource(attacker));
+                DamageSources.applyDamage(target, damage * SpellsRegistry.gungnir.get().getSpellPower(level,attacker), SpellsRegistry.gungnir.get().getDamageSource(attacker));
             }
         }
     }

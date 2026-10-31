@@ -1,74 +1,66 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
-import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
-import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
+import com.goldkl.touhoutinkermodifier.module.PersistentDataBooleanPredicate;
+import com.goldkl.touhoutinkermodifier.module.SpellModule;
+import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.function.BiConsumer;
+public class MidnightbirdModifier extends Modifier implements InventoryTickModifierHook, ModifierRemovalHook {
 
-public class MidnightbirdModifier extends Modifier implements AttributesModifierHook {
-    public MidnightbirdModifier()
-    {
-        MinecraftForge.EVENT_BUS.addListener(this::SpellPreCast);
-    }
-    void SpellPreCast(SpellPreCastEvent event)
-    {
-        if(event.isCanceled())return;
-        Player player = event.getEntity();
-        boolean flag = false;
-        for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
-        {
-            IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(player.getItemBySlot(equipmentSlot));
-            if(tool != null && tool.getModifier(TTMModifierIds.midnightbird)!=ModifierEntry.EMPTY)
-            {
-                flag = true;
-                break;
-            }
-        }
-        if(flag)
-        {
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,60, 0, false, true));
-        }
-    }
-    final String unique = TTMModifierIds.midnightbird.getNamespace()+  ".modifier."+ TTMModifierIds.midnightbird.getPath();
-    final UUID[] slotUUIDs = AttributeModule.slotsToUUIDs(unique, List.of(EquipmentSlot.values()));
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this, ModifierHooks.ATTRIBUTES);
+        hookBuilder.addModule(AttributeModule.builder(AttributeRegistry.ENDER_SPELL_POWER.get(), AttributeModifier.Operation.MULTIPLY_BASE)
+                .toolContext(new PersistentDataBooleanPredicate(TTMModifierIds.midnightbird))
+                .uniqueFrom(TTMModifierIds.midnightbird)
+                .eachLevel(0.30f));
+        hookBuilder.addModule(SpellModule.builder()
+                .passMaxlevel(true)
+                .passConfig(true)
+                .spell(SpellsRegistry.mid_night_bird.get())
+                .flat(1));
+        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK, ModifierHooks.REMOVE);
     }
     @Override
-    public void addAttributes(IToolStackView iToolStackView, ModifierEntry modifierEntry, EquipmentSlot slot, BiConsumer<Attribute, AttributeModifier> biConsumer) {
-        UUID uuid = this.getUUID(slot);
-        if(uuid != null)
-        {
-            int level = modifierEntry.getLevel();
-            AttributeModifier attributeModifier = new AttributeModifier(uuid, this.unique + "." + slot.getName(), 0.15 * level, AttributeModifier.Operation.MULTIPLY_BASE);
-            biConsumer.accept(AttributeRegistry.ENDER_SPELL_POWER.get(), attributeModifier);
+    public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
+        if(tool.getPersistentData().getBoolean(TTMModifierIds.midnightbird) && !world.isClientSide && holder.tickCount % 50 == 0){
+            holder.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,60,0));
         }
     }
-
-    private @Nullable UUID getUUID(EquipmentSlot slot) {
-        return this.slotUUIDs[slot.getFilterFlag()];
+    @Override
+    public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @javax.annotation.Nullable RegistryAccess access) {
+        if(tool.getPersistentData().getBoolean(TTMModifierIds.midnightbird))
+        {
+            return entry.getDisplayName().copy().append(Component.translatable("modifier.touhoutinkermodifier.mid_night_bird.true"));
+        }
+        return entry.getDisplayName().copy().append(Component.translatable("modifier.touhoutinkermodifier.mid_night_bird.false"));
+    }
+    @Nullable
+    @Override
+    public Component onRemoved(IToolStackView tool, Modifier modifier) {
+        tool.getPersistentData().remove(TTMModifierIds.midnightbird);
+        return null;
+    }
+    public static void updateFlag(IToolStackView tool,boolean flag)
+    {
+        tool.getPersistentData().putBoolean(TTMModifierIds.midnightbird,flag);
     }
 }

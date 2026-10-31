@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
@@ -32,7 +33,7 @@ public class HarvestjoyModifier extends Modifier implements ArmorWalkRadiusModul
 
     @Override
     public float getRadius(IToolStackView tool, ModifierEntry modifier) {
-        return (2.5f + tool.getModifierLevel(TinkerModifiers.expanded.getId())) * modifier.getLevel();
+        return (2.5f + tool.getModifierLevel(ModifierIds.expanded)) * modifier.getLevel();
     }
 
     @Override

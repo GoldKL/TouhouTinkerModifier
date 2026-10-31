@@ -1,6 +1,8 @@
 package com.goldkl.touhoutinkermodifier.mobeffect;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.api.LivingEntityInWorldEnder;
+import com.goldkl.touhoutinkermodifier.registries.MobeffectRegistry;
 import io.redspace.ironsspellbooks.effect.IMobEffectEndCallback;
 import io.redspace.ironsspellbooks.effect.ISyncedMobEffect;
 import io.redspace.ironsspellbooks.effect.MagicMobEffect;
@@ -14,6 +16,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -33,28 +38,35 @@ public class MaximumdosageEffect extends MagicMobEffect implements ISyncedMobEff
     }
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % 20 == 0;
+        return duration % 10 == 0;
     }
     @Override
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier)
     {
-        entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent( data ->{
-            int num = data.getInt(NAME);
-            float maxhealth = entity.getMaxHealth();
-            entity.heal(maxhealth * (0.1f + 0.05f * amplifier + 0.05f * num));
-        });
+        if(!entity.level().isClientSide)
+        {
+            double maxHealth = entity.getMaxHealth();
+            AttributeInstance instance = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+            if(instance != null){
+                instance.removeModifier(uuid);
+                instance.addPermanentModifier(new AttributeModifier(uuid,this::getDescriptionId,(0.2f + 0.1f * amplifier) * maxHealth,AttributeModifier.Operation.ADDITION));
+            }
+            entity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent( data ->{
+                int num = data.getInt(NAME);
+                float maxhealth = entity.getMaxHealth();
+                entity.heal(maxhealth * (0.05f + 0.025f * amplifier + 0.025f * num));
+            });
+        }
     }
     @Override
     public void onEffectRemoved(LivingEntity pLivingEntity, int pAmplifier) {
         AttributeInstance instance = pLivingEntity.getAttribute(Attributes.MAX_HEALTH);
         if(instance != null){
-            if(instance.getModifier(uuid) != null)
-                instance.removeModifier(uuid);
+            instance.removeModifier(uuid);
         }
         instance = pLivingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
         if(instance != null){
-            if(instance.getModifier(uuid) != null)
-                instance.removeModifier(uuid);
+            instance.removeModifier(uuid);
         }
         pLivingEntity.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data ->{
             data.remove(NAME);
@@ -72,18 +84,18 @@ public class MaximumdosageEffect extends MagicMobEffect implements ISyncedMobEff
 
             AttributeInstance instance = pLivingEntity.getAttribute(Attributes.MAX_HEALTH);
             if(instance != null){
-                if(instance.getModifier(uuid) != null)instance.removeModifier(uuid);
+                instance.removeModifier(uuid);
                 instance.addPermanentModifier(new AttributeModifier(uuid,this::getDescriptionId,0.3f + 0.1f * pAmplifier + 0.1f * num,AttributeModifier.Operation.MULTIPLY_TOTAL));
             }
 
-            float maxhealth = pLivingEntity.getMaxHealth();
-            float damagehealth = maxhealth - pLivingEntity.getHealth();
-            pLivingEntity.heal(damagehealth*(0.2f + 0.1f * pAmplifier + 0.1f * num));
+            float maxHealth = pLivingEntity.getMaxHealth();
+            float damageHealth = maxHealth - pLivingEntity.getHealth();
+            pLivingEntity.heal(damageHealth*(0.2f + 0.1f * pAmplifier + 0.1f * num));
 
             instance = pLivingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
             if(instance != null){
-                if(instance.getModifier(uuid) != null)instance.removeModifier(uuid);
-                instance.addPermanentModifier(new AttributeModifier(uuid,this::getDescriptionId,(0.2f + 0.1f * pAmplifier) * maxhealth,AttributeModifier.Operation.ADDITION));
+                instance.removeModifier(uuid);
+                instance.addPermanentModifier(new AttributeModifier(uuid,this::getDescriptionId,(0.2f + 0.1f * pAmplifier) * maxHealth,AttributeModifier.Operation.ADDITION));
             }
 
             TinkerNetwork.getInstance().sendToTrackingAndSelf(new SyncPersistentDataPacket(data.getCopy()), pLivingEntity);

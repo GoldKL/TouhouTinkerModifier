@@ -3,7 +3,10 @@ package com.goldkl.touhoutinkermodifier.tracking;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.TTMModifierIds;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -52,6 +55,9 @@ public class ModifierEvent {
                 data.putInt(NotFightingTime, time + 1);
             }
         });
+    }
+    public static int getFightingTimeTick(LivingEntity entity){
+        return entity.getCapability(PersistentDataCapability.CAPABILITY).map( data -> data.getInt(NotFightingTime)).orElse(1000);
     }
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void LivingEntityFightingTimeOnAttack(LivingAttackEvent event) {

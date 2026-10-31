@@ -41,7 +41,6 @@ public class ModifierRegistry {
     public static final StaticModifier<FanghuaxuanlanModifier>fanghuaxuanlan = MODIFIERS.register("fanghuaxuanlan",FanghuaxuanlanModifier::new);
     public static final StaticModifier<BengshancaijiModifier>bengshancaiji = MODIFIERS.register("bengshancaiji",BengshancaijiModifier::new);
     public static final StaticModifier<MidnightbirdModifier>midnightbird = MODIFIERS.register("midnightbird",MidnightbirdModifier::new);
-    public static final StaticModifier<SonanokaModifier>sonanoka = MODIFIERS.register("sonanoka",SonanokaModifier::new);
     public static final StaticModifier<ApparitionsstalkthenightModifier>apparitionsstalkthenight = MODIFIERS.register("apparitionsstalkthenight",ApparitionsstalkthenightModifier::new);
     public static final StaticModifier<DevourdarknessModifier>devourdarkness = MODIFIERS.register("devourdarkness",DevourdarknessModifier::new);
     public static final StaticModifier<KojisousamadesitaModifier>kojisousamadesita = MODIFIERS.register("kojisousamadesita",KojisousamadesitaModifier::new);
@@ -50,6 +49,9 @@ public class ModifierRegistry {
     public static final StaticModifier<FullfirepowerModifier>fullfirepower = MODIFIERS.register("fullfirepower",FullfirepowerModifier::new);
     public static final StaticModifier<ArcticstormModifier>arcticstorm = MODIFIERS.register("arcticstorm",ArcticstormModifier::new);
     public static final StaticModifier<RiverofdeathModifier>riverofdeath = MODIFIERS.register("riverofdeath",RiverofdeathModifier::new);
+    public static final StaticModifier<SevenLuminariesWizardModifier>sevenluminarieswizard = MODIFIERS.register("sevenluminarieswizard",SevenLuminariesWizardModifier::new);
+    public static final StaticModifier<OverclothesSevenfoldModifier>overclothes_sevenfold = MODIFIERS.register("overclothes_sevenfold",OverclothesSevenfoldModifier::new);
+
     //地灵殿
     public static final StaticModifier<OverroseModifier>overrose = MODIFIERS.register("overrose",OverroseModifier::new);
     public static final StaticModifier<MissmaryModifier>missmary = MODIFIERS.register("missmary",MissmaryModifier::new);
@@ -95,11 +97,24 @@ public class ModifierRegistry {
     public static final StaticModifier<RetannedModifier>retanned = MODIFIERS.register("retanned",RetannedModifier::new);
     public static final StaticModifier<PickledgritModifier>pickledgrit = MODIFIERS.register("pickledgrit",PickledgritModifier::new);
     public static final StaticModifier<PassivatingforcetraumaModifier>passivatingforcetrauma = MODIFIERS.register("passivatingforcetrauma",PassivatingforcetraumaModifier::new);
+    public static final StaticModifier<UnendingDespairModifier>unending_despair = MODIFIERS.register("unending_despair",UnendingDespairModifier::new);
+    public static final StaticModifier<WildGrowthModifier>wild_growth = MODIFIERS.register("wild_growth", WildGrowthModifier::new);
     //魔理沙
     public static final StaticModifier<ButtstrikeModifier>buttstrike = MODIFIERS.register("buttstrike",ButtstrikeModifier::new);
     public static final StaticModifier<StardustfantasyModifier> stardustfantasy = MODIFIERS.register("stardustfantasy", StardustfantasyModifier::new);
     public static final StaticModifier<OortCloudModifier>oortcloud = MODIFIERS.register("oortcloud",OortCloudModifier::new);
     public static final StaticModifier<NonDirectionalLaserModifier>non_directional_laser = MODIFIERS.register("nondirectionallaser",NonDirectionalLaserModifier::new);
+    //帕斯特
+    public static final StaticModifier<PasterdreamArmorModifier> pasterdream_armor = MODIFIERS.register("pasterdream_armor",PasterdreamArmorModifier::new);
+    public static final StaticModifier<PasterdreamArrowModifier> pasterdream_arrow = MODIFIERS.register("pasterdream_arrow",PasterdreamArrowModifier::new);
+    public static final StaticModifier<PasterdreamMeleeModifier> pasterdream_melee = MODIFIERS.register("pasterdream_melee",PasterdreamMeleeModifier::new);
+    public static final StaticModifier<AuroraofmeltdreamArmorModifier> aurora_of_meltdream_armor = MODIFIERS.register("aurora_of_meltdream_armor",AuroraofmeltdreamArmorModifier::new);
+    public static final StaticModifier<AuroraofmeltdreamArrowModifier> aurora_of_meltdream_arrow = MODIFIERS.register("aurora_of_meltdream_arrow",AuroraofmeltdreamArrowModifier::new);
+    public static final StaticModifier<AuroraofmeltdreamMeleeModifier> aurora_of_meltdream_melee = MODIFIERS.register("aurora_of_meltdream_melee",AuroraofmeltdreamMeleeModifier::new);
+    //纯狐
+    public static final StaticModifier<PureLightofthePalmModifier>PureLightofthePalm = MODIFIERS.register("pure_light_of_the_palm",PureLightofthePalmModifier::new);
+    public static final StaticModifier<LiliesofMurderousIntentModifier>LiliesofMurderousIntent = MODIFIERS.register("lilies_of_murderous_intent",LiliesofMurderousIntentModifier::new);
+    public static final StaticModifier<WhereaboutsoftheHeartModifier>WhereaboutsoftheHeart = MODIFIERS.register("whereabouts_of_the_heart",WhereaboutsoftheHeartModifier::new);
     public static void register(IEventBus eventBus) {
         MODIFIERS.register(eventBus);
     }

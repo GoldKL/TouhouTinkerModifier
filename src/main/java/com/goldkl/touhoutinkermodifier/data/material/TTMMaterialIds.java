@@ -13,7 +13,8 @@ public class TTMMaterialIds {
     public static final MaterialId persuasionneedle = id("persuasionneedle");//封魔针
     public static final MaterialId konpeito = id("konpeito");//金平糖
     public static final MaterialId eighttrigramsfurnace = id("eighttrigramsfurnace");//八卦炉
-
+    //tier 5
+    public static final MaterialId Junko = id("junko");
     private static MaterialId id(String name) {
         return new MaterialId(TouhouTinkerModifier.MODID, name);
     }

@@ -5,6 +5,7 @@ import com.goldkl.touhoutinkermodifier.communication.FireworkMessage;
 import com.goldkl.touhoutinkermodifier.communication.TheKindofKillDataMessage;
 import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientAbsolutezeroParticles;
 import com.goldkl.touhoutinkermodifier.communication.spells.ice.ClientArcticstormParticles;
+import com.goldkl.touhoutinkermodifier.communication.spells.nature.ClientUnendingDespairParticles;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,6 +42,11 @@ public class ChannelEventTracker {
                 .encoder(TheKindofKillDataMessage::write)
                 .decoder(TheKindofKillDataMessage::new)
                 .consumerMainThread(TheKindofKillDataMessage::handle)
+                .add();
+        TouhouTinkerModifier.channel.messageBuilder(ClientUnendingDespairParticles.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ClientUnendingDespairParticles::toBytes)
+                .decoder(ClientUnendingDespairParticles::new)
+                .consumerMainThread(ClientUnendingDespairParticles::handle)
                 .add();
     }
     public static <MSG> void sendToServer(MSG message) {

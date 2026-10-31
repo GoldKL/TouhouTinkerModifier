@@ -12,6 +12,7 @@ import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -46,9 +47,10 @@ public class CrimsonfantasyModifier extends Modifier implements ArrowHitModifier
     @Override
     public void afterArrowHit(ModDataNBT persistentData, ModifierEntry modifier, ModifierNBT modifiers, AbstractArrow arrow, @Nullable LivingEntity attacker, @NotNull LivingEntity target, float damageDealt) {
         if(target.isAlive()) {
+            int damage = Mth.ceil(Mth.clamp(arrow.getDeltaMovement().length() * arrow.getBaseDamage(), 0.0D, Integer.MAX_VALUE));
             int level = SpellsRegistry.crimsonfantasy.get().getLevelFor(modifier.getLevel(),attacker);
             TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
-            DamageSources.applyDamage(target, SpellsRegistry.crimsonfantasy.get().getSpellPower(level,attacker), SpellsRegistry.crimsonfantasy.get().getDamageSource(arrow, attacker));
+            DamageSources.applyDamage(target, damage * SpellsRegistry.crimsonfantasy.get().getSpellPower(level,attacker), SpellsRegistry.crimsonfantasy.get().getDamageSource(arrow, attacker));
         }
     }
 }

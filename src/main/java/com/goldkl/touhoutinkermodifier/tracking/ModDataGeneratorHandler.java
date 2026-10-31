@@ -4,11 +4,14 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.data.*;
 import com.goldkl.touhoutinkermodifier.data.material.*;
 import com.goldkl.touhoutinkermodifier.data.tags.*;
+import com.goldkl.touhoutinkermodifier.entity.magcislate.*;
+import com.goldkl.touhoutinkermodifier.module.PersistentDataBooleanPredicate;
 import com.goldkl.touhoutinkermodifier.module.SpellAffinityModule;
 import com.goldkl.touhoutinkermodifier.module.SpellModule;
 import com.goldkl.touhoutinkermodifier.predicate.AbstractSpellPredicate;
 import com.goldkl.touhoutinkermodifier.predicate.IsSchoolTypeSpellPredicate;
 import com.goldkl.touhoutinkermodifier.predicate.IsSpellPredicate;
+import com.goldkl.touhoutinkermodifier.registries.EntitiesRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -18,17 +21,21 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
+import slimeknights.tconstruct.library.json.predicate.tool.PersistentDataPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import static slimeknights.tconstruct.TConstruct.getResource;
 
 
 @Mod.EventBusSubscriber(modid = TouhouTinkerModifier.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -73,7 +80,7 @@ public class ModDataGeneratorHandler {
         generator.addProvider(server, new TTMModifierTagProvider(packOutput, event.getExistingFileHelper()));
         generator.addProvider(server, new ModifiersProvider(packOutput));
         generator.addProvider(server, new TTMDamageTypesTagProvider(packOutput, datapackRegistryProvider.getRegistryProvider(), existingFileHelper));
-
+        generator.addProvider(server, new TTMEntityTypeTagProvider(packOutput,lookupProvider,existingFileHelper));
     }
     @SubscribeEvent
     public static void registerSerializers(RegisterEvent event) {
@@ -84,6 +91,17 @@ public class ModDataGeneratorHandler {
             AbstractSpellPredicate.LOADER.register(TouhouTinkerModifier.getResource("is_schooltype_spell"), IsSchoolTypeSpellPredicate.LOADER);
             ModifierModule.LOADER.register(TouhouTinkerModifier.getResource("spell"), SpellModule.LOADER);
             ModifierModule.LOADER.register(TouhouTinkerModifier.getResource("spell_affinity"), SpellAffinityModule.LOADER);
+            ToolContextPredicate.LOADER.register(getResource("has_persistent_key_is_true"), PersistentDataBooleanPredicate.LOADER);
         }
+    }
+    @SubscribeEvent
+    public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+        event.put(EntitiesRegistry.FireMagicSlate.get(), FireMagicSlateEntity.prepareAttributes().build());
+        event.put(EntitiesRegistry.LightningMagicSlate.get(), LightningMagicSlateEntity.prepareAttributes().build());
+        event.put(EntitiesRegistry.NatureMagicSlate.get(), NatureMagicSlateEntity.prepareAttributes().build());
+        event.put(EntitiesRegistry.IceMagicSlate.get(), IceMagicSlateEntity.prepareAttributes().build());
+        event.put(EntitiesRegistry.GeoMagicSlate.get(), GeoMagicSlateEntity.prepareAttributes().build());
+
+
     }
 }

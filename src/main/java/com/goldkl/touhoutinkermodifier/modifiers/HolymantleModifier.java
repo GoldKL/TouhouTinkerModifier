@@ -114,13 +114,14 @@ public class HolymantleModifier extends Modifier implements InventoryTickModifie
     @Override
     public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context)
     {
-        SICM.onEquip(tool, modifier, context);
+        if(!context.getEntity().level().isClientSide)
+            SICM.onEquip(tool, modifier, context);
     }
     @Override
     public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-        SICM.onUnequip(tool, modifier, context);
         if(!context.getEntity().level().isClientSide)
         {
+            SICM.onUnequip(tool, modifier, context);
             boolean check = false;
             for(EquipmentSlot equipmentSlot : EquipmentSlot.values())
             {

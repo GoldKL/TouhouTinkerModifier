@@ -19,6 +19,7 @@ import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.api.spells.SpellData;
 import io.redspace.ironsspellbooks.network.EquipmentChangedPacket;
 import io.redspace.ironsspellbooks.setup.PacketDistributor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -154,19 +155,6 @@ public class CustomerToolEvent {
             event.setCanceled(true);
         }
     }
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void EffectApply(MobEffectEvent.Added event){
-        if (event.getEntity()!=null) {
-            for (EquipmentSlot slot : EquipmentSlot.values()) {
-                IToolStackView tool = TTMItemUtils.getToolStackIfModifiable(event.getEntity().getItemBySlot(slot));
-                if(tool != null && !tool.isBroken() && ModifierUtil.validArmorSlot(tool, slot)){
-                    for (ModifierEntry entry:tool.getModifierList()){
-                        entry.getHook(ModifierHooksRegistry.ENTITY_EFFECT_APPLICABLE_HURT).onApplicable(tool,entry,slot,event.getEffectInstance(),event.getEntity());
-                    }
-                }
-            }
-        }
-    }
     @SubscribeEvent
     public static void AddPlayerMagic(SpellSelectionManager.SpellSelectionEvent event){
         Player player = event.getEntity();
@@ -210,6 +198,20 @@ public class CustomerToolEvent {
             }
         }
     }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void AfterPlayerAddedSpell(SpellSelectionManager.SpellSelectionEvent event){
+        Player player = event.getEntity();
+        EquipmentContext context = new EquipmentContext(player);
+        SpellSelectionManager manager = event.getManager();
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            IToolStackView tool = context.getValidTool(slot);
+            if (tool != null && !tool.isBroken()) {
+                for (ModifierEntry entry : tool.getModifierList()){
+                    entry.getHook(ModifierHooksRegistry.AFTER_PLAYER_ADDED_SPELL).afterPlayerAddedSpell(tool,entry,context,slot,manager);
+                }
+            }
+        }
+    }
     @SubscribeEvent
     public static void onLivingEquipmentChangeEventMagic(LivingEquipmentChangeEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
@@ -221,7 +223,10 @@ public class CustomerToolEvent {
                 }
             }
             if(needupdate)
+            {
+                new SpellSelectionManager(serverPlayer);
                 PacketDistributor.sendToPlayer(serverPlayer, new EquipmentChangedPacket());
+            }
         }
     }
     @SubscribeEvent

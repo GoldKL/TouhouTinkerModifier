@@ -4,8 +4,18 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 public class TTMModifierIds {
+    ///帕斯特
+    public static final ModifierId pasterdream_armor = id("pasterdream_armor");
+    public static final ModifierId pasterdream_melee = id("pasterdream_melee");
+    public static final ModifierId pasterdream_arrow = id("pasterdream_arrow");
+    public static final ModifierId aurora_of_meltdream_armor = id("aurora_of_meltdream_armor");
+    public static final ModifierId aurora_of_meltdream_melee = id("aurora_of_meltdream_melee");
+    public static final ModifierId aurora_of_meltdream_arrow = id("aurora_of_meltdream_arrow");
+    /// ZUN
+    public static final ModifierId innocent_treasures = id("innocent_treasures");
     ///通用
     public static final ModifierId longspear = id("longspear");
+    public static final ModifierId test = id("test");
     /// 杂鱼角色
     //毛玉
     public static final ModifierId naturalgrace = id("naturalgrace");//自然恩惠
@@ -16,6 +26,9 @@ public class TTMModifierIds {
     public static final ModifierId retanned = id("retanned");//复鞣制
     public static final ModifierId pickledgrit = id("pickledgrit");//浸酸之韧
     public static final ModifierId passivatingforcetrauma = id("passivatingforcetrauma");//钝化创伤
+    //木
+    public static final ModifierId unending_despair = id("unending_despair");//无终恨意
+    public static final ModifierId wild_growth = id("wild_growth");
     ///
     public static final ModifierId bibliophilia = id("bibliophilia");
     public static final ModifierId rlyehtext = id("rlyehtext");
@@ -41,6 +54,7 @@ public class TTMModifierIds {
     public static final ModifierId overpowermq = id("overpowermq");
     public static final ModifierId redblacktree = id("redblacktree");
     public static final ModifierId sevenluminarieswizard = id("sevenluminarieswizard");
+    public static final ModifierId overclothes_sevenfold = id("overclothes_sevenfold");
     public static final ModifierId killerdoll = id("killerdoll");
     public static final ModifierId vanhelsingprogeny = id("vanhelsingprogeny");
     public static final ModifierId jacktheripper = id("jacktheripper");
@@ -132,6 +146,13 @@ public class TTMModifierIds {
     public static final ModifierId stardustfantasy = id("stardustfantasy");
     public static final ModifierId oortcloud = id("oortcloud");
     public static final ModifierId nondirectionallaser = id("nondirectionallaser");
+    /// 绀珠传
+    //纯狐
+    public static final ModifierId PristineLunacy = id("pristine_lunacy");//纯粹的疯狂
+    public static final ModifierId PureLightofthePalm = id("pure_light_of_the_palm");//掌上的纯光
+    public static final ModifierId LiliesofMurderousIntent = id("lilies_of_murderous_intent");//杀意的百合
+    public static final ModifierId WhereaboutsoftheHeart = id("whereabouts_of_the_heart");//心之所在
+
     private static ModifierId id(String name) {
         return new ModifierId(TouhouTinkerModifier.MODID, name);
     }

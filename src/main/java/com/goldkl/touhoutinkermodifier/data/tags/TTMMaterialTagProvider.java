@@ -23,7 +23,9 @@ public class TTMMaterialTagProvider extends AbstractMaterialTagProvider {
         tag(TagsRegistry.MaterialsTag.Seijakijin_Tier0)
                 .add(TTMMaterialIds.kedama)
                 .add(MaterialIds.string)
-                .add(MaterialIds.leather);
+                .add(MaterialIds.leather)
+                .add(MaterialIds.wood);
+        tag(TagsRegistry.MaterialsTag.JunkoAllies);
     }
     @Override
     public String getName() {

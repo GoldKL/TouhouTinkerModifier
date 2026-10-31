@@ -15,7 +15,6 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> IMPRISON = REGISTRY.register("imprison",ImprisonEffect::new);
     public static final RegistryObject<MobEffect> TIMESTOP = REGISTRY.register("timestop", TimestopEffect::new);
     public static final RegistryObject<MobEffect> INTERNALINJURY = REGISTRY.register("internal_injury",InternalinjuryEffect::new);
-    public static final RegistryObject<MobEffect> SONANOKA = REGISTRY.register("sonanoka", SonanokaEffect::new);
     public static final RegistryObject<MobEffect> BREAKDARKNESS = REGISTRY.register("breakdarkness", BreakdarknessEffect::new);
     public static final RegistryObject<MobEffect> MELT = REGISTRY.register("melt", MeltEffect::new);
     public static final RegistryObject<MobEffect> ARCTICSTROM = REGISTRY.register("arcticstorm", ArcticstormEffect::new);
@@ -30,6 +29,9 @@ public class MobeffectRegistry {
     public static final RegistryObject<MobEffect> MAXIMUMDOSAGE = REGISTRY.register("maximumdosage", MaximumdosageEffect::new);
     public static final RegistryObject<MobEffect> OORT_CLOUD = REGISTRY.register("oort_cloud",OortCloudEffect::new);
     public static final RegistryObject<MobEffect> ORRERYS_SOLAR_SYSTEM = REGISTRY.register("orrerys_solar_system", OrrerysSolarSystemEffect::new);
+    public static final RegistryObject<MobEffect> DREAM_PROTECTION = REGISTRY.register("dream_protection",DreamProtectionEffect::new);
+    public static final RegistryObject<MobEffect> DREAM_POWER = REGISTRY.register("dream_power",DreamPowerEffect::new);
+
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
     }

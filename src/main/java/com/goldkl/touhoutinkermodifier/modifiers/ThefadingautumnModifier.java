@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 import vectorwing.farmersdelight.common.block.WildCropBlock;
 import vectorwing.farmersdelight.common.block.WildRiceBlock;
 
@@ -28,7 +29,7 @@ public class ThefadingautumnModifier extends Modifier implements ArmorWalkRadius
 
     @Override
     public float getRadius(IToolStackView tool, ModifierEntry modifier) {
-        return (2.5f + tool.getModifierLevel(TinkerModifiers.expanded.getId())) * modifier.getLevel();
+        return (2.5f + tool.getModifierLevel(ModifierIds.expanded)) * modifier.getLevel();
     }
 
     @Override

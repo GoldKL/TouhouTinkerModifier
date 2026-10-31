@@ -50,6 +50,7 @@ public class TagsRegistry {
         public static final TagKey<Modifier> ScarletDevilMansion = local("scarlet_devil_mansion");
         public static final TagKey<Modifier> SilverModifier = local("silver_modifier");
         public static final TagKey<Modifier> Chireiden = local("chireiden");
+        public static final TagKey<Modifier> JunkoAllies = local("junko_allies");
         private static TagKey<Modifier> local(String name) {
             return TagKey.create(ModifierManager.REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));
         }
@@ -62,6 +63,7 @@ public class TagsRegistry {
         public static final TagKey<IMaterial> IzayoiSakuya = local("izayoisakuya");
         public static final TagKey<IMaterial> Seijakijin= local("seijakijin");
         public static final TagKey<IMaterial> Seijakijin_Tier0= local("seijakijin_tier0");
+        public static final TagKey<IMaterial> JunkoAllies = local("junko_allies");
 
         private static TagKey<IMaterial> local(String name) {
             return TagKey.create(MaterialManager.REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(TouhouTinkerModifier.MODID, name));

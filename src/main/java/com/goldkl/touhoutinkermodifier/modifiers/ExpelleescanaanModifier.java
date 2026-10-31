@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 
 public class ExpelleescanaanModifier extends Modifier implements OnAttackedModifierHook, ToolStatsModifierHook {
     //应许之地：犬走椛
@@ -46,7 +47,7 @@ public class ExpelleescanaanModifier extends Modifier implements OnAttackedModif
 
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-        if(context.getModifier(TinkerModifiers.blocking.get()) != ModifierEntry.EMPTY)
+        if(context.getModifier(ModifierIds.blocking) != ModifierEntry.EMPTY)
             if (context.hasTag(TinkerTags.Items.SHIELDS))
             {
                 ToolStats.BLOCK_AMOUNT.multiply(builder,2.0);

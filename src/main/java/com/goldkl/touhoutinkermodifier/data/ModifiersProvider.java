@@ -1,6 +1,9 @@
 package com.goldkl.touhoutinkermodifier.data;
 
+import com.c2h6s.etstlib.tool.hooks.modifierModules.AddDamageTypeTagArrowModule;
+import com.c2h6s.etstlib.tool.hooks.modifierModules.AddDamageTypeTagMeleeModule;
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.module.PersistentDataBooleanPredicate;
 import com.goldkl.touhoutinkermodifier.module.SpellAffinityModule;
 import com.goldkl.touhoutinkermodifier.module.SpellModule;
 import com.goldkl.touhoutinkermodifier.predicate.AbstractSpellPredicate;
@@ -11,6 +14,7 @@ import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMPredicate;
 import com.hollingsworth.arsnouveau.api.perk.PerkAttributes;
+import com.ssakura49.sakuratinker.common.recipes.SoulSakuraSealRecipe;
 import dev.shadowsoffire.attributeslib.api.ALObjects;
 import dev.xkmc.l2damagetracker.init.L2DamageTracker;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -18,6 +22,7 @@ import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,8 +39,12 @@ import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
+import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.PersistentDataPredicate;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
@@ -48,6 +57,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierRequirementsModule;
+import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.tools.data.ModifierIds;
@@ -66,7 +76,11 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
         //识文解字：本居小铃
         buildModifier(TTMModifierIds.bibliophilia)
                 .addModule(AttributeModule.builder(AttributeRegistry.SPELL_POWER.get(), AttributeModifier.Operation.MULTIPLY_BASE)
-                    .eachLevel(0.15f));
+                    .eachLevel(0.20f));
+        //是这样吗：露米娅
+        buildModifier(TTMModifierIds.sonanoka)
+                .addModule(AttributeModule.builder(AttributeRegistry.ENDER_SPELL_POWER.get(), AttributeModifier.Operation.MULTIPLY_BASE)
+                        .eachLevel(0.10f));
         //绯色月下：芙兰朵路·斯卡雷特
         buildModifier(TTMModifierIds.underredmoon)
                 .addModule(AttributeModule.builder(L2DamageTracker.CRIT_DMG.get(), AttributeModifier.Operation.ADDITION)
@@ -79,31 +93,6 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
                         .slots(EquipmentSlot.MAINHAND)
                         .eachLevel(0.1f))
                 .addModule(SpellModule.builder().passMaxlevel(true).spell(SpellsRegistry.worldender.get()).eachLevel(1));
-        //七曜魔女：帕秋莉
-        buildModifier(TTMModifierIds.sevenluminarieswizard)
-                .addModule(AttributeModule.builder(AttributesRegistry.MANA_COST_REDUCTION, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .eachLevel(0.075f))
-                .addModule(AttributeModule.builder(AttributeRegistry.FIRE_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.ICE_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.LIGHTNING_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.BLOOD_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.NATURE_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.EVOCATION_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f))
-                .addModule(AttributeModule.builder(AttributeRegistry.HOLY_SPELL_POWER, AttributeModifier.Operation.MULTIPLY_BASE)
-                        .tooltipStyle(AttributeModule.TooltipStyle.PERCENT)
-                        .eachLevel(0.05f));
         //山之佐伯：黑谷山女
         buildModifier(TTMModifierIds.tsuchigumo)
                 .addModule(SpellModule.builder().passMaxlevel(true).passConfig(true).spell(SpellRegistry.SPIDER_ASPECT_SPELL.get()).eachLevel(1));
@@ -152,8 +141,8 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
         IJsonPredicate<BlockState> crops = BlockPredicate.or(BlockPredicate.tag(BlockTags.CROPS), BlockPredicate.set(Blocks.MELON));
         buildModifier(TTMModifierIds.autumnsky)
                 .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).block(crops).level(3).mainHandHarvest(TouhouTinkerModifier.getResource("autumnsky_mainhandharvest")))
-                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).block(crops).level(3).armorHarvest(ARMOR_SLOTS));
+                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).block(crops).level(LevelingInt.eachLevel(3)).mainHandHarvest(TouhouTinkerModifier.getResource("autumnsky_mainhandharvest")))
+                .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).block(crops).level(LevelingInt.eachLevel(3)).armorHarvest(ARMOR_SLOTS));
         //THE WORLD：十六夜咲夜
         IJsonPredicate<MaterialVariantId> sakura = MaterialPredicate.tag(TagsRegistry.MaterialsTag.IzayoiSakuya);
         buildModifier(TTMModifierIds.theworld)
@@ -169,6 +158,18 @@ public class ModifiersProvider extends AbstractModifierProvider implements ICond
         buildModifier(TTMModifierIds.commonmagician)
             .addModule(AttributeModule.builder(PerkAttributes.MAX_MANA.get(), AttributeModifier.Operation.ADDITION).eachLevel(1200))
             .addModule(AttributeModule.builder(PerkAttributes.MANA_REGEN_BONUS.get(), AttributeModifier.Operation.ADDITION).eachLevel(75));
+        //童宴：ZUN
+        buildModifier(TTMModifierIds.innocent_treasures)
+                .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+                .addModule(SpellModule.builder().passMaxlevel(true).passConfig(true).spell(SpellsRegistry.innocent_treasures.get()).flat(1));
+        //纯粹的疯狂：纯狐
+        IJsonPredicate<MaterialVariantId> junko = MaterialPredicate.tag(TagsRegistry.MaterialsTag.JunkoAllies).inverted();
+        buildModifier(TTMModifierIds.PristineLunacy)
+                .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+                .addModule(ModifierRequirementsModule.builder().requirement(HasModifierPredicate.hasUpgrade(ModifierPredicate.tag(TagsRegistry.ModifiersTag.JunkoAllies).inverted(),1).inverted()).modifierKey(new ModifierId(TouhouTinkerModifier.getResource("pristine_lunacy_upgrade"))).build())
+                .addModule(ModifierRequirementsModule.builder().requirement(new HasMaterialPredicate(junko,-1).inverted()).modifierKey(new ModifierId(TouhouTinkerModifier.getResource("pristine_lunacy_material"))).build())
+                .addModule(ModifierRequirementsModule.builder().requirement(new PersistentDataBooleanPredicate(SoulSakuraSealRecipe.SOUL_SAKURA_KEY).inverted()).modifierKey(new ModifierId(TouhouTinkerModifier.getResource("pristine_lunacy_soul_sakura_seal"))).build());
+
     }
     @Override
     public String getName() {

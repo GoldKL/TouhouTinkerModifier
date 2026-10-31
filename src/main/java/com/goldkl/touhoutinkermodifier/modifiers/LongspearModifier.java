@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -31,8 +32,8 @@ public class LongspearModifier extends NoLevelsModifier implements BetterCombatA
         hookBuilder.addHook(this, ModifierHooksRegistry.ATTACK_RANGE_MUL,ModifierHooks.ATTRIBUTES);
     }
     @Override
-    public boolean shouldDisplay(boolean advanced) {
-        return false;
+    public boolean shouldDisplay(ModifierTooltip context) {
+        return context.isNew();
     }
     @Override
     public double attackermodifyBetterCombatAtackRange(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, boolean IsAdd, double amount, double tool_attack_range, InteractionHand hand) {

@@ -4,11 +4,12 @@ import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
 import com.goldkl.touhoutinkermodifier.item.ModifiableGoheiItem;
 import com.goldkl.touhoutinkermodifier.stat.tools.GoheiMaterialStats;
 import com.goldkl.touhoutinkermodifier.utils.TTMItemUtils;
-import net.minecraft.world.item.ArmorItem;
+import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -40,6 +41,12 @@ public class ItemsRegistry {
     public static final ItemObject<Item> konpeito = REGISTRY.register("konpeito", () -> new Item(new Item.Properties()));
     public static final ItemObject<Item> eighttrigramsfurnace = REGISTRY.register("eighttrigramsfurnace", () -> new Item(new Item.Properties()));
 
+    public static final ItemObject<ForgeSpawnEggItem> FIRE_MAGIC_SLATE_SPAWN_EGG = REGISTRY.register("fire_magic_slate_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.FireMagicSlate, 0x828192, 0xff1e00, new Item.Properties().stacksTo(64)));
+    public static final ItemObject<ForgeSpawnEggItem> LIGHTNING_MAGIC_SLATE_SPAWN_EGG = REGISTRY.register("lightning_magic_slate_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.LightningMagicSlate, 0x828192, 0xfffd36, new Item.Properties().stacksTo(64)));
+    public static final ItemObject<ForgeSpawnEggItem> NATURE_MAGIC_SLATE_SPAWN_EGG = REGISTRY.register("nature_magic_slate_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.NatureMagicSlate, 0x828192, 0x00ae04, new Item.Properties().stacksTo(64)));
+    public static final ItemObject<ForgeSpawnEggItem> ICE_MAGIC_SLATE_SPAWN_EGG = REGISTRY.register("ice_magic_slate_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.IceMagicSlate, 0x828192, 0x00deff, new Item.Properties().stacksTo(64)));
+    public static final ItemObject<ForgeSpawnEggItem> GEO_MAGIC_SLATE_SPAWN_EGG = REGISTRY.register("geo_magic_slate_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.GeoMagicSlate, 0x828192, 0x865f1c, new Item.Properties().stacksTo(64)));
+
     //tool part
     public static final ItemObject<ToolPartItem> GoheiCore = REGISTRY.register("gohei_core", () -> new ToolPartItem(TTMItemUtils.ITEM_PROPS, GoheiMaterialStats.ID));
     //part cast
@@ -55,6 +62,11 @@ public class ItemsRegistry {
         tab.accept(persuasionneedle);
         tab.accept(konpeito);
         tab.accept(eighttrigramsfurnace);
+        tab.accept(FIRE_MAGIC_SLATE_SPAWN_EGG);
+        tab.accept(LIGHTNING_MAGIC_SLATE_SPAWN_EGG);
+        tab.accept(NATURE_MAGIC_SLATE_SPAWN_EGG);
+        tab.accept(ICE_MAGIC_SLATE_SPAWN_EGG);
+        tab.accept(GEO_MAGIC_SLATE_SPAWN_EGG);
     }
     public static void addPartTabItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
         Objects.requireNonNull(tab);

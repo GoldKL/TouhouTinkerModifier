@@ -1,6 +1,7 @@
 package com.goldkl.touhoutinkermodifier.tracking;
 
 import com.goldkl.touhoutinkermodifier.TouhouTinkerModifier;
+import com.goldkl.touhoutinkermodifier.entity.magcislate.MagicSlateRender;
 import com.goldkl.touhoutinkermodifier.entity.spell.fire.masterspark.MasterSparkRenderer;
 import com.goldkl.touhoutinkermodifier.registries.EntitiesRegistry;
 import com.goldkl.touhoutinkermodifier.registries.ItemsRegistry;
@@ -33,6 +34,11 @@ public class ClientSetup extends ClientEventBase {
         event.registerEntityRenderer(EntitiesRegistry.TrackDanmaku.get(), ItemDanmakuRenderer::new);
         event.registerEntityRenderer(EntitiesRegistry.ModifiableDanmaku.get(), ItemDanmakuRenderer::new);
         event.registerEntityRenderer(EntitiesRegistry.MasterSparkVisualEntity.get(), MasterSparkRenderer::new);
+        event.registerEntityRenderer(EntitiesRegistry.FireMagicSlate.get(), MagicSlateRender::FireMagicSlateRender);
+        event.registerEntityRenderer(EntitiesRegistry.LightningMagicSlate.get(), MagicSlateRender::LightningMagicSlateRender);
+        event.registerEntityRenderer(EntitiesRegistry.NatureMagicSlate.get(), MagicSlateRender::NatureMagicSlateRender);
+        event.registerEntityRenderer(EntitiesRegistry.IceMagicSlate.get(), MagicSlateRender::IceMagicSlateRender);
+        event.registerEntityRenderer(EntitiesRegistry.GeoMagicSlate.get(), MagicSlateRender::GeoMagicSlateRender);
 
     }
     static public final ResourceLocation ANIMA = TouhouTinkerModifier.getResource("animation");

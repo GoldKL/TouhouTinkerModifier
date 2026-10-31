@@ -49,6 +49,14 @@ public class ReversehierarchyModifier extends Modifier implements ToolStatsModif
                     builder.add(TTMModifierIds.passivatingforcetrauma, modifier.getLevel());
                 }
             }
+            if(material.matches(MaterialIds.wood)){
+                if (context.hasTag(TinkerTags.Items.MELEE) || context.hasTag(TinkerTags.Items.RANGED)) {
+                    builder.add(TTMModifierIds.unending_despair, modifier.getLevel());
+                }
+                if (context.hasTag(TinkerTags.Items.ARMOR)) {
+                    builder.add(TTMModifierIds.wild_growth, modifier.getLevel());
+                }
+            }
         }
     }
     @Override

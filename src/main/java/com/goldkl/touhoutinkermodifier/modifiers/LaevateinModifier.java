@@ -1,5 +1,7 @@
 package com.goldkl.touhoutinkermodifier.modifiers;
 
+import com.goldkl.touhoutinkermodifier.hook.AfterMeleeHitModifierHook;
+import com.goldkl.touhoutinkermodifier.registries.ModifierHooksRegistry;
 import com.goldkl.touhoutinkermodifier.registries.SpellsRegistry;
 import com.goldkl.touhoutinkermodifier.registries.TagsRegistry;
 import com.goldkl.touhoutinkermodifier.utils.TTMEntityUtils;
@@ -18,13 +20,13 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-public class LaevateinModifier extends Modifier implements MeleeHitModifierHook, ToolStatsModifierHook {
+public class LaevateinModifier extends Modifier implements AfterMeleeHitModifierHook, ToolStatsModifierHook {
     //莱瓦汀：芙兰朵露·斯卡雷特
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         //hookBuilder.addHook(this);
         super.registerHooks(hookBuilder);
-        hookBuilder.addHook(this,ModifierHooks.MELEE_HIT, ModifierHooks.TOOL_STATS);
+        hookBuilder.addHook(this, ModifierHooksRegistry.AFTER_MELEE_HIT, ModifierHooks.TOOL_STATS);
     }
     @Override
     public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
@@ -35,7 +37,7 @@ public class LaevateinModifier extends Modifier implements MeleeHitModifierHook,
         }
     }
     @Override
-    public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt)
+    public void afterMeleeHitWithTheoryDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage)
     {
         if(tool.hasTag(TagsRegistry.ItemsTag.CLAYMORE)&&!context.isExtraAttack()) {
             LivingEntity attacker = context.getAttacker();
@@ -44,8 +46,8 @@ public class LaevateinModifier extends Modifier implements MeleeHitModifierHook,
             {
                 int level = SpellsRegistry.laevatein.get().getLevelFor(modifier.getLevel(),attacker);
                 TTMEntityUtils.clearLivingEntityInvulnerableTime(target);
-                DamageSources.applyDamage(target, SpellsRegistry.laevatein.get().getSpellPower(level,attacker), SpellsRegistry.laevatein.get().getDamageSource(attacker));
-                target.setRemainingFireTicks(100 + level*80);
+                DamageSources.applyDamage(target, damage * SpellsRegistry.laevatein.get().getSpellPower(level,attacker), SpellsRegistry.laevatein.get().getDamageSource(attacker));
+                target.setRemainingFireTicks(100 + level * 80);
             }
         }
     }
