@@ -1,0 +1,4 @@
+// 1.20.1	2026-07-27T02:58:25.6113266	Touhou Tinker Modifier Entity Type Tags
+1d3ead7cffa1f02153f38937bdcb4588d356c716 data/minecraft/tags/entity_types/fall_damage_immune.json
+1d3ead7cffa1f02153f38937bdcb4588d356c716 data/minecraft/tags/entity_types/freeze_immune_entity_types.json
+1d3ead7cffa1f02153f38937bdcb4588d356c716 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json

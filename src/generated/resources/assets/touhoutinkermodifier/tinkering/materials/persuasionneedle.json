@@ -1,0 +1,27 @@
+{
+  "color": "FFC82A37",
+  "fallbacks": [
+    "metal"
+  ],
+  "generator": {
+    "supported_stats": [
+      "touhoutinkermodifier:gohei",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": {
+          "000": "FF000000",
+          "063": "FFA31414",
+          "102": "FFB92C2C",
+          "140": "FFD34E4E",
+          "178": "FFEB7676",
+          "216": "FFFFA8A8",
+          "255": "FFFFFFFF"
+        }
+      }
+    }
+  }
+}

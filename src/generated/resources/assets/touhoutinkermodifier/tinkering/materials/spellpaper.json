@@ -1,0 +1,24 @@
+{
+  "color": "FFF85A47",
+  "generator": {
+    "supported_stats": [
+      "touhoutinkermodifier:gohei",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": {
+          "000": "FF000000",
+          "063": "FFD32929",
+          "102": "FFFF3131",
+          "140": "FFFFBBBB",
+          "178": "FFC8C8C8",
+          "216": "FFE5E5E5",
+          "255": "FFFFFFFF"
+        }
+      }
+    }
+  }
+}

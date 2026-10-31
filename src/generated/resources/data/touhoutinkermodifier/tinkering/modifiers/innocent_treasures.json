@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "touhoutinkermodifier:spell",
+      "flat": 1.0,
+      "pass_config": true,
+      "pass_maxlevel": true,
+      "spell": "touhoutinkermodifier:innocent_treasures"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:requirements",
+      "requirement": {
+        "type": "tconstruct:has_modifier",
+        "check": "upgrades",
+        "level": 0,
+        "modifier": {
+          "type": "mantle:inverted",
+          "inverted_type": "tconstruct:tag",
+          "tag": "touhoutinkermodifier:junko_allies"
+        }
+      },
+      "translation_key": "modifier.touhoutinkermodifier.pristine_lunacy_upgrade.requirements"
+    },
+    {
+      "type": "tconstruct:requirements",
+      "requirement": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:has_material",
+        "material": {
+          "type": "mantle:inverted",
+          "inverted_type": "mantle:tag",
+          "tag": "touhoutinkermodifier:junko_allies"
+        }
+      },
+      "translation_key": "modifier.touhoutinkermodifier.pristine_lunacy_material.requirements"
+    },
+    {
+      "type": "tconstruct:requirements",
+      "requirement": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:has_persistent_key_is_true",
+        "key": "sakuratinker:soul_sakura_seal_modifiable"
+      },
+      "translation_key": "modifier.touhoutinkermodifier.pristine_lunacy_soul_sakura_seal.requirements"
+    }
+  ]
+}

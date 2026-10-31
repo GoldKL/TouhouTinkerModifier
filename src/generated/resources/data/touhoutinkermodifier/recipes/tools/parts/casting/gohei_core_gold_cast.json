@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "touhoutinkermodifier:casts/multi_use/gohei_core"
+  },
+  "item_cost": 2,
+  "result": "touhoutinkermodifier:gohei_core"
+}

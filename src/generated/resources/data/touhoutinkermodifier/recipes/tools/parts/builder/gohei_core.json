@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 2,
+  "pattern": "touhoutinkermodifier:gohei_core",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "touhoutinkermodifier:gohei_core_cast"
+    }
+  ],
+  "result": {
+    "item": "touhoutinkermodifier:gohei_core"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:bypasses_invulnerability",
+    {
+      "id": "irons_spellbooks:heartstop",
+      "required": false
+    }
+  ]
+}

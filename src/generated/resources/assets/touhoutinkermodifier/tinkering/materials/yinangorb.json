@@ -1,0 +1,34 @@
+{
+  "color": "FFFF0000",
+  "fallbacks": [
+    "crystal",
+    "rock"
+  ],
+  "generator": {
+    "supported_stats": [
+      "touhoutinkermodifier:gohei",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:grey_to_sprite",
+      "palette": {
+        "000": "FF000000",
+        "063": {
+          "color": "FFC8C8C8",
+          "path": "touhoutinkermodifier:generator/yinangorb_border"
+        },
+        "102": "touhoutinkermodifier:generator/yinangorb_border",
+        "140": {
+          "color": "FFE1E1E1",
+          "path": "touhoutinkermodifier:generator/yinangorb"
+        },
+        "178": "touhoutinkermodifier:generator/yinangorb",
+        "216": {
+          "color": "FFE1E1E1",
+          "path": "touhoutinkermodifier:generator/yinangorb_highlight"
+        },
+        "255": "touhoutinkermodifier:generator/yinangorb_highlight"
+      }
+    }
+  }
+}
