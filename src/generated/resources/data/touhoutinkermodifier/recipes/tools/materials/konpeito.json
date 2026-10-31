@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "touhoutinkermodifier:konpeito"
-  },
-  "material": "touhoutinkermodifier:konpeito",
-  "needed": 1,
-  "value": 2
-}
