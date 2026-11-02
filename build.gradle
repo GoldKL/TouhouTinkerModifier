@@ -279,16 +279,22 @@ dependencies {
         jarJar.ranged(it, "[0.2.0,)")
     }*/
     //implementation fg.deobf(files("sakuratinker-1.2.9.jar"))
-    implementation fg.deobf("com.ssakura49.sakuratinker:sakuratinker:1.4.2.3"){
+    /*implementation fg.deobf("com.ssakura49.sakuratinker:sakuratinker:1.4.2.3"){
+        transitive = false
+    }*/
+    implementation fg.deobf("com.ssakura49.sakuratinker:sakura_library-1.20.1:1.0.5.1"){
         transitive = false
     }
-    implementation fg.deobf("com.ssakura49.sakuratinker:sakura_library-1.20.1:1.0.2"){
+    implementation fg.deobf("com.ssakura49.sakuratinker:tconjei_r-1.20.1:1.6.1"){
         transitive = false
     }
-    implementation fg.deobf("com.ssakura49.sakuratinker:tconjei_r-1.20.1:1.5.3"){
-        transitive = false
-    }
-    implementation fg.deobf("com.ssakura49.tinkercuriolib:tinkercuriolib:1.0.2")
+    implementation fg.deobf("com.ssakura49.tinkercuriolib:tinkercuriolib:1.0.3")
+    implementation fg.deobf("com.ssakura49.sakuratinker:sakuratinker_core:1.0.0.2")
+    implementation fg.deobf("com.ssakura49.sakuratinker:sakuratinker_materials:1.0.0.1")
+    implementation fg.deobf("com.ssakura49.sakuratinker:sakuratinker_tools:1.0.0.2")
+    //implementation fg.deobf("com.ssakura49.sakuratinker:tinkers_aquaculture:1.1.0")
+    //implementation fg.deobf("com.ssakura49.sakuratinker:tprt:1.0.4.3")
+
 
     implementation fg.deobf("com.lowdragmc.photon:photon-forge-1.20.1:${photon_version}") { transitive = false }
     implementation fg.deobf("com.lowdragmc.ldlib:ldlib-forge-1.20.1:${ldlib_version}") { transitive = false }

@@ -3,7 +3,7 @@ package com.goldkl.touhoutinkermodifier.mixin.sakuratinker;
 import com.goldkl.touhoutinkermodifier.modifiers.sakuratinker.TTMFountainMagicModifier;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.ssakura49.sakuratinker.compat.IronSpellBooks.ISSCompat;
+import com.ssakura49.sakuratinker_materials.compat.iss.init.ISSModifier ;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,14 +16,14 @@ import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
 
 import java.util.function.Supplier;
 
-@Mixin(ISSCompat.class)
+@Mixin(ISSModifier.class)
 public class ISSCompatMixin {
     @Unique
     private static int touhouTinkerModifier$index = 0;
     @Shadow
     public static StaticModifier<TTMFountainMagicModifier> FountainMagic;
     @Shadow
-    public static ModifierDeferredRegister ISS_MODIFIERS;
+    public static ModifierDeferredRegister MODIFIERS;
     @WrapOperation(method = "<clinit>",at = @At(value = "INVOKE", target = "Lslimeknights/tconstruct/library/modifiers/util/ModifierDeferredRegister;register(Ljava/lang/String;Ljava/util/function/Supplier;)Lslimeknights/tconstruct/library/modifiers/util/StaticModifier;"))
     private static <T extends Modifier> StaticModifier<T> Registermixin(ModifierDeferredRegister instance, String name, Supplier<? extends T> supplier, Operation<StaticModifier<T>> original)
     {
@@ -37,7 +37,7 @@ public class ISSCompatMixin {
     @Inject(method = "<clinit>",at = @At("TAIL"))
     private static void clinitmixin(CallbackInfo ci)
     {
-        FountainMagic = ISS_MODIFIERS.register("fountain_magic", TTMFountainMagicModifier::new);
+        FountainMagic = MODIFIERS.register("fountain_magic", TTMFountainMagicModifier::new);
     }
 
 }

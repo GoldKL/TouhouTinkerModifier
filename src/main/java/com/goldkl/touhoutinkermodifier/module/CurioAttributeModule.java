@@ -1,6 +1,5 @@
 package com.goldkl.touhoutinkermodifier.module;
 
-import com.ssakura49.sakuratinker.library.tinkering.tools.STHooks;
 import com.ssakura49.tinkercuriolib.hook.TCLibHooks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

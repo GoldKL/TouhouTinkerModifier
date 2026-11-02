@@ -1,7 +1,7 @@
 package com.goldkl.touhoutinkermodifier.helper.compat;
 
 import com.goldkl.touhoutinkermodifier.modifiers.DeepbaloneyModifier;
-import com.ssakura49.sakuratinker.library.tinkering.tools.STToolStats;
+import com.ssakura49.sakuratinker.core.library.tools.stats.STToolStats;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class SakuraThinkerHelper {
